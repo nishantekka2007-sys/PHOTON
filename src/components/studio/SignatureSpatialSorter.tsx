@@ -99,10 +99,10 @@ export function SignatureSpatialSorter() {
             <Sparkles className="h-3.5 w-3.5" />
             <span>Interactive Visual Demonstration</span>
           </div>
-          <h3 className="font-serif text-3xl sm:text-4xl font-normal text-stone-900 dark:text-white">
+          <h3 className="font-serif text-3xl sm:text-4xl font-normal text-stone-900 dark:text-photon-ivory">
             The Spatial Organization Chamber
           </h3>
-          <p className="text-xs font-sans text-stone-600 dark:text-photon-light mt-1 font-light max-w-xl">
+          <p className="text-xs font-sans text-stone-600 dark:text-warm-700 mt-1 font-light max-w-xl">
             Watch photographic negatives undergo client-side cryptographic analysis, spatial sorting into monographs, and automatic duplicate isolation with spring physics.
           </p>
         </div>
@@ -111,7 +111,7 @@ export function SignatureSpatialSorter() {
           {stage === 'idle' && (
             <button
               onClick={startDemonstration}
-              className="flex items-center space-x-2 px-6 py-3 rounded-full bg-stone-900 dark:bg-photon-ivory text-white dark:text-photon-obsidian font-semibold transition-all shadow-soft active:scale-[0.98] uppercase tracking-wider hover:opacity-90"
+              className="flex items-center space-x-2 px-6 py-3 rounded-full bg-stone-900 dark:bg-photon-ivory text-photon-ivory dark:text-photon-obsidian font-semibold transition-all shadow-soft active:scale-[0.98] uppercase tracking-wider hover:opacity-90"
             >
               <Play className="h-3.5 w-3.5 fill-current" />
               <span>Demonstrate Sort</span>
@@ -128,7 +128,7 @@ export function SignatureSpatialSorter() {
           {stage === 'sorted' && (
             <button
               onClick={resetDemonstration}
-              className="flex items-center space-x-2 px-5 py-2.5 rounded-full border border-stone-300 dark:border-photon-border bg-white dark:bg-photon-card text-stone-800 dark:text-white uppercase tracking-wider transition-all active:scale-[0.98] hover:bg-stone-50 dark:hover:bg-photon-border"
+              className="flex items-center space-x-2 px-5 py-2.5 rounded-full border border-stone-300 dark:border-photon-border bg-white dark:bg-photon-card text-stone-800 dark:text-photon-ivory uppercase tracking-wider transition-all active:scale-[0.98] hover:bg-stone-50 dark:hover:bg-photon-border"
             >
               <RotateCcw className="h-3.5 w-3.5" />
               <span>Replay Spatial Motion</span>
@@ -141,7 +141,7 @@ export function SignatureSpatialSorter() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 my-8 min-h-[380px] items-center">
         {/* Left: Raw Intake Tray */}
         <div className="lg:col-span-5 border border-dashed border-stone-300 dark:border-photon-border rounded-3xl p-5 bg-white/70 dark:bg-photon-card/50 flex flex-col justify-between h-full">
-          <div className="flex items-center justify-between text-xs font-mono text-stone-500 dark:text-photon-muted mb-4 pb-2 border-b border-stone-200 dark:border-photon-border/60">
+          <div className="flex items-center justify-between text-xs font-mono text-stone-500 dark:text-warm-600 mb-4 pb-2 border-b border-stone-200 dark:border-photon-border/60">
             <span className="uppercase tracking-wider">Raw Ingestion Tray</span>
             <span>{stage === 'sorted' ? '0 Unassigned' : `${DEMO_NEGATIVES.length} Negatives`}</span>
           </div>
@@ -172,41 +172,41 @@ export function SignatureSpatialSorter() {
                           animate={{ opacity: 1 }}
                           className="absolute inset-0 bg-accent-gold/30 backdrop-blur-[1px] flex items-center justify-center"
                         >
-                          <span className="text-[9px] font-mono font-bold text-white bg-black/85 px-2 py-0.5 rounded-full border border-white/20 uppercase">
+                          <span className="text-[9px] font-mono font-bold text-photon-ivory bg-black/85 px-2 py-0.5 rounded-full border border-white/20 uppercase">
                             Hashing
                           </span>
                         </motion.div>
                       )}
                     </div>
-                    <p className="text-xs font-serif text-stone-900 dark:text-white truncate font-normal">{neg.title}</p>
-                    <p className="text-[10px] font-mono text-stone-500 dark:text-photon-muted">{neg.exif}</p>
+                    <p className="text-xs font-serif text-stone-900 dark:text-photon-ivory truncate font-normal">{neg.title}</p>
+                    <p className="text-[10px] font-mono text-stone-500 dark:text-warm-600">{neg.exif}</p>
                   </motion.div>
                 ))
               ) : (
-                <div className="col-span-2 py-16 text-center text-xs font-mono text-stone-500 dark:text-photon-muted flex flex-col items-center justify-center">
+                <div className="col-span-2 py-16 text-center text-xs font-mono text-stone-500 dark:text-warm-600 flex flex-col items-center justify-center">
                   <CheckCircle2 className="h-8 w-8 text-accent-emerald mb-2 opacity-90" />
-                  <span className="font-serif text-sm text-stone-800 dark:text-white">All exposures organized</span>
+                  <span className="font-serif text-sm text-stone-800 dark:text-photon-ivory">All exposures organized</span>
                   <span className="text-[11px] mt-0.5">Dispatched to monographs & quarantine tray.</span>
                 </div>
               )}
             </AnimatePresence>
           </div>
 
-          <div className="mt-4 pt-2 text-[10px] font-mono text-stone-400 dark:text-photon-muted flex items-center justify-between">
+          <div className="mt-4 pt-2 text-[10px] font-mono text-stone-400 dark:text-warm-600 flex items-center justify-between">
             <span>BIT-EXACT SHA-256</span>
             <span>CLIENT-SIDE SANDBOX</span>
           </div>
         </div>
 
         {/* Center: Aperture Vector Arrow */}
-        <div className="lg:col-span-2 flex flex-col items-center justify-center text-stone-400 dark:text-photon-muted">
+        <div className="lg:col-span-2 flex flex-col items-center justify-center text-stone-400 dark:text-warm-600">
           <motion.div
             animate={{ 
               x: stage === 'scanning' ? [0, 8, 0] : 0,
               scale: stage === 'scanning' ? [1, 1.1, 1] : 1
             }}
             transition={{ duration: 0.7, repeat: Infinity }}
-            className="h-12 w-12 rounded-full border border-stone-300 dark:border-photon-border bg-white dark:bg-photon-card flex items-center justify-center text-stone-700 dark:text-photon-light shadow-soft"
+            className="h-12 w-12 rounded-full border border-stone-300 dark:border-photon-border bg-white dark:bg-photon-card flex items-center justify-center text-stone-700 dark:text-warm-700 shadow-soft"
           >
             <ArrowRight className="h-5 w-5" />
           </motion.div>
@@ -217,7 +217,7 @@ export function SignatureSpatialSorter() {
 
         {/* Right: Target Monograph Binders & Quarantine */}
         <div className="lg:col-span-5 space-y-3.5 h-full flex flex-col justify-between">
-          <div className="text-xs font-mono text-stone-500 dark:text-photon-muted uppercase tracking-wider mb-1 flex justify-between">
+          <div className="text-xs font-mono text-stone-500 dark:text-warm-600 uppercase tracking-wider mb-1 flex justify-between">
             <span>Destination Vault Collections</span>
             <span>Local IndexedDB</span>
           </div>
@@ -229,8 +229,8 @@ export function SignatureSpatialSorter() {
                 MG
               </div>
               <div>
-                <p className="font-serif text-sm text-stone-900 dark:text-white">Modernist Geometry</p>
-                <p className="text-[10px] font-mono text-stone-500 dark:text-photon-muted">
+                <p className="font-serif text-sm text-stone-900 dark:text-photon-ivory">Modernist Geometry</p>
+                <p className="text-[10px] font-mono text-stone-500 dark:text-warm-600">
                   {stage === 'sorted' ? '25 Negatives (+1 incoming)' : '24 Negatives'}
                 </p>
               </div>
@@ -254,8 +254,8 @@ export function SignatureSpatialSorter() {
                 AS
               </div>
               <div>
-                <p className="font-serif text-sm text-stone-900 dark:text-white">Alpine Solitude</p>
-                <p className="text-[10px] font-mono text-stone-500 dark:text-photon-muted">
+                <p className="font-serif text-sm text-stone-900 dark:text-photon-ivory">Alpine Solitude</p>
+                <p className="text-[10px] font-mono text-stone-500 dark:text-warm-600">
                   {stage === 'sorted' ? '15 Negatives (+1 incoming)' : '14 Negatives'}
                 </p>
               </div>
@@ -279,8 +279,8 @@ export function SignatureSpatialSorter() {
                 NS
               </div>
               <div>
-                <p className="font-serif text-sm text-stone-900 dark:text-white">Nocturnal Studies</p>
-                <p className="text-[10px] font-mono text-stone-500 dark:text-photon-muted">
+                <p className="font-serif text-sm text-stone-900 dark:text-photon-ivory">Nocturnal Studies</p>
+                <p className="text-[10px] font-mono text-stone-500 dark:text-warm-600">
                   {stage === 'sorted' ? '19 Negatives (+1 incoming)' : '18 Negatives'}
                 </p>
               </div>
@@ -304,7 +304,7 @@ export function SignatureSpatialSorter() {
                 <CopyCheck className="h-5 w-5" />
               </div>
               <div>
-                <p className="font-serif text-sm text-stone-900 dark:text-white">Duplicate Quarantine Tray</p>
+                <p className="font-serif text-sm text-stone-900 dark:text-photon-ivory">Duplicate Quarantine Tray</p>
                 <p className="text-[10px] font-mono text-accent-crimson">
                   {stage === 'sorted' ? '1 Duplicate Flagged &bull; 14.2 MB Reclaimable' : '0 Pending Duplicates'}
                 </p>
