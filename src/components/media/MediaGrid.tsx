@@ -74,14 +74,14 @@ export function MediaGrid({
 
   if (media.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-24 px-4 text-center border border-dashed border-photon-border rounded-3xl bg-photon-dark/50">
-        <div className="h-16 w-16 rounded-3xl border border-photon-border bg-photon-card flex items-center justify-center text-photon-muted mb-4 shadow-inner">
+      <div className="flex flex-col items-center justify-center py-24 px-4 text-center border border-dashed border-photon-border rounded-3xl bg-warm-100/80">
+        <div className="h-16 w-16 rounded-3xl border border-photon-border bg-photon-card flex items-center justify-center text-warm-600 mb-4 shadow-inner">
           <Layers className="h-7 w-7 stroke-1" />
         </div>
-        <h3 className="font-serif text-2xl font-normal text-white">
+        <h3 className="font-serif text-2xl font-normal text-photon-ivory">
           {emptyMessage}
         </h3>
-        <p className="text-xs font-sans text-photon-light max-w-sm mt-1.5 mb-6 font-light">
+        <p className="text-xs font-sans text-warm-700 max-w-sm mt-1.5 mb-6 font-light">
           {emptySubtext}
         </p>
         {onOpenUpload && (
@@ -102,8 +102,8 @@ export function MediaGrid({
       {/* Grid Subheader & View Controls */}
       <div className="flex items-center justify-between mb-4 pb-2 border-b border-photon-border">
         <div className="flex items-center space-x-3">
-          {title && <h2 className="font-serif text-2xl font-normal text-white">{title}</h2>}
-          <span className="text-xs font-mono text-photon-muted">
+          {title && <h2 className="font-serif text-2xl font-normal text-photon-ivory">{title}</h2>}
+          <span className="text-xs font-mono text-warm-600">
             {media.length} {media.length === 1 ? 'negative' : 'negatives'}
           </span>
         </div>
@@ -117,7 +117,7 @@ export function MediaGrid({
             className={`p-1.5 rounded-lg transition-colors ${
               layoutMode === 'grid'
                 ? 'bg-white text-photon-obsidian shadow-sm'
-                : 'text-photon-muted hover:text-white'
+                : 'text-warm-600 hover:text-photon-ivory'
             }`}
           >
             <LayoutGrid className="h-3.5 w-3.5" />
@@ -129,7 +129,7 @@ export function MediaGrid({
             className={`p-1.5 rounded-lg transition-colors ${
               layoutMode === 'masonry'
                 ? 'bg-white text-photon-obsidian shadow-sm'
-                : 'text-photon-muted hover:text-white'
+                : 'text-warm-600 hover:text-photon-ivory'
             }`}
           >
             <Columns className="h-3.5 w-3.5" />
@@ -170,7 +170,7 @@ export function MediaGrid({
                 ) : (
                   <div
                     onClick={() => setActiveLightboxMedia(item)}
-                    className="h-full w-full flex items-center justify-center text-photon-muted"
+                    className="h-full w-full flex items-center justify-center text-warm-600"
                   >
                     <Layers className="h-8 w-8 stroke-1" />
                   </div>
@@ -178,7 +178,7 @@ export function MediaGrid({
 
                 {/* Video Play Pill */}
                 {item.media_type === 'video' && (
-                  <div className="absolute bottom-2.5 left-2.5 flex items-center space-x-1 px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-mono pointer-events-none border border-white/10">
+                  <div className="absolute bottom-2.5 left-2.5 flex items-center space-x-1 px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-md text-photon-ivory text-[10px] font-mono pointer-events-none border border-white/10">
                     <Play className="h-2.5 w-2.5 fill-white" />
                     <span>{formatDuration(item.metadata.duration)}</span>
                   </div>
@@ -186,7 +186,7 @@ export function MediaGrid({
 
                 {/* Camera Badge on Hover */}
                 {item.metadata.camera_model && (
-                  <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-lg bg-black/70 backdrop-blur-md text-[9px] font-mono text-photon-light opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 truncate pointer-events-none">
+                  <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-lg bg-black/70 backdrop-blur-md text-[9px] font-mono text-warm-700 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 truncate pointer-events-none">
                     <Camera className="h-2.5 w-2.5 text-accent-titanium shrink-0" />
                     <span className="truncate">{item.metadata.camera_make} {item.metadata.camera_model}</span>
                   </div>
@@ -227,7 +227,7 @@ export function MediaGrid({
                     className={`p-1.5 rounded-full bg-black/50 backdrop-blur-md transition-colors ${
                       item.is_favorite
                         ? 'text-accent-crimson'
-                        : 'text-white/70 hover:text-white'
+                        : 'text-photon-ivory/70 hover:text-photon-ivory'
                     }`}
                   >
                     <Heart className={`h-3.5 w-3.5 ${item.is_favorite ? 'fill-accent-crimson' : ''}`} />
@@ -270,7 +270,7 @@ export function MediaGrid({
                 ) : (
                   <div
                     onClick={() => setActiveLightboxMedia(item)}
-                    className="h-48 w-full flex items-center justify-center text-photon-muted"
+                    className="h-48 w-full flex items-center justify-center text-warm-600"
                   >
                     <Layers className="h-8 w-8 stroke-1" />
                   </div>
@@ -278,15 +278,15 @@ export function MediaGrid({
 
                 {/* Video Play Pill */}
                 {item.media_type === 'video' && (
-                  <div className="absolute bottom-2.5 left-2.5 flex items-center space-x-1 px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-mono pointer-events-none border border-white/10">
+                  <div className="absolute bottom-2.5 left-2.5 flex items-center space-x-1 px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-md text-photon-ivory text-[10px] font-mono pointer-events-none border border-white/10">
                     <Play className="h-2.5 w-2.5 fill-white" />
                     <span>{formatDuration(item.metadata.duration)}</span>
                   </div>
                 )}
 
                 {/* Bottom Metadata Info */}
-                <div className="p-2.5 bg-photon-dark/90 border-t border-photon-border/50 text-[10px] font-mono flex items-center justify-between text-photon-muted">
-                  <span className="truncate font-sans text-photon-light">
+                <div className="p-2.5 bg-photon-dark/90 border-t border-photon-border/50 text-[10px] font-mono flex items-center justify-between text-warm-600">
+                  <span className="truncate font-sans text-warm-700">
                     {item.original_name || item.filename}
                   </span>
                   {item.metadata.f_number && (
@@ -327,7 +327,7 @@ export function MediaGrid({
                     className={`p-1.5 rounded-full bg-black/50 backdrop-blur-md transition-colors ${
                       item.is_favorite
                         ? 'text-accent-crimson'
-                        : 'text-white/70 hover:text-white'
+                        : 'text-photon-ivory/70 hover:text-photon-ivory'
                     }`}
                   >
                     <Heart className={`h-3.5 w-3.5 ${item.is_favorite ? 'fill-accent-crimson' : ''}`} />
@@ -349,13 +349,13 @@ export function MediaGrid({
             transition={{ duration: 0.2 }}
             className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 flex items-center space-x-3 px-5 py-3 rounded-full bg-photon-obsidian/95 border border-photon-subtle shadow-cinema backdrop-blur-xl text-xs font-mono"
           >
-            <span className="text-white font-medium pr-2 border-r border-photon-border">
+            <span className="text-photon-ivory font-medium pr-2 border-r border-photon-border">
               {selectedIds.length} {selectedIds.length === 1 ? 'selected' : 'selected'}
             </span>
 
             <button
               onClick={() => setShowAlbumPicker(true)}
-              className="flex items-center space-x-1.5 text-photon-light hover:text-white transition-colors"
+              className="flex items-center space-x-1.5 text-warm-700 hover:text-photon-ivory transition-colors"
             >
               <FolderPlus className="h-3.5 w-3.5" />
               <span>Bind Monograph</span>
@@ -363,7 +363,7 @@ export function MediaGrid({
 
             <button
               onClick={handleDownloadBatch}
-              className="flex items-center space-x-1.5 text-photon-light hover:text-white transition-colors"
+              className="flex items-center space-x-1.5 text-warm-700 hover:text-photon-ivory transition-colors"
             >
               <Download className="h-3.5 w-3.5" />
               <span>Export</span>
@@ -382,7 +382,7 @@ export function MediaGrid({
 
             <button
               onClick={clearSelection}
-              className="p-1 rounded-full text-photon-muted hover:text-white transition-colors ml-2"
+              className="p-1 rounded-full text-warm-600 hover:text-photon-ivory transition-colors ml-2"
             >
               <X className="h-3.5 w-3.5" />
             </button>
@@ -394,16 +394,16 @@ export function MediaGrid({
       {showAlbumPicker && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
           <div className="w-full max-w-sm rounded-3xl bg-photon-dark border border-photon-border p-6 shadow-cinema">
-            <h3 className="font-serif text-xl font-normal text-white mb-1">
+            <h3 className="font-serif text-xl font-normal text-photon-ivory mb-1">
               Bind to Monograph
             </h3>
-            <p className="text-xs font-sans text-photon-light mb-4 font-light">
+            <p className="text-xs font-sans text-warm-700 mb-4 font-light">
               Select target publication for {selectedIds.length} negatives.
             </p>
 
             <div className="max-h-60 overflow-y-auto space-y-1 mb-5">
               {albums.length === 0 ? (
-                <p className="text-xs font-mono text-photon-muted py-4 text-center">
+                <p className="text-xs font-mono text-warm-600 py-4 text-center">
                   No monographs created yet.
                 </p>
               ) : (
@@ -413,8 +413,8 @@ export function MediaGrid({
                     onClick={() => handleAddToAlbum(album.id)}
                     className="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-photon-card transition-colors flex items-center justify-between text-xs font-sans"
                   >
-                    <span className="text-white font-medium">{album.name}</span>
-                    <span className="font-mono text-photon-muted text-[10px]">
+                    <span className="text-photon-ivory font-medium">{album.name}</span>
+                    <span className="font-mono text-warm-600 text-[10px]">
                       {album.item_count} items
                     </span>
                   </button>
@@ -426,7 +426,7 @@ export function MediaGrid({
               <button
                 type="button"
                 onClick={() => setShowAlbumPicker(false)}
-                className="px-4 py-2 rounded-xl text-xs font-mono text-photon-muted hover:text-white transition-colors"
+                className="px-4 py-2 rounded-xl text-xs font-mono text-warm-600 hover:text-photon-ivory transition-colors"
               >
                 Close
               </button>
