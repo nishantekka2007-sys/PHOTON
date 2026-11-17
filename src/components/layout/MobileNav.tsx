@@ -33,11 +33,11 @@ export function MobileNav() {
             href={item.href}
             className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl text-[10px] font-mono tracking-wider transition-colors ${
               isActive
-                ? 'text-white font-semibold'
-                : 'text-photon-muted hover:text-photon-light'
+                ? 'text-photon-ivory font-semibold'
+                : 'text-warm-600 hover:text-warm-700'
             }`}
           >
-            <Icon className={`h-4 w-4 mb-1 ${isActive ? 'text-accent-gold' : 'text-photon-muted'}`} />
+            <Icon className={`h-4 w-4 mb-1 ${isActive ? 'text-accent-gold' : 'text-warm-600'}`} />
             <span>{item.name}</span>
           </Link>
         );
