@@ -233,10 +233,10 @@ export default function SmartOrganizePage() {
               <Sparkles className="h-3.5 w-3.5" />
               <span>Signature Spatial Studio</span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-normal text-white">
+            <h1 className="font-serif text-3xl sm:text-4xl font-normal text-photon-ivory">
               Spatial Organization Canvas
             </h1>
-            <p className="text-xs font-sans text-photon-light mt-1 font-light">
+            <p className="text-xs font-sans text-warm-700 mt-1 font-light">
               Arrange negatives visually. Drag media cards directly into destination monographs or quarantine trays with real-time state persistence.
             </p>
           </div>
@@ -250,7 +250,7 @@ export default function SmartOrganizePage() {
                 className={`px-3 py-1 rounded-full transition-colors ${
                   filterMode === 'all'
                     ? 'bg-photon-ivory text-photon-obsidian font-semibold shadow-sm'
-                    : 'text-photon-muted hover:text-white'
+                    : 'text-warm-600 hover:text-photon-ivory'
                 }`}
               >
                 All ({activeMedia.length})
@@ -260,7 +260,7 @@ export default function SmartOrganizePage() {
                 className={`px-3 py-1 rounded-full transition-colors ${
                   filterMode === 'unorganized'
                     ? 'bg-photon-ivory text-photon-obsidian font-semibold shadow-sm'
-                    : 'text-photon-muted hover:text-white'
+                    : 'text-warm-600 hover:text-photon-ivory'
                 }`}
               >
                 Unorganized ({activeMedia.filter((m) => !m.album_id).length})
@@ -270,7 +270,7 @@ export default function SmartOrganizePage() {
                 className={`px-3 py-1 rounded-full transition-colors ${
                   filterMode === 'duplicates'
                     ? 'bg-accent-amber text-photon-obsidian font-semibold shadow-sm'
-                    : 'text-photon-muted hover:text-white'
+                    : 'text-warm-600 hover:text-photon-ivory'
                 }`}
               >
                 Duplicates ({duplicateIdSet.size})
@@ -281,7 +281,7 @@ export default function SmartOrganizePage() {
             <button
               onClick={handleUndo}
               disabled={history.length === 0}
-              className="p-2 rounded-full border border-photon-border bg-photon-card hover:bg-photon-border disabled:opacity-30 text-photon-light hover:text-white transition-colors"
+              className="p-2 rounded-full border border-photon-border bg-photon-card hover:bg-photon-border disabled:opacity-30 text-warm-700 hover:text-photon-ivory transition-colors"
               title="Undo previous arrangement"
             >
               <Undo2 className="h-3.5 w-3.5" />
@@ -292,14 +292,14 @@ export default function SmartOrganizePage() {
               <button
                 onClick={zoomOut}
                 disabled={zoomScale <= 0.75}
-                className="p-1.5 rounded-full hover:bg-photon-border disabled:opacity-30 text-photon-light hover:text-white"
+                className="p-1.5 rounded-full hover:bg-photon-border disabled:opacity-30 text-warm-700 hover:text-photon-ivory"
                 title="Zoom Out"
               >
                 <ZoomOut className="h-3 w-3" />
               </button>
               <button
                 onClick={resetZoom}
-                className="px-2 py-0.5 text-[10px] rounded-full hover:bg-photon-border text-photon-light hover:text-white"
+                className="px-2 py-0.5 text-[10px] rounded-full hover:bg-photon-border text-warm-700 hover:text-photon-ivory"
                 title="Reset Zoom"
               >
                 {Math.round(zoomScale * 100)}%
@@ -307,7 +307,7 @@ export default function SmartOrganizePage() {
               <button
                 onClick={zoomIn}
                 disabled={zoomScale >= 1.45}
-                className="p-1.5 rounded-full hover:bg-photon-border disabled:opacity-30 text-photon-light hover:text-white"
+                className="p-1.5 rounded-full hover:bg-photon-border disabled:opacity-30 text-warm-700 hover:text-photon-ivory"
                 title="Zoom In"
               >
                 <ZoomIn className="h-3 w-3" />
@@ -317,7 +317,7 @@ export default function SmartOrganizePage() {
             {/* Select All */}
             <button
               onClick={selectAll}
-              className="px-3 py-1.5 rounded-full border border-photon-border bg-photon-card hover:bg-photon-border text-photon-light hover:text-white transition-colors text-[11px]"
+              className="px-3 py-1.5 rounded-full border border-photon-border bg-photon-card hover:bg-photon-border text-warm-700 hover:text-photon-ivory transition-colors text-[11px]"
             >
               {selectedIds.length === workspaceItems.length ? 'Deselect All' : 'Select All'}
             </button>
@@ -337,7 +337,7 @@ export default function SmartOrganizePage() {
                 <CheckCircle2 className="h-4 w-4" />
                 {statusNotice}
               </span>
-              <button onClick={() => setStatusNotice('')} className="p-1 hover:text-white">
+              <button onClick={() => setStatusNotice('')} className="p-1 hover:text-photon-ivory">
                 <X className="h-3.5 w-3.5" />
               </button>
             </motion.div>
@@ -349,15 +349,15 @@ export default function SmartOrganizePage() {
           {/* Main Media Ingestion Tray (Canvas Left / 8 Columns) */}
           <div className="lg:col-span-8 space-y-4">
             {/* Search & Counter Ribbon */}
-            <div className="flex items-center justify-between text-xs font-mono text-photon-muted pb-2 border-b border-photon-border/60">
+            <div className="flex items-center justify-between text-xs font-mono text-warm-600 pb-2 border-b border-photon-border/60">
               <div className="relative w-full max-w-xs">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-photon-muted" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-warm-600" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Filter cards in canvas..."
-                  className="w-full rounded-full bg-photon-card border border-photon-border pl-8 pr-4 py-1 text-xs text-white placeholder-photon-muted focus:outline-none focus:border-white/30"
+                  className="w-full rounded-full bg-photon-card border border-photon-border pl-8 pr-4 py-1 text-xs text-photon-ivory placeholder-photon-muted focus:outline-none focus:border-white/30"
                 />
               </div>
 
@@ -368,10 +368,10 @@ export default function SmartOrganizePage() {
 
             {/* Canvas Card Board */}
             {workspaceItems.length === 0 ? (
-              <div className="p-16 text-center border border-dashed border-photon-border rounded-3xl bg-photon-dark/50 space-y-3">
-                <Layers className="h-8 w-8 text-photon-muted mx-auto stroke-1" />
-                <p className="font-serif text-lg text-white">No negatives match current canvas filter</p>
-                <p className="text-xs font-sans text-photon-light">
+              <div className="p-16 text-center border border-dashed border-photon-border rounded-3xl bg-warm-100/80 space-y-3">
+                <Layers className="h-8 w-8 text-warm-600 mx-auto stroke-1" />
+                <p className="font-serif text-lg text-photon-ivory">No negatives match current canvas filter</p>
+                <p className="text-xs font-sans text-warm-700">
                   {filterMode === 'unorganized'
                     ? 'All active negatives are bound to collections.'
                     : 'Ingest photographs or adjust filter criteria above.'}
@@ -441,10 +441,10 @@ export default function SmartOrganizePage() {
                       </div>
 
                       {/* Card Title & Optics Telemetry */}
-                      <p className="font-serif text-xs text-white truncate font-normal">
+                      <p className="font-serif text-xs text-photon-ivory truncate font-normal">
                         {item.original_name || item.filename}
                       </p>
-                      <div className="flex items-center justify-between text-[9px] font-mono text-photon-muted mt-1">
+                      <div className="flex items-center justify-between text-[9px] font-mono text-warm-600 mt-1">
                         <span className="truncate">
                           {item.metadata.camera_model ? item.metadata.camera_model : formatBytes(item.file_size)}
                         </span>
@@ -460,7 +460,7 @@ export default function SmartOrganizePage() {
           {/* Destination Drop Target Shelf (Canvas Right / 4 Columns) */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-photon-border/60 text-xs font-mono">
-              <span className="uppercase text-photon-muted tracking-wider font-semibold">
+              <span className="uppercase text-warm-600 tracking-wider font-semibold">
                 Destination Collections
               </span>
               <button
@@ -481,13 +481,13 @@ export default function SmartOrganizePage() {
                   value={newAlbumInput}
                   onChange={(e) => setNewAlbumInput(e.target.value)}
                   placeholder="Collection title..."
-                  className="w-full rounded-xl bg-photon-dark border border-photon-border px-3 py-1.5 text-xs text-white placeholder-photon-muted focus:outline-none focus:border-white/40"
+                  className="w-full rounded-xl bg-photon-dark border border-photon-border px-3 py-1.5 text-xs text-photon-ivory placeholder-photon-muted focus:outline-none focus:border-white/40"
                 />
                 <div className="flex justify-end gap-2 text-[10px] font-mono">
                   <button
                     type="button"
                     onClick={() => setShowNewAlbumBar(false)}
-                    className="px-2.5 py-1 text-photon-muted hover:text-white"
+                    className="px-2.5 py-1 text-warm-600 hover:text-photon-ivory"
                   >
                     Cancel
                   </button>
@@ -528,10 +528,10 @@ export default function SmartOrganizePage() {
                         )}
                       </div>
                       <div className="truncate max-w-[160px]">
-                        <p className="font-serif text-sm text-white truncate font-normal group-hover:text-accent-gold transition-colors">
+                        <p className="font-serif text-sm text-photon-ivory truncate font-normal group-hover:text-accent-gold transition-colors">
                           {album.name}
                         </p>
-                        <p className="text-[10px] font-mono text-photon-muted mt-0.5">
+                        <p className="text-[10px] font-mono text-warm-600 mt-0.5">
                           {albumCount} {albumCount === 1 ? 'negative' : 'negatives'}
                         </p>
                       </div>
@@ -567,16 +567,16 @@ export default function SmartOrganizePage() {
                 className={`p-3 rounded-2xl border border-dashed transition-all flex items-center justify-between ${
                   dropTargetAlbumId === 'unbind_zone'
                     ? 'border-white bg-white/10 scale-[1.02]'
-                    : 'border-photon-border/60 bg-photon-dark/40 text-photon-muted'
+                    : 'border-photon-border/60 bg-warm-100/80 text-warm-600'
                 }`}
               >
                 <div className="flex items-center space-x-3">
-                  <div className="h-9 w-9 rounded-xl border border-photon-border bg-photon-card flex items-center justify-center text-photon-muted">
+                  <div className="h-9 w-9 rounded-xl border border-photon-border bg-photon-card flex items-center justify-center text-warm-600">
                     <Layers className="h-4 w-4" />
                   </div>
                   <div>
-                    <p className="font-serif text-xs text-white">Uncataloged Library Tray</p>
-                    <p className="text-[9px] font-mono text-photon-muted">Drop here to remove from album</p>
+                    <p className="font-serif text-xs text-photon-ivory">Uncataloged Library Tray</p>
+                    <p className="text-[9px] font-mono text-warm-600">Drop here to remove from album</p>
                   </div>
                 </div>
               </div>
