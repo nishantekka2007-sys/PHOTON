@@ -1,59 +1,119 @@
 # PHOTON
 
 > **Every memory deserves a beautiful home.**  
-> A premium, privacy-first personal photography and motion platform.
+> A thoughtful space to organize, explore, and preserve your photographs and videos.
+
+PHOTON is a personal photo and video workspace built around a simple idea: your memories should be easy to enjoy, beautifully organized, and under your control.
+
+The project combines an editorial photography-inspired interface with practical media tools, including collections, metadata exploration, duplicate detection, and a signature spatial organization experience.
+
+**Live application:** https://photon-bn7e25qjz-nishantekka2007-6282.vercel.app  
+**Repository:** https://github.com/nishantekka2007-sys/PHOTON
 
 ---
 
-## 🌟 Visual Identity & Creative Philosophy
+## Product principles
 
-**PHOTON** is an art-directed personal photography and motion vault engineered for photographers, curators, and families who demand complete ownership of their digital negatives.
+- **Beautiful by default** — a calm, photography-led interface with considered typography, spacing, and motion.
+- **Useful, not decorative** — controls should perform real actions, and sample demonstrations should be clearly distinguished from a user's own media.
+- **Privacy with transparency** — explain clearly when media is stored locally or synced to a configured cloud service. Security and privacy claims must match the actual implementation.
+- **Ownership and portability** — make it straightforward to understand, manage, and export personal media and collection data.
+- **Works across screens** — deliver a coherent experience on desktop, tablet, and mobile.
 
-- **Art-Directed Aesthetics:** Obsidian darkroom surfaces (`#060608`), subtle film grain, editorial serif typography, and warm titanium/gold accents.
-- **₹0 Development & Hosting Budget:** Built strictly with free and open-source tools (Next.js 14, Supabase Free Tier, Vercel Hobby).
-- **Zero AI Training:** Your media files are never harvested to train machine learning models or generative AI engines.
-- **Client-Side Cryptography:** Computes SHA-256 digests and 64-bit Perceptual Hashes (dHash) inside your local browser runtime via Web Crypto.
-- **Local-First Sovereign Sandbox:** Operates seamlessly offline using browser IndexedDB, or optionally syncs with private Supabase PostgreSQL buckets protected by Row-Level Security (RLS).
+## Current development milestone
 
----
+### Milestone 1 — Visual foundation
 
-## 🛠️ Architecture & Stack
+**Current focus:** establish a consistent premium visual language and make the first-use experience clear, polished, and responsive.
 
-| Component | Technology | Cost |
-| :--- | :--- | :--- |
-| **Frontend Framework** | [Next.js 14 (App Router)](https://nextjs.org/) | Free / Open-Source |
-| **Motion Physics** | [Framer Motion](https://www.framer.com/motion/) | Free / Open-Source |
-| **Design Tokens & UI** | [Tailwind CSS](https://tailwindcss.com/) & [Lucide Icons](https://lucide.dev/) | Free / Open-Source |
-| **Client-Side Storage** | [IndexedDB (`idb`)](https://github.com/jakearchibald/idb) | Free / Browser Sandbox |
-| **Metadata & EXIF** | [exifr](https://github.com/MikeKovarik/exifr) | Free / Browser Native |
-| **Database & Auth** | [Supabase Free Tier](https://supabase.com/) (PostgreSQL with RLS) | Free (No CC required) |
-| **Media Storage** | [Supabase Storage Free Tier](https://supabase.com/) | Free (No CC required) |
+This milestone covers:
 
----
+- A cohesive dark and light theme with reusable design tokens.
+- Refined typography, spacing, surfaces, borders, and iconography.
+- A clearer homepage hierarchy and product explanation.
+- A consistent navigation and responsive layout.
+- A more intentional visual presentation for the photography exhibition and Spatial Studio preview.
+- Honest sample-data labels and accurate product messaging.
 
-## 🚀 Quick Exploration
+The milestone should be considered complete only after the updated experience has been reviewed on desktop and mobile and the production build passes.
 
-### 1. Start Server
+## Product experience
+
+The project is being developed around these core areas:
+
+| Area | Purpose |
+| --- | --- |
+| **Studio dashboard** | A central place to enter the workspace and reach recent media and collections. |
+| **Photo and video library** | Browse, search, filter, and manage personal media. |
+| **Collections** | Curate photographs and videos into meaningful groups. |
+| **Media viewer** | View media at full size and inspect available metadata. |
+| **Signature Spatial Studio** | Arrange media visually in a spatial workspace. |
+| **Duplicate review** | Identify exact or visually similar files for user review. |
+| **Privacy and settings** | Understand storage behavior and manage account or local preferences. |
+
+Feature availability can depend on the current implementation and backend configuration. The interface should not present a planned or simulated capability as a completed operation.
+
+## Technology
+
+| Layer | Technology |
+| --- | --- |
+| Frontend | Next.js 14, React, TypeScript |
+| Styling | Tailwind CSS |
+| Motion | Framer Motion |
+| Icons | Lucide |
+| Media metadata | exifr |
+| Local persistence | IndexedDB via idb |
+| Authentication and cloud data | Supabase |
+| Deployment | Vercel |
+
+## Run locally
+
+### Requirements
+
+- Node.js and npm
+- Git
+
+### Setup
+
 ```bash
+git clone https://github.com/nishantekka2007-sys/PHOTON.git
+cd PHOTON
+npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your web browser.  
-PHOTON runs out of the box in **Instant Local Sandbox Mode** — ingest photos, explore duplicate detection, create monographs, and inspect EXIF metadata without external setup.
+Open [http://localhost:3000](http://localhost:3000).
 
----
+Some cloud-backed functionality may require Supabase project credentials and environment variables. Configure these locally using the project's environment setup; never commit secrets or private keys to the repository.
 
-## 🎨 Key Experiences
+## Development roadmap
 
-- **Exhibition Dashboard:** A personal memory space with continuous session memory, status ribbons, recent monograph collections, and progressive media reveals.
-- **Monographs (Albums):** Physical monograph-inspired book covers with custom curations, rename, and cover management.
-- **Optics Lightbox:** True darkroom viewer with keyboard navigation (`Esc`, `ArrowLeft`, `ArrowRight`, `i`) and a Leica-style EXIF drawer (ISO, shutter, aperture, focal length, GPS location mapping).
-- **Perceptual Deduplication:** Side-by-side visual comparison for exact SHA-256 duplicates and burst sequences using 64-bit dHash and Hamming distance.
-- **Media Ingestion Desk:** Smooth drag-and-drop zone with individual file hashing progress, error retries, and album targeting.
-- **Sovereign Export:** Download a complete structured JSON manifest of all cryptographic digests, EXIF tags, and monographs at any time.
+The roadmap is organized into focused milestones so that visual improvements do not compromise working product functionality.
 
----
+- [ ] **Milestone 1 — Visual foundation:** design system, homepage, navigation, responsive polish.
+- [ ] **Milestone 2 — Core product experience:** dashboard, library, media viewer, collections, and upload workflow.
+- [ ] **Milestone 3 — Signature Spatial Studio:** reliable spatial interactions, collection organization, undo/redo, and workspace persistence.
+- [ ] **Milestone 4 — Trust and reliability:** authentication, storage permissions, privacy review, error handling, and data portability.
+- [ ] **Milestone 5 — Final polish:** accessibility, performance, mobile refinements, and production verification.
 
-## 📜 License
+Progress should be checked against the actual application before marking a milestone complete.
+
+## Privacy and security
+
+PHOTON is designed with personal media ownership in mind. Its local-storage and optional cloud-sync behavior must be described accurately:
+
+- Local browser storage and cloud storage are different modes and should be clearly identified.
+- Cloud access must be protected by correctly configured authentication, database policies, and storage permissions.
+- Media metadata should only be displayed when it is actually available.
+- Privacy, encryption, and data-retention claims should be made only when verified in the implementation.
+- Users should be able to understand how to export or delete their data.
+
+Do not place Supabase service-role keys, API secrets, or other credentials in client-side code or version control.
+
+## Contributing and project direction
+
+PHOTON is being developed incrementally. Before adding a dependency or replacing a component, review the existing implementation and preserve working behavior. Prefer focused changes, reusable components, accessible interactions, and clear loading, empty, and error states.
+
+## License
 
 Licensed under the [MIT License](LICENSE).
