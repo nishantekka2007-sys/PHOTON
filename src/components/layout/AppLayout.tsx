@@ -27,7 +27,7 @@ export function AppLayout({ children, onOpenUpload }: AppLayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-photon-obsidian text-photon-ivory flex transition-colors film-grain selection:bg-neutral-800">
+    <div className="min-h-screen bg-warm-100 text-warm-900 flex transition-colors film-grain selection:bg-[#D8C8A5]">
       {/* Desktop Sidebar */}
       <Sidebar />
 
@@ -37,16 +37,16 @@ export function AppLayout({ children, onOpenUpload }: AppLayoutProps) {
 
         {/* Local First Informational Ribbon (Subtle & Architectural) */}
         {!isCloudConnected && !dismissedNotice && (
-          <div className="bg-photon-card/90 border-b border-photon-border px-6 py-2.5 text-xs font-mono flex items-center justify-between text-photon-light">
+          <div className="bg-photon-card/90 border-b border-photon-border px-6 py-2.5 text-xs font-mono flex items-center justify-between text-warm-700">
             <div className="flex items-center space-x-2.5">
               <ShieldCheck className="h-4 w-4 text-accent-emerald shrink-0" />
               <span>
-                <strong className="text-white">Local-First Sandbox Active:</strong> Photographs remain strictly inside your browser&apos;s IndexedDB sandbox.
+                <strong className="text-photon-ivory">Local-First Sandbox Active:</strong> Photographs remain strictly inside your browser&apos;s IndexedDB sandbox.
               </span>
             </div>
             <button
               onClick={() => setDismissedNotice(true)}
-              className="text-photon-muted hover:text-white p-1 transition-colors"
+              className="text-warm-600 hover:text-photon-ivory p-1 transition-colors"
             >
               <X className="h-3.5 w-3.5" />
             </button>
