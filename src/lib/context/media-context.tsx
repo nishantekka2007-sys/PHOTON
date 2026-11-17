@@ -19,6 +19,7 @@ import {
 import { computeSHA256, computePerceptualHash, calculateHammingDistance } from '@/lib/media/hasher';
 import { extractMediaMetadata } from '@/lib/media/metadata';
 import { getSupabaseClient } from '@/lib/supabase/client';
+import { SAMPLE_EXHIBITION_MEDIA, SAMPLE_ALBUMS } from '@/lib/sample-data';
 
 export interface UploadItem {
   id: string;
@@ -89,8 +90,29 @@ export function MediaProvider({ children }: { children: React.ReactNode }) {
         idbGetActivities(user.id),
       ]);
 
-      setMedia(localMedia);
-      setAlbums(localAlbums);
+      let currentMedia = localMedia;
+      let currentAlbums = localAlbums;
+
+      if (localMedia.length === 0) {
+        // Pre-populate with sample exhibition plates
+        const userSampleMedia = SAMPLE_EXHIBITION_MEDIA.map((m) => ({
+          ...m,
+          user_id: user.id,
+        }));
+        const userSampleAlbums = SAMPLE_ALBUMS.map((a) => ({
+          ...a,
+          user_id: user.id,
+        }));
+        await Promise.all([
+          ...userSampleMedia.map((m) => idbSaveMedia(m)),
+          ...userSampleAlbums.map((a) => idbSaveAlbum(a)),
+        ]);
+        currentMedia = userSampleMedia;
+        currentAlbums = userSampleAlbums;
+      }
+
+      setMedia(currentMedia);
+      setAlbums(currentAlbums);
       setActivities(localActivities);
     } catch (err) {
       console.error('Error loading media data:', err);

@@ -1,83 +1,52 @@
-# PHOTON — Project Status & Visual Redesign Roadmap
+# PHOTON — Ultimate Cinematic Redesign (`cinematic-redesign`)
 
 > **Tagline:** Every memory deserves a beautiful home.  
-> **Creative Direction:** Photographic, Cinematic, Minimal, Sovereign, Human-Designed  
-> **Philosophy:** Privacy First &bull; Zero Budget (&dollar;0 / &rupee;0) &bull; Zero AI Ingestion &bull; Monograph Collections
+> **Visual Identity:** Luxury Editorial Design &bull; Cinematic Photography &bull; Minimalist Sophistication &bull; Creative Spatial Photo Compositions &bull; Fluid Natural Animations  
+> **Core Direction:** Photographs First &bull; Zero Budget (&dollar;0 / &#8377;0) &bull; Zero AI Ingestion &bull; Sovereign Monograph Collections
 
 ---
 
-## 1. Completed Redesign Phases
+## 1. Visual Foundation & Creative Art Direction
 
-### Phase A: Visual Audit & Artistic Concept &check;
-- Eradicated generic SaaS design tropes (neon purple gradients, repetitive identical cards, gratuitous rounded rectangles, glowing spheres).
-- Established a photographic design language inspired by Leica, VSCO, Apple Pro, and fine-art monograph publications.
-- Integrated an editorial typographic system (editorial serif display titles, clean geometric grotesque details, and tracking).
+### A. Colour Palette & Environmental Rhythm
+- **Warm Ivory & Cream Editorial Surfaces:** `#faf9f6`, `#f7f5ee`, `#f2efe9` for tactile museum paper and publication sections.
+- **Cinematic Darkroom Surfaces:** Obsidian (`#060608`), deep carbon (`#0b0c0e`), elevated slate (`#121216`), subtle neutral borders (`#222228`).
+- **Muted Metallic & Photographic Accents:** Champagne gold (`#d4af37`), titanium silver (`#c8c8cc`), phosphor emerald (`#34d399`), deep crimson (`#e05353`).
+- **Environmental Modulation:** Deliberately alternating between deep cinematic darkrooms and warm ivory editorial spaces.
 
-### Phase B: Design Tokens & Motion Physics &check;
-- **Photographic Palette:**
-  - Darkroom surfaces: Obsidian (`#060608`), deep carbon (`#0b0b0e`), elevated slate (`#121216`), subtle neutral borders (`#222228`).
-  - Warm Gallery Light Mode: Warm ivory (`#fcfbf9`), gallery neutral (`#f4f3ef`), warm amber (`#b38938`).
-  - Muted Photographic Accents: Titanium (`#c8c8cc`), gold champagne (`#d4af37`), phosphor emerald (`#34d399`), deep crimson (`#e05353`).
-- **Texture:** Film grain noise overlay (`.film-grain`) and hairline dividers (`.border-hairline`).
-- **Motion Engine (`src/lib/motion.ts`):** Framer Motion physics with spring curves, staggered entrance choreographies, progressive reveals, and reduced-motion accessibility overrides.
-
-### Phase C: Editorial Landing Page & Authentication Redesign &check;
-- **Landing Page (`/`):**
-  - Editorial Hero: *"Every memory deserves a beautiful home."* with supporting headline *"Your photos and videos, organized intelligently and kept strictly under your control."*
-  - Interactive Exhibition Preview: Live photographic plates with EXIF readouts (f/2.8, 1/500s, ISO 100).
-  - Design Philosophy Manifesto: 4 Pillars of Media Sovereignty.
-  - Architecture Matrix: Comparison between commercial surveillance clouds vs. PHOTON's sovereign vault.
-  - Animated Inquiries Accordion (FAQ).
-- **Authentication Pages:**
-  - Sign In (`/auth/login`): Darkroom aesthetic, password visibility toggle, animated error states, and 1-click Instant Sandbox Mode.
-  - Registration (`/auth/register`): Dynamic 4-tier password strength bar, privacy pledge checkbox.
-  - Recovery (`/auth/forgot-password`): Minimalist recovery desk.
-
-### Phase D: Navigation & Dashboard Redesign &check;
-- **Navbar (`src/components/layout/Navbar.tsx`):** Hairline topbar, shutter-style upload trigger, real-time vault indicator (`LOCAL SANDBOX` / `CLOUD SYNC`), darkroom theme toggle.
-- **Sidebar (`src/components/layout/Sidebar.tsx`):** Architectural layout, monograph navigation, minimal storage capacity gauge.
-- **Mobile Navigation (`src/components/layout/MobileNav.tsx`):** Clean touch-friendly bottom bar.
-- **Dashboard (`/dashboard`):** Personal memory exhibition space.
-  - Welcome back banner with memory continuity (`Continue where you left off`).
-  - Minimalist 4-part status ribbon (Photographs, Motion Films, Monographs, Vault Status).
-  - Monograph series horizontal preview.
-  - Recent acquisitions gallery with progressive reveals.
-
-### Phase E: Gallery, Photo Viewer & Ingestion Engine &check;
-- **Ingestion Modal (`src/components/media/UploadModal.tsx`):**
-  - Smooth drag-and-drop target with active highlight.
-  - Queue progress tracking with individual file progress and overall percentage.
-  - Status transitions (Computing SHA-256 fingerprint, Extracting EXIF parameters, Storing).
-  - Destination monograph selector, retry on error, cancel controls.
-- **Gallery Grid (`src/components/media/MediaGrid.tsx`):**
-  - Staggered entrance animations.
-  - Subtle hover scale (`scale-[1.03]`).
-  - Floating batch selection action pill (Assign Monograph, Export, Archive, Clear).
-- **Darkroom Lightbox (`src/components/media/MediaLightbox.tsx`):**
-  - Pure `#000000` background for maximum photographic contrast.
-  - Leica/Hasselblad style EXIF inspector drawer (Camera make, model, lens, aperture, shutter, ISO, GPS coordinates with OpenStreetMap link, SHA-256 integrity hash).
-  - Keyboard navigation (`Esc`, `ArrowLeft`, `ArrowRight`, `i`).
-
-### Phase F: Monographs, Timeline & Studio Tools &check;
-- **Monographs (`/albums` & `/albums/[id]`):** Physical photographic collection aesthetic, book cover ratio, rename and archive actions.
-- **Timeline (`/timeline`):** Hairline timeline node structure grouping memories by year and month.
-- **Curation Studio (`/smart-organize`):** One-click detection for screenshots, heavy motion reels (>15MB), and uncataloged negatives.
-- **Deduplication Center (`/duplicates`):** Side-by-side comparative inspection for exact SHA-256 duplicates and 64-bit dHash perceptual burst sequences with match percentage and space reclamation.
-- **Archive Bin (`/deleted`):** Negative restoration and permanent purge warnings.
-- **Settings (`/settings`, `/settings/privacy`, `/settings/storage`):** Curator profile, JSON catalog archive export, and capacity gauges.
+### B. Typography Hierarchy
+- **Major Headlines:** High-contrast editorial display serifs (Cormorant Garamond / Georgia) with italic accents for emotional resonance.
+- **Interface & Controls:** Crisp geometric sans-serif (`SF Pro Display`, `Inter`) for menus and buttons.
+- **Technical Telemetry:** Monospace (`SF Mono`, `Menlo`) for camera optics (aperture, shutter speed, ISO, focal length, GPS, SHA-256 digests).
 
 ---
 
-## 2. Technical Quality & Build Verification
+## 2. Completed Phase: Rebuilt Landing Page Hero
 
-- **Production Build:** `npm run build` compiled **18/18 static and dynamic routes** with 0 errors.
-- **Type Safety:** 100% TypeScript compliance.
-- **Zero External Paid Dependencies:** 100% open-source free tier stack.
-- **Local Persistence:** Full IndexedDB offline storage and Supabase PostgreSQL RLS compatibility.
+### A. Integrated First Viewport Composition
+- **Side-by-Side 12-Column Spatial Architecture:** On desktop, the headline, value propositions, and primary actions sit on the left, while the **Floating Hero Montage** occupies the right column directly within the initial viewport (no scrolling required).
+- **Pointer-Reactive Parallax Engine:** Custom Framer Motion spring physics (`smoothX`, `smoothY`) that subtly move foreground and background layers in response to cursor position.
+
+### B. Multi-Depth Floating Photographic Exhibition
+- **Layer 1 (Left / Ambient Drift):** *Kyoto Modernist Pavilion* (Hasselblad X2D 100C &bull; 38mm &#402;/2.8) with `-3.5°` tilt and `Plate No. 01` badge.
+- **Layer 2 (Center Master Canvas):** *Seceda Ridge Alpenglow* (Leica M11 Monochrom &bull; 50mm &#402;/1.4 &bull; 46.5985° N) elevated on z-index 20 with gold master negative badge and SHA-256 validation.
+- **Layer 3 (Right / Foreground Tilt):** *Studio Portrait Studies No. 4*, Paris (Sony A7R V &bull; 85mm &#402;/1.8) with `+3.5°` tilt and telemetry drawer.
+- **Tactile Floating Chips:** *Modernist Geometry* bound monograph chip and *IndexedDB Local Runtime* zero-cloud verification badge.
+- **Ambient Lighting:** Gaussian gold/titanium light flare (`blur-[140px]`) giving the photographs rich environmental depth.
+
+### C. The 7 Distinct Landing Page Sections
+1. **Cinematic Hero:** Pointer parallax, floating medium-format plates, and dual action triggers (`Launch PHOTON Studio` and `Watch Photo Movement`).
+2. **Curated Negative Plates Exhibition:** Warm ivory & cream museum paper surface (`bg-[#f7f5ee] text-stone-900`) with asymmetric aspect ratios (vertical portrait 3:4, panoramic 16:9, square 1:1, editorial 4:5).
+3. **Signature Spatial Studio:** Illuminated darkroom chamber (`bg-[#0b0c0e]`) with interactive raw intake, aperture vector scanning, and real-time spring routing.
+4. **Curated Monograph Collections:** Tactile physical book series presentation with cover photographs and negative counts.
+5. **Sovereign Covenant Manifesto:** Warm sand architectural surface (`bg-[#f2efe9] text-stone-900`) with large editorial numerals (`01` through `04`).
+6. **Clarity & Transparency FAQ:** Interactive accordion with honest answers on &#8377;0 budget and privacy guarantees.
+7. **Final Call to Action:** Luxury closing portal leading directly into the curator dashboard.
 
 ---
 
-## 3. Current Live Application
+## 3. Build & System Health
 
-- Development server running on **`http://localhost:3000`**.
-- Ready for immediate exploration in your browser.
+- **Dedicated Branch:** `cinematic-redesign` (clean, non-destructive branching).
+- **TypeScript & Next.js:** `npm run build` compiled all **18 static and dynamic routes** cleanly with 0 errors.
+- **Live Local Server:** Running at `http://localhost:3000` (Landing Page) and `http://localhost:3000/dashboard` (Curator Workspace).
