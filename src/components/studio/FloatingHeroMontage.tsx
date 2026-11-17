@@ -56,7 +56,7 @@ export function FloatingHeroMontage() {
           {...floatSlow(0, 8, 7)}
           whileHover={{ scale: 1.05, rotate: 0, zIndex: 40 }}
           transition={springTactile}
-          className="w-44 sm:w-60 lg:w-68 rounded-2xl overflow-hidden border border-photon-border/90 bg-photon-dark p-2 sm:p-2.5 shadow-cinema cursor-pointer group"
+          className="w-44 sm:w-60 lg:w-68 rounded-2xl overflow-hidden border border-[#E5DFD4]/90 bg-[#FBFAF7] p-2 sm:p-2.5 shadow-[0_18px_45px_rgba(55,48,37,0.14)] cursor-pointer group"
         >
           <div className="aspect-[4/5] w-full rounded-xl overflow-hidden bg-black relative">
             <img
@@ -74,7 +74,7 @@ export function FloatingHeroMontage() {
               <p className="font-serif text-[11px] sm:text-xs text-white leading-tight font-normal">
                 Kyoto Modernist Pavilion
               </p>
-              <p className="text-[8px] sm:text-[9px] font-mono text-photon-muted flex items-center gap-1 mt-0.5">
+              <p className="text-[8px] sm:text-[9px] font-mono text-[#817A6E] flex items-center gap-1 mt-0.5">
                 <Camera className="h-2.5 w-2.5 text-accent-titanium" />
                 Hasselblad X2D &bull; 38mm ƒ/2.8
               </p>
@@ -95,7 +95,7 @@ export function FloatingHeroMontage() {
           {...floatOpposite(0.4, 6, 6.5)}
           whileHover={{ scale: 1.035, zIndex: 45 }}
           transition={springTactile}
-          className="w-64 sm:w-84 lg:w-[410px] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 bg-photon-dark p-2.5 sm:p-3.5 shadow-cinema cursor-pointer group"
+          className="w-64 sm:w-84 lg:w-[410px] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 bg-[#FBFAF7] p-2.5 sm:p-3.5 shadow-[0_18px_45px_rgba(55,48,37,0.14)] cursor-pointer group"
         >
           <div className="aspect-[16/11] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-black relative">
             <img
@@ -115,7 +115,7 @@ export function FloatingHeroMontage() {
                 <p className="font-serif text-xs sm:text-sm text-white font-normal">
                   Seceda Ridge Alpenglow
                 </p>
-                <p className="text-[8px] sm:text-[10px] font-mono text-photon-muted flex items-center gap-1 mt-0.5">
+                <p className="text-[8px] sm:text-[10px] font-mono text-[#817A6E] flex items-center gap-1 mt-0.5">
                   <MapPin className="h-2.5 w-2.5 text-accent-emerald" />
                   Val Gardena, Dolomites &bull; Leica M11 &bull; 50mm ƒ/1.4
                 </p>
@@ -140,7 +140,7 @@ export function FloatingHeroMontage() {
           {...floatSlow(0.8, 8, 7.5)}
           whileHover={{ scale: 1.05, rotate: 0, zIndex: 40 }}
           transition={springTactile}
-          className="w-44 sm:w-60 lg:w-68 rounded-2xl overflow-hidden border border-photon-border/90 bg-photon-dark p-2 sm:p-2.5 shadow-cinema cursor-pointer group"
+          className="w-44 sm:w-60 lg:w-68 rounded-2xl overflow-hidden border border-[#E5DFD4]/90 bg-[#FBFAF7] p-2 sm:p-2.5 shadow-[0_18px_45px_rgba(55,48,37,0.14)] cursor-pointer group"
         >
           <div className="aspect-[4/5] w-full rounded-xl overflow-hidden bg-black relative">
             <img
@@ -156,7 +156,7 @@ export function FloatingHeroMontage() {
               <p className="font-serif text-[11px] sm:text-xs text-white leading-tight font-normal">
                 Studio Portrait Studies
               </p>
-              <p className="text-[8px] sm:text-[9px] font-mono text-photon-muted flex items-center gap-1 mt-0.5">
+              <p className="text-[8px] sm:text-[9px] font-mono text-[#817A6E] flex items-center gap-1 mt-0.5">
                 <Camera className="h-2.5 w-2.5 text-accent-titanium" />
                 Sony A7R V &bull; 85mm ƒ/1.8
               </p>
@@ -169,14 +169,14 @@ export function FloatingHeroMontage() {
       <motion.div
         animate={{ y: [3, -4, 3] }}
         transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className="hidden sm:flex absolute left-4 lg:left-10 bottom-3 px-3.5 py-2 rounded-xl bg-photon-card/95 border border-photon-border shadow-soft items-center space-x-2.5 z-30"
+        className="hidden sm:flex absolute left-4 lg:left-10 bottom-3 px-3.5 py-2 rounded-xl bg-[#FBFAF7]/95 border border-[#E5DFD4] shadow-soft items-center space-x-2.5 z-30"
       >
         <div className="h-6 w-6 rounded-md bg-accent-gold/10 border border-accent-gold/30 flex items-center justify-center text-accent-gold text-[10px] font-serif font-bold">
           MG
         </div>
         <div>
-          <p className="font-serif text-[11px] text-white">Modernist Geometry</p>
-          <p className="text-[8px] font-mono text-photon-muted">Monograph Bound &bull; 24 Negatives</p>
+          <p className="font-serif text-[11px] text-[#302D26]">Modernist Geometry</p>
+          <p className="text-[8px] font-mono text-[#817A6E]">Monograph Bound &bull; 24 Negatives</p>
         </div>
       </motion.div>
 
@@ -184,14 +184,14 @@ export function FloatingHeroMontage() {
       <motion.div
         animate={{ y: [-3, 4, -3] }}
         transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-        className="hidden sm:flex absolute right-4 lg:right-10 bottom-3 px-3.5 py-2 rounded-xl bg-photon-card/95 border border-photon-border shadow-soft items-center space-x-2.5 z-30"
+        className="hidden sm:flex absolute right-4 lg:right-10 bottom-3 px-3.5 py-2 rounded-xl bg-[#FBFAF7]/95 border border-[#E5DFD4] shadow-soft items-center space-x-2.5 z-30"
       >
         <div className="h-6 w-6 rounded-md bg-accent-emerald/10 border border-accent-emerald/30 flex items-center justify-center text-accent-emerald text-[10px]">
           <Check className="h-3.5 w-3.5" />
         </div>
         <div>
-          <p className="font-serif text-[11px] text-white">Zero Cloud Tracking</p>
-          <p className="text-[8px] font-mono text-photon-muted">IndexedDB Local Runtime</p>
+          <p className="font-serif text-[11px] text-[#302D26]">Zero Cloud Tracking</p>
+          <p className="text-[8px] font-mono text-[#817A6E]">IndexedDB Local Runtime</p>
         </div>
       </motion.div>
     </div>
