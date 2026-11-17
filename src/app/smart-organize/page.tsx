@@ -398,7 +398,7 @@ export default function SmartOrganizePage() {
                       draggable
                       onDragStart={(e: any) => handleDragStart(e, item.id)}
                       onClick={() => toggleSelect(item.id)}
-                      className={`group relative rounded-2xl overflow-hidden border bg-photon-card p-2.5 cursor-grab active:cursor-grabbing transition-all select-none shadow-sm ${
+                      className={`group relative rounded-2xl overflow-hidden border bg-photon-card p-2.5 cursor-grab active:cursor-grabbing transition-all select-none shadow-[0_8px_24px_rgba(55,48,37,.07)] ${
                         isSelected
                           ? 'border-white ring-2 ring-white/50 scale-[0.98]'
                           : isDuplicate
@@ -513,9 +513,9 @@ export default function SmartOrganizePage() {
                     onDragOver={(e) => handleDragOver(e, album.id)}
                     onDragLeave={handleDragLeave}
                     onDrop={(e) => handleDropOnAlbum(e, album.id)}
-                    className={`group relative p-3 rounded-2xl border transition-all flex items-center justify-between ${
+                    className={`group relative p-3 rounded-2xl border transition-all duration-300 flex items-center justify-between ${
                       isTarget
-                        ? 'border-accent-gold bg-accent-gold/15 scale-[1.02] shadow-cinema'
+                        ? 'border-[#B89A68] bg-[#F1E9D9] scale-[1.035] shadow-[0_16px_34px_rgba(168,140,88,.2)]'
                         : 'border-photon-border bg-photon-card/80 hover:border-photon-subtle'
                     }`}
                   >
