@@ -1,170 +1,83 @@
-# PHOTON — Project Status & Roadmap
+# PHOTON — Project Status & Visual Redesign Roadmap
 
-> **Tagline:** Your memories. Beautifully organized.  
-> **Philosophy:** Privacy first • Free to use (₹0 budget) • Premium commercial experience • Intelligent organization
-
----
-
-## 1. Completed Milestones
-
-### Milestone 1 — Foundation & Architecture ✅
-- **Workspace inspection & clean initialization:** Verified workspace directory and initialized Git repository.
-- **Modern Next.js 14 stack:** TypeScript, Tailwind CSS, Lucide icons, Framer Motion.
-- **Design system tokens:** Deep charcoal and black surfaces (`zinc-950`, `zinc-900`), elegant border tokens, custom scrollbars, dark & light theme modes.
-- **Premium Landing Page (`/`):** Hero section, product preview card, privacy manifesto, feature matrix, free-tier architecture explanation, FAQ accordion, and call-to-action.
-- **Responsive Layout:** Desktop sidebar with active states & storage meter, sticky top navbar with search & quick actions, and mobile bottom navigation.
-- **Authentication Pages:** Login (`/auth/login`), Sign up (`/auth/register`), and Password Recovery (`/auth/forgot-password`).
-- **All 15 Application Pages Built & Compiled:**
-  1. Landing Page (`/`)
-  2. Sign-up Page (`/auth/register`)
-  3. Login Page (`/auth/login`)
-  4. Password Recovery (`/auth/forgot-password`)
-  5. Dashboard (`/dashboard`)
-  6. All Photos (`/photos`)
-  7. All Videos (`/videos`)
-  8. Albums List (`/albums`)
-  9. Album Details (`/albums/[id]`)
-  10. Memory Timeline (`/timeline`)
-  11. Smart Organization (`/smart-organize`)
-  12. Duplicate Finder (`/duplicates`)
-  13. Recently Deleted / Trash (`/deleted`)
-  14. Account Settings (`/settings`)
-  15. Privacy & Security Settings (`/settings/privacy`)
-  16. Storage Management (`/settings/storage`)
-
-### Milestone 2 — Authentication & Database Migration ✅
-- **Supabase configuration:** Prepared free tier setup (`@supabase/supabase-js`, `@supabase/ssr`).
-- **Database migration SQL (`supabase/migrations/001_initial_schema.sql`):**
-  - `profiles` table with automatic signup trigger `on_auth_user_created`.
-  - `user_preferences` table with theme and deduplication settings.
-  - `albums` table with cover references and private flags.
-  - `media_files` table with width, height, duration, EXIF metadata, SHA-256 and pHash fields.
-  - `user_activity` table for session persistence.
-  - `organization_sessions` table.
-  - Complete Row Level Security (RLS) policies for complete account isolation.
-  - Private Supabase Storage bucket `user-media` with RLS folder isolation `user-media/{user_id}/*`.
-- **Private Sandbox / Offline Mode Fallback:** Built-in seamless fallback allowing immediate testing without requiring credit cards or API keys.
-
-### Milestone 3 — Personal Memory System ✅
-- **Session Continuity:** Dashboard remembers recent sessions, last processed files, and recent user activity.
-- **Continue where you left off banner:** Real timestamp and title of last performed action.
-- **Activity history tracking:** Records upload, organize, deduplicate, and album creation events.
-- **History purge control:** Users can review and wipe remembered history in Privacy Settings.
-
-### Milestone 4 — Media Storage & Browser Sandbox ✅
-- **Client-Side EXIF extraction (`src/lib/media/metadata.ts`):** Camera make, model, ISO, focal length, aperture, shutter speed, capture date, and GPS coordinates.
-- **HTML5 Video metadata:** Resolution and duration extraction with canvas frame thumbnail generation.
-- **IndexedDB store (`src/lib/db/indexed-db.ts`):** Local-first persistent storage using `idb`.
-- **Upload modal with live progress:** Drag & drop, queue management, progress indicator, and destination album selection.
-- **Media Lightbox viewer (`src/lib/components/media/MediaLightbox.tsx`):** Fullscreen display, keyboard controls (Esc, Arrow keys), EXIF metadata drawer with OpenStreetMap coordinates link.
-
-### Milestone 5 — Smart Organization & Deduplication ✅
-- **SHA-256 Hashing (`crypto.subtle.digest`):** Bit-for-bit exact duplicate detection.
-- **64-bit Perceptual Difference Hashing (dHash):** Resizes images to 9x8, computes luminance gradients, and performs Hamming distance comparisons to detect burst shots and similar photos.
-- **Interactive Deduplication Center (`/duplicates`):** Side-by-side comparison, similarity % calculation, space recovery metrics, and "Keep newest / delete older" batch actions.
-- **Smart Organizer (`/smart-organize`):** Automated screenshot detector, large videos filter (>15MB), and unassigned media organizer.
-- **Recently Deleted (`/deleted`):** Safe retention, batch restore, and permanent deletion with warnings.
+> **Tagline:** Every memory deserves a beautiful home.  
+> **Creative Direction:** Photographic, Cinematic, Minimal, Sovereign, Human-Designed  
+> **Philosophy:** Privacy First &bull; Zero Budget (&dollar;0 / &rupee;0) &bull; Zero AI Ingestion &bull; Monograph Collections
 
 ---
 
-## 2. Current Milestone
+## 1. Completed Redesign Phases
 
-### Milestone 6 — Launch & Deployment Readiness 🔄
-- [x] Full Next.js production build (`npm run build`) passing 18/18 routes.
-- [x] Zero TypeScript compilation errors.
-- [x] Project documentation & Supabase setup instructions in `README.md`.
-- [ ] Connect remote GitHub repository and deploy to Vercel Hobby (Zero Cost).
+### Phase A: Visual Audit & Artistic Concept &check;
+- Eradicated generic SaaS design tropes (neon purple gradients, repetitive identical cards, gratuitous rounded rectangles, glowing spheres).
+- Established a photographic design language inspired by Leica, VSCO, Apple Pro, and fine-art monograph publications.
+- Integrated an editorial typographic system (editorial serif display titles, clean geometric grotesque details, and tracking).
 
----
+### Phase B: Design Tokens & Motion Physics &check;
+- **Photographic Palette:**
+  - Darkroom surfaces: Obsidian (`#060608`), deep carbon (`#0b0b0e`), elevated slate (`#121216`), subtle neutral borders (`#222228`).
+  - Warm Gallery Light Mode: Warm ivory (`#fcfbf9`), gallery neutral (`#f4f3ef`), warm amber (`#b38938`).
+  - Muted Photographic Accents: Titanium (`#c8c8cc`), gold champagne (`#d4af37`), phosphor emerald (`#34d399`), deep crimson (`#e05353`).
+- **Texture:** Film grain noise overlay (`.film-grain`) and hairline dividers (`.border-hairline`).
+- **Motion Engine (`src/lib/motion.ts`):** Framer Motion physics with spring curves, staggered entrance choreographies, progressive reveals, and reduced-motion accessibility overrides.
 
-## 3. Files Created
+### Phase C: Editorial Landing Page & Authentication Redesign &check;
+- **Landing Page (`/`):**
+  - Editorial Hero: *"Every memory deserves a beautiful home."* with supporting headline *"Your photos and videos, organized intelligently and kept strictly under your control."*
+  - Interactive Exhibition Preview: Live photographic plates with EXIF readouts (f/2.8, 1/500s, ISO 100).
+  - Design Philosophy Manifesto: 4 Pillars of Media Sovereignty.
+  - Architecture Matrix: Comparison between commercial surveillance clouds vs. PHOTON's sovereign vault.
+  - Animated Inquiries Accordion (FAQ).
+- **Authentication Pages:**
+  - Sign In (`/auth/login`): Darkroom aesthetic, password visibility toggle, animated error states, and 1-click Instant Sandbox Mode.
+  - Registration (`/auth/register`): Dynamic 4-tier password strength bar, privacy pledge checkbox.
+  - Recovery (`/auth/forgot-password`): Minimalist recovery desk.
 
-```
-photo sotter ai/
-├── .env.example
-├── .gitignore
-├── next.config.mjs
-├── package.json
-├── postcss.config.js
-├── tailwind.config.ts
-├── tsconfig.json
-├── README.md
-├── PROJECT_STATUS.md
-├── supabase/
-│   └── migrations/
-│       └── 001_initial_schema.sql
-└── src/
-    ├── types/
-    │   └── index.ts
-    ├── lib/
-    │   ├── context/
-    │   │   ├── auth-context.tsx
-    │   │   └── media-context.tsx
-    │   ├── db/
-    │   │   └── indexed-db.ts
-    │   ├── media/
-    │   │   ├── hasher.ts
-    │   │   └── metadata.ts
-    │   └── supabase/
-    │       ├── client.ts
-    │       └── server.ts
-    ├── components/
-    │   ├── layout/
-    │   │   ├── AppLayout.tsx
-    │   │   ├── MobileNav.tsx
-    │   │   ├── Navbar.tsx
-    │   │   └── Sidebar.tsx
-    │   └── media/
-    │       ├── MediaGrid.tsx
-    │       ├── MediaLightbox.tsx
-    │       └── UploadModal.tsx
-    └── app/
-        ├── globals.css
-        ├── layout.tsx
-        ├── page.tsx (Landing Page)
-        ├── dashboard/page.tsx
-        ├── photos/page.tsx
-        ├── videos/page.tsx
-        ├── albums/page.tsx
-        ├── albums/[id]/page.tsx
-        ├── timeline/page.tsx
-        ├── smart-organize/page.tsx
-        ├── duplicates/page.tsx
-        ├── deleted/page.tsx
-        ├── auth/
-        │   ├── login/page.tsx
-        │   ├── register/page.tsx
-        │   └── forgot-password/page.tsx
-        └── settings/
-            ├── page.tsx
-            ├── privacy/page.tsx
-            └── storage/page.tsx
-```
+### Phase D: Navigation & Dashboard Redesign &check;
+- **Navbar (`src/components/layout/Navbar.tsx`):** Hairline topbar, shutter-style upload trigger, real-time vault indicator (`LOCAL SANDBOX` / `CLOUD SYNC`), darkroom theme toggle.
+- **Sidebar (`src/components/layout/Sidebar.tsx`):** Architectural layout, monograph navigation, minimal storage capacity gauge.
+- **Mobile Navigation (`src/components/layout/MobileNav.tsx`):** Clean touch-friendly bottom bar.
+- **Dashboard (`/dashboard`):** Personal memory exhibition space.
+  - Welcome back banner with memory continuity (`Continue where you left off`).
+  - Minimalist 4-part status ribbon (Photographs, Motion Films, Monographs, Vault Status).
+  - Monograph series horizontal preview.
+  - Recent acquisitions gallery with progressive reveals.
+
+### Phase E: Gallery, Photo Viewer & Ingestion Engine &check;
+- **Ingestion Modal (`src/components/media/UploadModal.tsx`):**
+  - Smooth drag-and-drop target with active highlight.
+  - Queue progress tracking with individual file progress and overall percentage.
+  - Status transitions (Computing SHA-256 fingerprint, Extracting EXIF parameters, Storing).
+  - Destination monograph selector, retry on error, cancel controls.
+- **Gallery Grid (`src/components/media/MediaGrid.tsx`):**
+  - Staggered entrance animations.
+  - Subtle hover scale (`scale-[1.03]`).
+  - Floating batch selection action pill (Assign Monograph, Export, Archive, Clear).
+- **Darkroom Lightbox (`src/components/media/MediaLightbox.tsx`):**
+  - Pure `#000000` background for maximum photographic contrast.
+  - Leica/Hasselblad style EXIF inspector drawer (Camera make, model, lens, aperture, shutter, ISO, GPS coordinates with OpenStreetMap link, SHA-256 integrity hash).
+  - Keyboard navigation (`Esc`, `ArrowLeft`, `ArrowRight`, `i`).
+
+### Phase F: Monographs, Timeline & Studio Tools &check;
+- **Monographs (`/albums` & `/albums/[id]`):** Physical photographic collection aesthetic, book cover ratio, rename and archive actions.
+- **Timeline (`/timeline`):** Hairline timeline node structure grouping memories by year and month.
+- **Curation Studio (`/smart-organize`):** One-click detection for screenshots, heavy motion reels (>15MB), and uncataloged negatives.
+- **Deduplication Center (`/duplicates`):** Side-by-side comparative inspection for exact SHA-256 duplicates and 64-bit dHash perceptual burst sequences with match percentage and space reclamation.
+- **Archive Bin (`/deleted`):** Negative restoration and permanent purge warnings.
+- **Settings (`/settings`, `/settings/privacy`, `/settings/storage`):** Curator profile, JSON catalog archive export, and capacity gauges.
 
 ---
 
-## 4. Tests Performed
+## 2. Technical Quality & Build Verification
 
-1. **TypeScript & Next.js Production Build:**  
-   Ran `npm run build`. Succeeded with 0 compilation errors across all 18 routes.
-2. **Cryptographic & Perceptual Hashing Tests:**  
-   Verified SHA-256 Web Crypto integration and dHash Hamming distance calculation logic.
-3. **Responsive Design Verification:**  
-   Desktop sidebar (256px) + responsive navbar, tablet adaptive grid, and mobile bottom navigation (`MobileNav.tsx`).
-4. **Offline / Local Sandbox Isolation:**  
-   Verified that PHOTON functions immediately out of the box using IndexedDB without requiring external credentials.
+- **Production Build:** `npm run build` compiled **18/18 static and dynamic routes** with 0 errors.
+- **Type Safety:** 100% TypeScript compliance.
+- **Zero External Paid Dependencies:** 100% open-source free tier stack.
+- **Local Persistence:** Full IndexedDB offline storage and Supabase PostgreSQL RLS compatibility.
 
 ---
 
-## 5. Known Issues / Limitations
+## 3. Current Live Application
 
-- **Free Tier Cloud Quota:** Supabase Free Tier provides 1 GB of storage and 500 MB database quota. For users exceeding 1 GB, PHOTON transparently uses local IndexedDB storage.
-- **Browser Sandbox Limits:** Mobile browsers may limit IndexedDB storage if device storage is below 10%. Users can export JSON metadata backups via `/settings/privacy`.
-
----
-
-## 6. Next Steps
-
-1. Configure Supabase free project credentials in `.env.local` whenever cloud multi-device sync is desired.
-2. Push repository to GitHub.
-3. Connect repository to Vercel Hobby for instant live deployment with free SSL on `*.vercel.app`.
+- Development server running on **`http://localhost:3000`**.
+- Ready for immediate exploration in your browser.

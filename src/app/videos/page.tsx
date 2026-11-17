@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { useMedia } from '@/lib/context/media-context';
 import { MediaGrid } from '@/components/media/MediaGrid';
 import { Heart, ArrowUpDown, Film } from 'lucide-react';
+import { itemFadeUp, staggerEditorial } from '@/lib/motion';
 
 export default function VideosPage() {
   const { media, searchQuery } = useMedia();
@@ -56,55 +58,68 @@ export default function VideosPage() {
 
   return (
     <AppLayout>
-      <div className="space-y-6">
+      <motion.div
+        variants={staggerEditorial}
+        initial="hidden"
+        animate="show"
+        className="space-y-8"
+      >
         {/* Header & Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+        <motion.div
+          variants={itemFadeUp}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-photon-border"
+        >
           <div>
-            <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <Film className="h-5 w-5 text-indigo-500" />
-              All Videos
+            <div className="flex items-center space-x-2 text-[11px] font-mono tracking-widest text-accent-gold uppercase mb-1">
+              <Film className="h-3.5 w-3.5" />
+              <span>Cinematic Film & Clips</span>
+            </div>
+            <h1 className="font-serif text-3xl sm:text-4xl font-normal text-white">
+              Motion Archive
             </h1>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-              {filteredVideos.length} {filteredVideos.length === 1 ? 'video' : 'videos'} with in-browser thumbnail generation
+            <p className="text-xs font-mono text-photon-muted mt-1">
+              {filteredVideos.length} {filteredVideos.length === 1 ? 'film negative' : 'film negatives'} &bull; In-browser hardware accelerated playback
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono">
             <button
               onClick={() => setFilterFavorites(!filterFavorites)}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors border ${
+              className={`flex items-center space-x-2 px-4 py-2 rounded-full border transition-colors ${
                 filterFavorites
-                  ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-900 text-rose-600 dark:text-rose-400'
-                  : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'
+                  ? 'border-accent-crimson/50 bg-accent-crimson/10 text-accent-crimson'
+                  : 'border-photon-border bg-photon-card text-photon-light hover:text-white'
               }`}
             >
-              <Heart className={`h-3.5 w-3.5 ${filterFavorites ? 'fill-rose-500' : ''}`} />
+              <Heart className={`h-3.5 w-3.5 ${filterFavorites ? 'fill-accent-crimson' : ''}`} />
               <span>Favorites</span>
             </button>
 
-            <div className="flex items-center space-x-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-2.5 py-1 text-xs">
-              <ArrowUpDown className="h-3.5 w-3.5 text-zinc-400" />
+            <div className="flex items-center space-x-1.5 bg-photon-card border border-photon-border rounded-full px-3.5 py-1.5 text-xs">
+              <ArrowUpDown className="h-3.5 w-3.5 text-photon-muted" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-transparent text-zinc-700 dark:text-zinc-300 focus:outline-none text-xs"
+                className="bg-transparent text-photon-light focus:outline-none text-xs font-sans"
               >
-                <option value="newest">Newest first</option>
-                <option value="oldest">Oldest first</option>
-                <option value="duration">Longest duration</option>
-                <option value="size">Largest size</option>
+                <option value="newest">Chronological (Newest)</option>
+                <option value="oldest">Chronological (Oldest)</option>
+                <option value="duration">Longest Length</option>
+                <option value="size">Largest Resolution</option>
               </select>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Videos Grid */}
-        <MediaGrid
-          media={filteredVideos}
-          emptyMessage="No videos uploaded yet"
-          emptySubtext="Upload MP4, WebM, or MOV video clips to playback and preserve your video archives."
-        />
-      </div>
+        {/* Video Grid */}
+        <motion.div variants={itemFadeUp}>
+          <MediaGrid
+            media={filteredVideos}
+            emptyMessage="No motion negatives in vault"
+            emptySubtext="Ingest MP4, WebM, or QuickTime clips to build your cinema reel."
+          />
+        </motion.div>
+      </motion.div>
     </AppLayout>
   );
 }

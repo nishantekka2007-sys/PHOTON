@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/lib/context/auth-context';
-import { Zap, Mail, ArrowRight, Check, ArrowLeft, Loader2 } from 'lucide-react';
+import { Mail, ArrowRight, ArrowLeft, Loader2, Check } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
   const { resetPassword } = useAuth();
@@ -23,61 +24,76 @@ export default function ForgotPasswordPage() {
       if (res.error) {
         setError(res.error);
       } else {
-        setMessage(res.message || 'Check your inbox for password reset instructions.');
+        setMessage(res.message || 'Passphrase recovery instructions dispatched.');
       }
     } catch (err: any) {
-      setError(err?.message || 'Failed to send reset email');
+      setError(err?.message || 'Failed to dispatch recovery email');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 px-4">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link href="/" className="inline-flex items-center space-x-2 group mb-6">
-          <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-400 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-            <Zap className="h-6 w-6 fill-white" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-white">PHOTON</span>
-        </Link>
-        <h2 className="text-2xl font-bold tracking-tight text-white">
-          Reset your password
-        </h2>
-        <p className="mt-1.5 text-xs text-zinc-400">
-          Enter your registered email and we&apos;ll send you a recovery link
-        </p>
-      </div>
+    <div className="min-h-screen bg-photon-obsidian text-photon-ivory flex flex-col justify-center py-12 px-6 relative film-grain selection:bg-neutral-800">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="sm:mx-auto sm:w-full sm:max-w-md"
+      >
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-block group mb-4">
+            <span className="font-serif text-3xl tracking-widest text-white uppercase">
+              PHOTON
+            </span>
+          </Link>
+          <h2 className="font-serif text-2xl font-normal text-white tracking-tight">
+            Recover your access key.
+          </h2>
+          <p className="mt-1.5 text-xs font-mono text-photon-muted">
+            Enter your email to receive recovery instructions
+          </p>
+        </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-zinc-900 border border-zinc-800 py-8 px-4 shadow-2xl sm:rounded-3xl sm:px-10">
-          {error && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs">
-              {error}
-            </div>
-          )}
-
-          {message && (
-            <div className="mb-4 p-3 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-xs flex items-center gap-2">
-              <Check className="h-4 w-4 shrink-0" />
-              <span>{message}</span>
-            </div>
-          )}
+        <div className="border border-photon-border rounded-3xl bg-photon-dark/95 p-8 shadow-cinema backdrop-blur-xl">
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mb-5 p-3 rounded-xl bg-accent-crimson/10 border border-accent-crimson/30 text-accent-crimson text-xs font-mono"
+              >
+                {error}
+              </motion.div>
+            )}
+            {message && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mb-5 p-3 rounded-xl bg-accent-emerald/10 border border-accent-emerald/30 text-accent-emerald text-xs font-mono flex items-center gap-2"
+              >
+                <Check className="h-4 w-4" />
+                <span>{message}</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-zinc-300">
-                Email address
+              <label className="block text-[11px] font-mono tracking-wider text-photon-light uppercase mb-1.5">
+                Registered Email
               </label>
-              <div className="mt-1.5 relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+              <div className="relative">
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-photon-muted pointer-events-none" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className="w-full rounded-xl bg-zinc-950 border border-zinc-800 pl-10 pr-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+                  placeholder="curator@studio.com"
+                  className="w-full rounded-xl bg-photon-card border border-photon-border pl-10 pr-4 py-2.5 text-xs text-white placeholder-photon-muted focus:border-white/50 focus:outline-none transition-colors font-sans"
                 />
               </div>
             </div>
@@ -85,27 +101,27 @@ export default function ForgotPasswordPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/30 transition-all disabled:opacity-50 active:scale-[0.99] mt-2"
+              className="w-full py-3.5 px-4 rounded-xl text-xs font-mono tracking-cinema uppercase font-semibold bg-photon-ivory hover:bg-white text-photon-obsidian shadow-soft transition-all active:scale-[0.99] flex items-center justify-center space-x-2 disabled:opacity-50 mt-2"
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <>
-                  <span>Send Recovery Email</span>
+                  <span>Send Recovery Instructions</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-6 text-center text-xs text-zinc-400">
-            <Link href="/auth/login" className="inline-flex items-center text-indigo-400 hover:underline">
+          <div className="mt-6 text-center text-xs font-mono">
+            <Link href="/auth/login" className="inline-flex items-center text-photon-muted hover:text-white transition-colors">
               <ArrowLeft className="mr-1.5 h-3.5 w-3.5" />
               Back to sign in
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

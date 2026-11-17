@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { useMedia } from '@/lib/context/media-context';
 import { MediaGrid } from '@/components/media/MediaGrid';
-import { Heart, Filter, ArrowUpDown, Camera } from 'lucide-react';
+import { Heart, ArrowUpDown, Camera } from 'lucide-react';
+import { itemFadeUp, staggerEditorial } from '@/lib/motion';
 
 export default function PhotosPage() {
   const { media, searchQuery } = useMedia();
@@ -16,7 +18,6 @@ export default function PhotosPage() {
     return media.filter((m) => !m.is_deleted && m.media_type === 'image');
   }, [media]);
 
-  // Extract unique camera models
   const cameraModels = useMemo(() => {
     const set = new Set<string>();
     photos.forEach((p) => {
@@ -71,42 +72,54 @@ export default function PhotosPage() {
 
   return (
     <AppLayout>
-      <div className="space-y-6">
-        {/* Header & Filter Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200 dark:border-zinc-800">
+      <motion.div
+        variants={staggerEditorial}
+        initial="hidden"
+        animate="show"
+        className="space-y-8"
+      >
+        {/* Header & Photographic Controls */}
+        <motion.div
+          variants={itemFadeUp}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-photon-border"
+        >
           <div>
-            <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
-              All Photos
+            <div className="flex items-center space-x-2 text-[11px] font-mono tracking-widest text-accent-gold uppercase mb-1">
+              <Camera className="h-3.5 w-3.5" />
+              <span>Negative Collection</span>
+            </div>
+            <h1 className="font-serif text-3xl sm:text-4xl font-normal text-white">
+              Master Photographs
             </h1>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-              {filteredPhotos.length} {filteredPhotos.length === 1 ? 'photo' : 'photos'} in your private library
+            <p className="text-xs font-mono text-photon-muted mt-1">
+              {filteredPhotos.length} {filteredPhotos.length === 1 ? 'photograph' : 'photographs'} &bull; IndexedDB sandboxed
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            {/* Favorites Filter Toggle */}
+          <div className="flex flex-wrap items-center gap-2.5 text-xs font-mono">
+            {/* Favorites Toggle */}
             <button
               onClick={() => setFilterFavorites(!filterFavorites)}
-              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-colors border ${
+              className={`flex items-center space-x-2 px-4 py-2 rounded-full border transition-colors ${
                 filterFavorites
-                  ? 'bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-900 text-rose-600 dark:text-rose-400'
-                  : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'
+                  ? 'border-accent-crimson/50 bg-accent-crimson/10 text-accent-crimson'
+                  : 'border-photon-border bg-photon-card text-photon-light hover:text-white'
               }`}
             >
-              <Heart className={`h-3.5 w-3.5 ${filterFavorites ? 'fill-rose-500' : ''}`} />
+              <Heart className={`h-3.5 w-3.5 ${filterFavorites ? 'fill-accent-crimson' : ''}`} />
               <span>Favorites</span>
             </button>
 
-            {/* Camera Model Dropdown */}
+            {/* Camera Model Filter */}
             {cameraModels.length > 0 && (
-              <div className="flex items-center space-x-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-2.5 py-1 text-xs">
-                <Camera className="h-3.5 w-3.5 text-zinc-400" />
+              <div className="flex items-center space-x-1.5 bg-photon-card border border-photon-border rounded-full px-3.5 py-1.5 text-xs">
+                <Camera className="h-3.5 w-3.5 text-photon-muted" />
                 <select
                   value={selectedCamera}
                   onChange={(e) => setSelectedCamera(e.target.value)}
-                  className="bg-transparent text-zinc-700 dark:text-zinc-300 focus:outline-none text-xs"
+                  className="bg-transparent text-photon-light focus:outline-none text-xs font-sans"
                 >
-                  <option value="all">All Cameras</option>
+                  <option value="all">All Apparatus</option>
                   {cameraModels.map((cam) => (
                     <option key={cam} value={cam}>
                       {cam}
@@ -116,29 +129,31 @@ export default function PhotosPage() {
               </div>
             )}
 
-            {/* Sort Dropdown */}
-            <div className="flex items-center space-x-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-2.5 py-1 text-xs">
-              <ArrowUpDown className="h-3.5 w-3.5 text-zinc-400" />
+            {/* Sorting */}
+            <div className="flex items-center space-x-1.5 bg-photon-card border border-photon-border rounded-full px-3.5 py-1.5 text-xs">
+              <ArrowUpDown className="h-3.5 w-3.5 text-photon-muted" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-transparent text-zinc-700 dark:text-zinc-300 focus:outline-none text-xs"
+                className="bg-transparent text-photon-light focus:outline-none text-xs font-sans"
               >
-                <option value="newest">Newest first</option>
-                <option value="oldest">Oldest first</option>
-                <option value="size">Largest size</option>
+                <option value="newest">Chronological (Newest)</option>
+                <option value="oldest">Chronological (Oldest)</option>
+                <option value="size">Largest Resolution</option>
               </select>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Photos Grid */}
-        <MediaGrid
-          media={filteredPhotos}
-          emptyMessage="No photos found"
-          emptySubtext="Upload JPEG, PNG, WEBP, or HEIC images to build your private photo gallery."
-        />
-      </div>
+        <motion.div variants={itemFadeUp}>
+          <MediaGrid
+            media={filteredPhotos}
+            emptyMessage="No photographs detected"
+            emptySubtext="Ingest raw photographs to build your master exhibition."
+          />
+        </motion.div>
+      </motion.div>
     </AppLayout>
   );
 }

@@ -199,3 +199,4 @@ export async function idbGetLatestSession(userId: string): Promise<OrganizationS
   sessions.sort((a, b) => new Date(b.last_active_at).getTime() - new Date(a.last_active_at).getTime());
   return sessions[0];
 }
+

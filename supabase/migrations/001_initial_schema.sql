@@ -258,3 +258,4 @@ using (
   bucket_id = 'user-media' 
   and auth.uid()::text = (storage.foldername(name))[1]
 );
+

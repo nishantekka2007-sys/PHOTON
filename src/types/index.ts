@@ -111,3 +111,4 @@ export interface StorageUsage {
   videoCount: number;
   trashCount: number;
 }
+

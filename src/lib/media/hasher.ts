@@ -130,3 +130,4 @@ export function getSimilarityPercentage(hash1: string, hash2: string): number {
   const similarity = Math.max(0, Math.round(((64 - dist) / 64) * 100));
   return similarity;
 }
+

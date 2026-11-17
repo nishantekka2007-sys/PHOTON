@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { useMedia } from '@/lib/context/media-context';
 import { MediaGrid } from '@/components/media/MediaGrid';
-import { Calendar, Sparkles } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import { MediaFile } from '@/types';
+import { itemFadeUp, staggerEditorial } from '@/lib/motion';
 
 export default function TimelinePage() {
   const { media } = useMedia();
@@ -14,7 +16,6 @@ export default function TimelinePage() {
     return media.filter((m) => !m.is_deleted);
   }, [media]);
 
-  // Group media by "Month Year" (e.g. "November 2026")
   const groupedTimeline = useMemo(() => {
     const groups: Record<string, { label: string; date: Date; items: MediaFile[] }> = {};
 
@@ -30,7 +31,6 @@ export default function TimelinePage() {
       groups[key].items.push(item);
     });
 
-    // Sort descending by date
     return Object.entries(groups)
       .sort((a, b) => b[1].date.getTime() - a[1].date.getTime())
       .map(([_, group]) => ({
@@ -45,52 +45,67 @@ export default function TimelinePage() {
 
   return (
     <AppLayout>
-      <div className="space-y-8">
+      <motion.div
+        variants={staggerEditorial}
+        initial="hidden"
+        animate="show"
+        className="space-y-10"
+      >
         {/* Header */}
-        <div className="pb-4 border-b border-zinc-200 dark:border-zinc-800">
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-indigo-500" />
+        <motion.div variants={itemFadeUp} className="pb-6 border-b border-photon-border">
+          <div className="flex items-center space-x-2 text-[11px] font-mono tracking-widest text-accent-gold uppercase mb-1">
+            <Clock className="h-3.5 w-3.5" />
+            <span>Chronological Epoch</span>
+          </div>
+          <h1 className="font-serif text-3xl sm:text-4xl font-normal text-white">
             Memory Timeline
           </h1>
-          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-            Your life chronologically arranged by capture date
+          <p className="text-xs font-mono text-photon-muted mt-1">
+            A chronological tapestry of moments arranged by verified EXIF capture timestamps
           </p>
-        </div>
+        </motion.div>
 
         {groupedTimeline.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
-            <div className="h-16 w-16 rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-400 mb-4 shadow-inner">
-              <Calendar className="h-8 w-8 stroke-1" />
+          <motion.div
+            variants={itemFadeUp}
+            className="flex flex-col items-center justify-center py-24 px-4 text-center border border-dashed border-photon-border rounded-3xl bg-photon-dark/50"
+          >
+            <div className="h-16 w-16 rounded-3xl border border-photon-border bg-photon-card flex items-center justify-center text-photon-muted mb-4 shadow-inner">
+              <Clock className="h-7 w-7 stroke-1" />
             </div>
-            <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-200">
-              Your timeline is waiting
+            <h3 className="font-serif text-2xl font-normal text-white">
+              Timeline is unpopulated
             </h3>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 max-w-sm mt-1 mb-5">
-              Upload photos with capture dates to see your memories organized in an elegant chronological feed.
+            <p className="text-xs font-sans text-photon-light max-w-sm mt-1.5 font-light">
+              Ingest photographs with capture dates to construct your timeline.
             </p>
-          </div>
+          </motion.div>
         ) : (
-          <div className="space-y-10">
+          <div className="space-y-12">
             {groupedTimeline.map((group) => (
-              <div key={group.label} className="relative pl-6 border-l-2 border-indigo-500/30">
-                {/* Timeline node badge */}
-                <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-indigo-600 ring-4 ring-zinc-100 dark:ring-zinc-950 flex items-center justify-center text-white" />
+              <motion.div
+                key={group.label}
+                variants={itemFadeUp}
+                className="relative pl-7 border-l border-photon-border"
+              >
+                {/* Hairline timeline node */}
+                <div className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-white ring-4 ring-photon-obsidian" />
 
-                <div className="mb-4">
-                  <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                <div className="mb-5">
+                  <h2 className="font-serif text-2xl font-normal text-white flex items-center gap-2.5">
                     <span>{group.label}</span>
-                    <span className="text-[11px] font-normal text-zinc-500 dark:text-zinc-400">
-                      ({group.items.length} {group.items.length === 1 ? 'memory' : 'memories'})
+                    <span className="text-xs font-mono text-photon-muted font-normal">
+                      &bull; {group.items.length} {group.items.length === 1 ? 'negative' : 'negatives'}
                     </span>
                   </h2>
                 </div>
 
                 <MediaGrid media={group.items} />
-              </div>
+              </motion.div>
             ))}
           </div>
         )}
-      </div>
+      </motion.div>
     </AppLayout>
   );
 }

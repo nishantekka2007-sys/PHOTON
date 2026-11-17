@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/lib/context/auth-context';
-import { Zap, ShieldCheck, Lock, Mail, User, ArrowRight, Loader2, Check } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, User, ArrowRight, Eye, EyeOff, Loader2, Check } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -12,23 +13,23 @@ export default function RegisterPage() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [agreePrivacy, setAgreePrivacy] = useState(true);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Simple password strength calculation
-  const getPasswordStrength = () => {
+  const getStrength = () => {
     if (!password) return 0;
-    let score = 0;
-    if (password.length >= 8) score++;
-    if (/[A-Z]/.test(password)) score++;
-    if (/[0-9]/.test(password)) score++;
-    if (/[^A-Za-z0-9]/.test(password)) score++;
-    return score;
+    let s = 0;
+    if (password.length >= 8) s++;
+    if (/[A-Z]/.test(password)) s++;
+    if (/[0-9]/.test(password)) s++;
+    if (/[^A-Za-z0-9]/.test(password)) s++;
+    return s;
   };
 
-  const strength = getPasswordStrength();
+  const strength = getStrength();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ export default function RegisterPage() {
     setSuccessMessage('');
 
     if (!agreePrivacy) {
-      setError('Please accept the privacy terms.');
+      setError('Please acknowledge our zero-data-harvesting privacy terms.');
       return;
     }
 
@@ -52,7 +53,7 @@ export default function RegisterPage() {
       if (result.error) {
         setError(result.error);
       } else {
-        setSuccessMessage(result.message || 'Account created successfully!');
+        setSuccessMessage(result.message || 'Account established successfully.');
         setTimeout(() => {
           router.push('/dashboard');
         }, 1200);
@@ -65,152 +66,158 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 px-4">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-        <Link href="/" className="inline-flex items-center space-x-2 group mb-6">
-          <div className="h-10 w-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-400 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-            <Zap className="h-6 w-6 fill-white" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-white">PHOTON</span>
-        </Link>
-        <h2 className="text-2xl font-bold tracking-tight text-white">
-          Create your private account
-        </h2>
-        <p className="mt-1.5 text-xs text-zinc-400">
-          Your personal home for photos and videos with zero corporate tracking
-        </p>
-      </div>
+    <div className="min-h-screen bg-photon-obsidian text-photon-ivory flex flex-col justify-center py-12 px-6 relative film-grain selection:bg-neutral-800">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="sm:mx-auto sm:w-full sm:max-w-md"
+      >
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-block group mb-4">
+            <span className="font-serif text-3xl tracking-widest text-white uppercase">
+              PHOTON
+            </span>
+          </Link>
+          <h2 className="font-serif text-2xl font-normal text-white tracking-tight">
+            Claim your sovereign vault.
+          </h2>
+          <p className="mt-1.5 text-xs font-mono text-photon-muted">
+            Independent, encrypted, and isolated by PostgreSQL Row Level Security
+          </p>
+        </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-zinc-900 border border-zinc-800 py-8 px-4 shadow-2xl sm:rounded-3xl sm:px-10">
-          {error && (
-            <div className="mb-4 p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs">
-              {error}
-            </div>
-          )}
-
-          {successMessage && (
-            <div className="mb-4 p-3 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-xs flex items-center gap-2">
-              <Check className="h-4 w-4 shrink-0" />
-              <span>{successMessage}</span>
-            </div>
-          )}
+        <div className="border border-photon-border rounded-3xl bg-photon-dark/95 p-8 shadow-cinema backdrop-blur-xl">
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mb-5 p-3 rounded-xl bg-accent-crimson/10 border border-accent-crimson/30 text-accent-crimson text-xs font-mono"
+              >
+                {error}
+              </motion.div>
+            )}
+            {successMessage && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mb-5 p-3 rounded-xl bg-accent-emerald/10 border border-accent-emerald/30 text-accent-emerald text-xs font-mono flex items-center gap-2"
+              >
+                <Check className="h-4 w-4" />
+                <span>{successMessage}</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-zinc-300">
-                Your name
+              <label className="block text-[11px] font-mono tracking-wider text-photon-light uppercase mb-1.5">
+                Curator Name
               </label>
-              <div className="mt-1.5 relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+              <div className="relative">
+                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-photon-muted pointer-events-none" />
                 <input
                   type="text"
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Alex Rivers"
-                  className="w-full rounded-xl bg-zinc-950 border border-zinc-800 pl-10 pr-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+                  placeholder="Elena Rostova"
+                  className="w-full rounded-xl bg-photon-card border border-photon-border pl-10 pr-4 py-2.5 text-xs text-white placeholder-photon-muted focus:border-white/50 focus:outline-none transition-colors font-sans"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-zinc-300">
-                Email address
+              <label className="block text-[11px] font-mono tracking-wider text-photon-light uppercase mb-1.5">
+                Email Address
               </label>
-              <div className="mt-1.5 relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+              <div className="relative">
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-photon-muted pointer-events-none" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className="w-full rounded-xl bg-zinc-950 border border-zinc-800 pl-10 pr-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+                  placeholder="elena@studio.com"
+                  className="w-full rounded-xl bg-photon-card border border-photon-border pl-10 pr-4 py-2.5 text-xs text-white placeholder-photon-muted focus:border-white/50 focus:outline-none transition-colors font-sans"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-zinc-300">
-                Password
+              <label className="block text-[11px] font-mono tracking-wider text-photon-light uppercase mb-1.5">
+                Master Passphrase
               </label>
-              <div className="mt-1.5 relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+              <div className="relative">
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-photon-muted pointer-events-none" />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="At least 6 characters"
-                  className="w-full rounded-xl bg-zinc-950 border border-zinc-800 pl-10 pr-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all"
+                  placeholder="Minimum 6 characters"
+                  className="w-full rounded-xl bg-photon-card border border-photon-border pl-10 pr-10 py-2.5 text-xs text-white placeholder-photon-muted focus:border-white/50 focus:outline-none transition-colors font-sans"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-photon-muted hover:text-white transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
               </div>
 
-              {/* Password strength indicator */}
+              {/* Password strength indicators */}
               {password && (
                 <div className="mt-2 flex items-center space-x-1.5">
-                  <div
-                    className={`h-1 flex-1 rounded-full ${
-                      strength >= 1 ? 'bg-rose-500' : 'bg-zinc-800'
-                    }`}
-                  />
-                  <div
-                    className={`h-1 flex-1 rounded-full ${
-                      strength >= 2 ? 'bg-amber-500' : 'bg-zinc-800'
-                    }`}
-                  />
-                  <div
-                    className={`h-1 flex-1 rounded-full ${
-                      strength >= 3 ? 'bg-emerald-500' : 'bg-zinc-800'
-                    }`}
-                  />
-                  <div
-                    className={`h-1 flex-1 rounded-full ${
-                      strength >= 4 ? 'bg-indigo-500' : 'bg-zinc-800'
-                    }`}
-                  />
+                  <div className={`h-1 flex-1 rounded-full transition-colors ${strength >= 1 ? 'bg-accent-crimson' : 'bg-photon-border'}`} />
+                  <div className={`h-1 flex-1 rounded-full transition-colors ${strength >= 2 ? 'bg-accent-amber' : 'bg-photon-border'}`} />
+                  <div className={`h-1 flex-1 rounded-full transition-colors ${strength >= 3 ? 'bg-accent-emerald' : 'bg-photon-border'}`} />
+                  <div className={`h-1 flex-1 rounded-full transition-colors ${strength >= 4 ? 'bg-white' : 'bg-photon-border'}`} />
                 </div>
               )}
             </div>
 
-            <div className="flex items-start space-x-2 pt-1">
+            <div className="pt-2 flex items-start space-x-2.5">
               <input
                 type="checkbox"
-                id="terms"
+                id="privacyCheck"
                 checked={agreePrivacy}
                 onChange={(e) => setAgreePrivacy(e.target.checked)}
-                className="mt-0.5 rounded border-zinc-800 bg-zinc-950 text-indigo-600 focus:ring-indigo-500"
+                className="mt-0.5 rounded border-photon-border bg-photon-card text-white focus:ring-0"
               />
-              <label htmlFor="terms" className="text-[11px] text-zinc-400 leading-tight">
-                I understand PHOTON never sells my data, never trains AI on my photos, and keeps my library private.
+              <label htmlFor="privacyCheck" className="text-[11px] text-photon-light leading-relaxed font-light">
+                I understand PHOTON never trains AI models on my photos, never tracks my identity, and isolates my data with Row-Level Security.
               </label>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/30 transition-all disabled:opacity-50 active:scale-[0.99] mt-2"
+              className="w-full py-3.5 px-4 rounded-xl text-xs font-mono tracking-cinema uppercase font-semibold bg-photon-ivory hover:bg-white text-photon-obsidian shadow-soft transition-all active:scale-[0.99] flex items-center justify-center space-x-2 disabled:opacity-50 mt-2"
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <>
-                  <span>Create Free Account</span>
+                  <span>Create Sovereign Account</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-6 text-center text-xs text-zinc-400">
+          <div className="mt-6 text-center text-xs font-sans text-photon-muted">
             Already have an account?{' '}
-            <Link href="/auth/login" className="font-semibold text-indigo-400 hover:underline">
+            <Link href="/auth/login" className="text-white hover:underline font-medium">
               Sign in
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
