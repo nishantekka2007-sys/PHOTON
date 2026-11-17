@@ -27,17 +27,14 @@ export function Navbar({ onOpenUpload }: NavbarProps) {
   const { searchQuery, setSearchQuery } = useMedia();
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
-  const toggleTheme = () => {
-    const nextTheme = preferences?.theme === 'dark' ? 'light' : 'dark';
-    updatePreferences({ theme: nextTheme });
-  };
+  const toggleTheme = () => updatePreferences({ theme: 'light' });
 
   return (
     <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-photon-border/80 bg-photon-obsidian/80 dark:bg-photon-obsidian/80 backdrop-blur-xl px-5 sm:px-8 transition-colors">
       {/* Search Input */}
       <div className="flex flex-1 items-center max-w-sm sm:max-w-md">
         <div className="relative w-full">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-photon-muted pointer-events-none" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-warm-600 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
@@ -48,7 +45,7 @@ export function Navbar({ onOpenUpload }: NavbarProps) {
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-photon-muted hover:text-white"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-warm-600 hover:text-photon-ivory"
             >
               <X className="h-3.5 w-3.5" />
             </button>
@@ -60,7 +57,7 @@ export function Navbar({ onOpenUpload }: NavbarProps) {
       <div className="flex items-center space-x-3 ml-4">
         {/* Cloud / Local status badge */}
         <div 
-          className="hidden md:flex items-center space-x-1.5 px-3 py-1 rounded-full text-[11px] font-mono tracking-wider text-photon-light border border-photon-border bg-photon-card/60"
+          className="hidden md:flex items-center space-x-1.5 px-3 py-1 rounded-full text-[11px] font-mono tracking-wider text-warm-700 border border-photon-border bg-photon-card/60"
           title={isCloudConnected ? "Supabase PostgreSQL RLS Active" : "IndexedDB Local Sandbox Active"}
         >
           {isCloudConnected ? (
@@ -80,13 +77,9 @@ export function Navbar({ onOpenUpload }: NavbarProps) {
         <button
           onClick={toggleTheme}
           aria-label="Toggle theme"
-          className="p-2 rounded-full text-photon-muted hover:text-white hover:bg-photon-card border border-transparent hover:border-photon-border transition-colors"
+          className="p-2 rounded-full text-warm-600 hover:text-photon-ivory hover:bg-photon-card border border-transparent hover:border-photon-border transition-colors"
         >
-          {preferences?.theme === 'dark' ? (
-            <Sun className="h-3.5 w-3.5 text-accent-amber" />
-          ) : (
-            <Moon className="h-3.5 w-3.5" />
-          )}
+          <Sun className="h-3.5 w-3.5 text-accent-amber" />
         </button>
 
         {/* Shutter Style Upload Button */}
@@ -104,7 +97,7 @@ export function Navbar({ onOpenUpload }: NavbarProps) {
             onClick={() => setUserDropdownOpen(!userDropdownOpen)}
             className="flex items-center space-x-2 p-1 rounded-full border border-photon-border hover:border-photon-subtle transition-colors"
           >
-            <div className="h-7 w-7 rounded-full bg-photon-card border border-white/10 flex items-center justify-center text-white text-xs font-serif">
+            <div className="h-7 w-7 rounded-full bg-photon-card border border-white/10 flex items-center justify-center text-photon-ivory text-xs font-serif">
               {user?.full_name ? user.full_name[0].toUpperCase() : 'P'}
             </div>
           </button>
@@ -115,10 +108,10 @@ export function Navbar({ onOpenUpload }: NavbarProps) {
               onClick={() => setUserDropdownOpen(false)}
             >
               <div className="px-4 py-2 border-b border-photon-border">
-                <p className="text-xs font-medium text-white truncate">
+                <p className="text-xs font-medium text-photon-ivory truncate">
                   {user?.full_name || 'Curator'}
                 </p>
-                <p className="text-[11px] font-mono text-photon-muted truncate">
+                <p className="text-[11px] font-mono text-warm-600 truncate">
                   {user?.email || 'private@photon.local'}
                 </p>
               </div>
@@ -126,21 +119,21 @@ export function Navbar({ onOpenUpload }: NavbarProps) {
               <div className="py-1 text-xs font-sans">
                 <Link
                   href="/settings"
-                  className="flex items-center px-4 py-2 text-photon-light hover:text-white hover:bg-photon-card transition-colors"
+                  className="flex items-center px-4 py-2 text-warm-700 hover:text-photon-ivory hover:bg-photon-card transition-colors"
                 >
-                  <User className="mr-2.5 h-3.5 w-3.5 text-photon-muted" /> Identity & Profile
+                  <User className="mr-2.5 h-3.5 w-3.5 text-warm-600" /> Identity & Profile
                 </Link>
                 <Link
                   href="/settings/privacy"
-                  className="flex items-center px-4 py-2 text-photon-light hover:text-white hover:bg-photon-card transition-colors"
+                  className="flex items-center px-4 py-2 text-warm-700 hover:text-photon-ivory hover:bg-photon-card transition-colors"
                 >
-                  <ShieldCheck className="mr-2.5 h-3.5 w-3.5 text-photon-muted" /> Security & Privacy
+                  <ShieldCheck className="mr-2.5 h-3.5 w-3.5 text-warm-600" /> Security & Privacy
                 </Link>
                 <Link
                   href="/settings/storage"
-                  className="flex items-center px-4 py-2 text-photon-light hover:text-white hover:bg-photon-card transition-colors"
+                  className="flex items-center px-4 py-2 text-warm-700 hover:text-photon-ivory hover:bg-photon-card transition-colors"
                 >
-                  <Settings className="mr-2.5 h-3.5 w-3.5 text-photon-muted" /> Storage Quota
+                  <Settings className="mr-2.5 h-3.5 w-3.5 text-warm-600" /> Storage Quota
                 </Link>
               </div>
 
