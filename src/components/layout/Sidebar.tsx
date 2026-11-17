@@ -49,14 +49,14 @@ export function Sidebar() {
     <aside className="hidden lg:flex w-64 flex-col border-r border-photon-border bg-photon-dark h-screen sticky top-0 px-4 py-6 select-none transition-colors">
       {/* Brand Monogram */}
       <Link href="/dashboard" className="flex items-center space-x-3 px-3 mb-8 group">
-        <div className="h-8 w-8 rounded-full border border-white/20 bg-photon-card flex items-center justify-center text-white font-serif text-sm group-hover:border-white transition-colors">
+        <div className="h-8 w-8 rounded-full border border-white/20 bg-photon-card flex items-center justify-center text-photon-ivory font-serif text-sm group-hover:border-white transition-colors">
           P
         </div>
         <div>
-          <span className="font-serif text-lg tracking-widest text-white uppercase block leading-none font-normal">
+          <span className="font-serif text-lg tracking-widest text-photon-ivory uppercase block leading-none font-normal">
             PHOTON
           </span>
-          <span className="text-[10px] font-mono tracking-widest text-photon-muted uppercase">
+          <span className="text-[10px] font-mono tracking-widest text-warm-600 uppercase">
             Personal Studio
           </span>
         </div>
@@ -65,7 +65,7 @@ export function Sidebar() {
       {/* Main Library Navigation */}
       <div className="flex-1 space-y-6 overflow-y-auto">
         <div>
-          <p className="px-3 pb-2 text-[10px] font-mono tracking-widest text-photon-muted uppercase font-semibold">
+          <p className="px-3 pb-2 text-[10px] font-mono tracking-widest text-warm-600 uppercase font-semibold">
             Library
           </p>
           <div className="space-y-1">
@@ -78,11 +78,11 @@ export function Sidebar() {
                   href={item.href}
                   className={`flex items-center space-x-3 px-3 py-2 rounded-xl text-xs font-sans transition-all ${
                     isActive
-                      ? 'bg-photon-card text-white border border-photon-border font-medium shadow-soft'
-                      : 'text-photon-light hover:text-white hover:bg-photon-card/50'
+                      ? 'bg-photon-card text-photon-ivory border border-photon-border font-medium shadow-soft'
+                      : 'text-warm-700 hover:text-photon-ivory hover:bg-photon-card/50'
                   }`}
                 >
-                  <Icon className={`h-4 w-4 ${isActive ? 'text-accent-gold' : 'text-photon-muted'}`} />
+                  <Icon className={`h-4 w-4 ${isActive ? 'text-accent-gold' : 'text-warm-600'}`} />
                   <span>{item.name}</span>
                 </Link>
               );
@@ -91,7 +91,7 @@ export function Sidebar() {
         </div>
 
         <div>
-          <p className="px-3 pb-2 text-[10px] font-mono tracking-widest text-photon-muted uppercase font-semibold">
+          <p className="px-3 pb-2 text-[10px] font-mono tracking-widest text-warm-600 uppercase font-semibold">
             Studio & System
           </p>
           <div className="space-y-1">
@@ -104,11 +104,11 @@ export function Sidebar() {
                   href={item.href}
                   className={`flex items-center space-x-3 px-3 py-2 rounded-xl text-xs font-sans transition-all ${
                     isActive
-                      ? 'bg-photon-card text-white border border-photon-border font-medium shadow-soft'
-                      : 'text-photon-light hover:text-white hover:bg-photon-card/50'
+                      ? 'bg-photon-card text-photon-ivory border border-photon-border font-medium shadow-soft'
+                      : 'text-warm-700 hover:text-photon-ivory hover:bg-photon-card/50'
                   }`}
                 >
-                  <Icon className={`h-4 w-4 ${isActive ? 'text-accent-gold' : 'text-photon-muted'}`} />
+                  <Icon className={`h-4 w-4 ${isActive ? 'text-accent-gold' : 'text-warm-600'}`} />
                   <span>{item.name}</span>
                 </Link>
               );
@@ -121,11 +121,11 @@ export function Sidebar() {
       <div className="mt-auto pt-5 border-t border-photon-border">
         <div className="p-3.5 rounded-2xl bg-photon-card/70 border border-photon-border">
           <div className="flex items-center justify-between text-xs font-mono mb-2">
-            <span className="text-photon-light flex items-center gap-1.5">
-              <HardDrive className="h-3 w-3 text-photon-muted" />
+            <span className="text-warm-700 flex items-center gap-1.5">
+              <HardDrive className="h-3 w-3 text-warm-600" />
               <span>Storage Usage</span>
             </span>
-            <span className="text-photon-muted text-[11px]">{percentageUsed}%</span>
+            <span className="text-warm-600 text-[11px]">{percentageUsed}%</span>
           </div>
 
           <div className="h-1 w-full bg-photon-border rounded-full overflow-hidden">
@@ -141,20 +141,20 @@ export function Sidebar() {
             />
           </div>
 
-          <div className="flex justify-between items-center mt-2 text-[10px] font-mono text-photon-muted">
+          <div className="flex justify-between items-center mt-2 text-[10px] font-mono text-warm-600">
             <span>{formatBytes(storageUsage.totalUsedBytes)} used</span>
             <span>{formatBytes(storageUsage.maxQuotaBytes)} quota</span>
           </div>
 
           <Link
             href="/settings/storage"
-            className="mt-2.5 block text-center text-[10px] font-mono text-photon-light hover:text-white uppercase tracking-wider transition-colors"
+            className="mt-2.5 block text-center text-[10px] font-mono text-warm-700 hover:text-photon-ivory uppercase tracking-wider transition-colors"
           >
             Storage Details &rarr;
           </Link>
         </div>
 
-        <div className="mt-4 flex items-center justify-center space-x-2 text-[11px] font-mono text-photon-muted">
+        <div className="mt-4 flex items-center justify-center space-x-2 text-[11px] font-mono text-warm-600">
           <ShieldCheck className="h-3.5 w-3.5 text-accent-emerald" />
           <span>Local Sandbox &bull; Private</span>
         </div>
