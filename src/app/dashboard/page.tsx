@@ -84,20 +84,20 @@ export default function DashboardPage() {
                 <Compass className="h-3.5 w-3.5" />
                 <span>Personal Studio Workspace</span>
               </div>
-              <h1 className="font-serif text-3xl sm:text-5xl font-normal text-white tracking-tight">
+              <h1 className="font-serif text-3xl sm:text-5xl font-normal text-photon-ivory tracking-tight">
                 Welcome back, {user?.full_name || 'Curator'}.
               </h1>
-              <p className="mt-2 text-xs sm:text-sm font-sans text-photon-light max-w-xl font-light">
+              <p className="mt-2 text-xs sm:text-sm font-sans text-warm-700 max-w-xl font-light">
                 Your sovereign photography collection. Every negative, resolution profile, and EXIF tag is preserved with bit-exact fidelity.
               </p>
 
               {/* Continuity Pill */}
               {latestActivity ? (
-                <div className="mt-4 inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full border border-photon-border bg-photon-card/80 text-[11px] font-mono text-photon-light">
+                <div className="mt-4 inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full border border-photon-border bg-photon-card/80 text-[11px] font-mono text-warm-700">
                   <Clock className="h-3 w-3 text-accent-titanium" />
                   <span>
                     Resume where you left off &bull;{' '}
-                    <span className="text-white font-medium">{latestActivity.title}</span> (
+                    <span className="text-photon-ivory font-medium">{latestActivity.title}</span> (
                     {new Date(latestActivity.created_at).toLocaleDateString(undefined, {
                       month: 'short',
                       day: 'numeric',
@@ -108,7 +108,7 @@ export default function DashboardPage() {
                   </span>
                 </div>
               ) : (
-                <div className="mt-4 inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-photon-border bg-photon-card/80 text-[11px] font-mono text-photon-muted">
+                <div className="mt-4 inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-photon-border bg-photon-card/80 text-[11px] font-mono text-warm-600">
                   <ShieldCheck className="h-3 w-3 text-accent-emerald" />
                   <span>Local IndexedDB Sandbox &bull; Private & Offline-ready</span>
                 </div>
@@ -119,14 +119,14 @@ export default function DashboardPage() {
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
               <Link
                 href="/smart-organize"
-                className="px-5 py-2.5 rounded-full border border-photon-border bg-photon-card text-photon-light hover:text-white hover:border-photon-subtle transition-all flex items-center space-x-2 uppercase tracking-wider"
+                className="px-5 py-2.5 rounded-full border border-photon-border bg-photon-card text-warm-700 hover:text-photon-ivory hover:border-photon-subtle transition-all flex items-center space-x-2 uppercase tracking-wider"
               >
                 <Sparkles className="h-3.5 w-3.5 text-accent-gold" />
                 <span>Spatial Studio</span>
               </Link>
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="px-4 py-2.5 rounded-full border border-photon-border bg-photon-card hover:bg-photon-border text-photon-light hover:text-white transition-colors flex items-center space-x-2 uppercase tracking-wider"
+                className="px-4 py-2.5 rounded-full border border-photon-border bg-photon-card hover:bg-photon-border text-warm-700 hover:text-photon-ivory transition-colors flex items-center space-x-2 uppercase tracking-wider"
               >
                 <FolderPlus className="h-3.5 w-3.5" />
                 <span>New Collection</span>
@@ -158,36 +158,36 @@ export default function DashboardPage() {
           className="grid grid-cols-2 sm:grid-cols-4 border border-photon-border rounded-2xl bg-photon-dark divide-x divide-photon-border text-center overflow-hidden"
         >
           <div className="p-4 sm:p-5">
-            <span className="text-[10px] font-mono tracking-widest text-photon-muted uppercase block">Photographs</span>
-            <span className="font-serif text-2xl sm:text-3xl font-normal text-white mt-1 block">
+            <span className="text-[10px] font-mono tracking-widest text-warm-600 uppercase block">Photographs</span>
+            <span className="font-serif text-2xl sm:text-3xl font-normal text-photon-ivory mt-1 block">
               {storageUsage.photoCount}
             </span>
-            <span className="text-[10px] font-mono text-photon-muted mt-0.5 block">
+            <span className="text-[10px] font-mono text-warm-600 mt-0.5 block">
               {formatBytes(storageUsage.photoBytes)}
             </span>
           </div>
 
           <div className="p-4 sm:p-5">
-            <span className="text-[10px] font-mono tracking-widest text-photon-muted uppercase block">Motion Films</span>
-            <span className="font-serif text-2xl sm:text-3xl font-normal text-white mt-1 block">
+            <span className="text-[10px] font-mono tracking-widest text-warm-600 uppercase block">Motion Films</span>
+            <span className="font-serif text-2xl sm:text-3xl font-normal text-photon-ivory mt-1 block">
               {storageUsage.videoCount}
             </span>
-            <span className="text-[10px] font-mono text-photon-muted mt-0.5 block">
+            <span className="text-[10px] font-mono text-warm-600 mt-0.5 block">
               {formatBytes(storageUsage.videoBytes)}
             </span>
           </div>
 
           <div className="p-4 sm:p-5">
-            <span className="text-[10px] font-mono tracking-widest text-photon-muted uppercase block">Collections</span>
-            <span className="font-serif text-2xl sm:text-3xl font-normal text-white mt-1 block">
+            <span className="text-[10px] font-mono tracking-widest text-warm-600 uppercase block">Collections</span>
+            <span className="font-serif text-2xl sm:text-3xl font-normal text-photon-ivory mt-1 block">
               {albums.length}
             </span>
-            <span className="text-[10px] font-mono text-photon-muted mt-0.5 block">Monographs</span>
+            <span className="text-[10px] font-mono text-warm-600 mt-0.5 block">Monographs</span>
           </div>
 
           <div className="p-4 sm:p-5">
-            <span className="text-[10px] font-mono tracking-widest text-photon-muted uppercase block">Storage Usage</span>
-            <span className="font-serif text-2xl sm:text-3xl font-normal text-white mt-1 block">
+            <span className="text-[10px] font-mono tracking-widest text-warm-600 uppercase block">Storage Usage</span>
+            <span className="font-serif text-2xl sm:text-3xl font-normal text-photon-ivory mt-1 block">
               {formatBytes(storageUsage.totalUsedBytes)}
             </span>
             <span className="text-[10px] font-mono text-accent-emerald mt-0.5 block">
@@ -202,14 +202,14 @@ export default function DashboardPage() {
             variants={spatialFadeUp}
             className="flex flex-col items-center justify-center py-20 px-6 text-center border border-dashed border-photon-border rounded-3xl bg-photon-dark/60 space-y-5"
           >
-            <div className="h-16 w-16 rounded-3xl border border-photon-border bg-photon-card flex items-center justify-center text-photon-muted shadow-inner">
+            <div className="h-16 w-16 rounded-3xl border border-photon-border bg-photon-card flex items-center justify-center text-warm-600 shadow-inner">
               <Camera className="h-8 w-8 stroke-1 text-accent-gold" />
             </div>
             <div className="max-w-md">
-              <h2 className="font-serif text-2xl sm:text-3xl font-normal text-white">
+              <h2 className="font-serif text-2xl sm:text-3xl font-normal text-photon-ivory">
                 Your studio is waiting for memories
               </h2>
-              <p className="text-xs sm:text-sm font-sans text-photon-light mt-2 font-light leading-relaxed">
+              <p className="text-xs sm:text-sm font-sans text-warm-700 mt-2 font-light leading-relaxed">
                 Ingest your RAW camera files, JPEGs, PNGs, or motion clips to begin curating your collection. Files are processed privately in your local browser sandbox.
               </p>
             </div>
@@ -228,7 +228,7 @@ export default function DashboardPage() {
 
               <button
                 onClick={() => loadSampleExhibitionData()}
-                className="px-6 py-3 rounded-full border border-photon-border bg-photon-card/80 text-photon-light hover:text-white hover:border-photon-subtle transition-all flex items-center gap-2 uppercase tracking-wider"
+                className="px-6 py-3 rounded-full border border-photon-border bg-photon-card/80 text-warm-700 hover:text-photon-ivory hover:border-photon-subtle transition-all flex items-center gap-2 uppercase tracking-wider"
               >
                 <Sparkles className="h-4 w-4 text-accent-gold" />
                 <span>Load Sample Exhibition Plates</span>
@@ -265,10 +265,10 @@ export default function DashboardPage() {
 
                   <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                     <div>
-                      <h3 className="font-serif text-2xl sm:text-4xl text-white font-normal leading-tight">
+                      <h3 className="font-serif text-2xl sm:text-4xl text-photon-ivory font-normal leading-tight">
                         {heroMedia.original_name || heroMedia.filename}
                       </h3>
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono text-photon-light mt-1">
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-mono text-warm-700 mt-1">
                         {heroMedia.metadata.camera_model && (
                           <span className="flex items-center gap-1">
                             <Camera className="h-3 w-3 text-accent-titanium" />
@@ -311,12 +311,12 @@ export default function DashboardPage() {
               <motion.div variants={spatialFadeUp} className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h2 className="font-serif text-2xl font-normal text-white">Monographs & Collections</h2>
-                    <p className="text-xs font-mono text-photon-muted mt-0.5">Curated thematic series</p>
+                    <h2 className="font-serif text-2xl font-normal text-photon-ivory">Monographs & Collections</h2>
+                    <p className="text-xs font-mono text-warm-600 mt-0.5">Curated thematic series</p>
                   </div>
                   <Link
                     href="/albums"
-                    className="text-xs font-mono text-photon-light hover:text-white uppercase tracking-wider flex items-center gap-1 transition-colors"
+                    className="text-xs font-mono text-warm-700 hover:text-photon-ivory uppercase tracking-wider flex items-center gap-1 transition-colors"
                   >
                     <span>View All ({albums.length})</span>
                     <ArrowRight className="h-3 w-3" />
@@ -338,16 +338,16 @@ export default function DashboardPage() {
                             className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                           />
                         ) : (
-                          <div className="h-full w-full flex items-center justify-center text-photon-muted">
+                          <div className="h-full w-full flex items-center justify-center text-warm-600">
                             <Layers className="h-6 w-6 stroke-1" />
                           </div>
                         )}
                       </div>
                       <div>
-                        <h3 className="font-serif text-lg text-white truncate font-normal group-hover:text-accent-gold transition-colors">
+                        <h3 className="font-serif text-lg text-photon-ivory truncate font-normal group-hover:text-accent-gold transition-colors">
                           {album.name}
                         </h3>
-                        <p className="text-[10px] font-mono text-photon-muted mt-0.5">
+                        <p className="text-[10px] font-mono text-warm-600 mt-0.5">
                           {album.item_count} {album.item_count === 1 ? 'negative' : 'negatives'}
                         </p>
                       </div>
@@ -361,12 +361,12 @@ export default function DashboardPage() {
             <motion.div variants={spatialFadeUp} className="space-y-4">
               <div className="flex items-center justify-between pb-2 border-b border-photon-border">
                 <div>
-                  <h2 className="font-serif text-2xl font-normal text-white">Master Gallery Archive</h2>
-                  <p className="text-xs font-mono text-photon-muted mt-0.5">Inspect all negatives in your personal vault</p>
+                  <h2 className="font-serif text-2xl font-normal text-photon-ivory">Master Gallery Archive</h2>
+                  <p className="text-xs font-mono text-warm-600 mt-0.5">Inspect all negatives in your personal vault</p>
                 </div>
                 <Link
                   href="/photos"
-                  className="text-xs font-mono text-photon-light hover:text-white uppercase tracking-wider flex items-center gap-1 transition-colors"
+                  className="text-xs font-mono text-warm-700 hover:text-photon-ivory uppercase tracking-wider flex items-center gap-1 transition-colors"
                 >
                   <span>All Photos ({activeMedia.length})</span>
                   <ArrowRight className="h-3 w-3" />
@@ -387,10 +387,10 @@ export default function DashboardPage() {
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
           <div className="w-full max-w-sm rounded-3xl bg-photon-dark border border-photon-border p-6 shadow-cinema">
-            <h3 className="font-serif text-xl font-normal text-white mb-1">
+            <h3 className="font-serif text-xl font-normal text-photon-ivory mb-1">
               Create New Collection
             </h3>
-            <p className="text-xs font-sans text-photon-light mb-5 font-light">
+            <p className="text-xs font-sans text-warm-700 mb-5 font-light">
               Create a dedicated photographic monograph or album.
             </p>
             <form onSubmit={handleCreateAlbum} className="space-y-4">
@@ -401,13 +401,13 @@ export default function DashboardPage() {
                 value={newAlbumName}
                 onChange={(e) => setNewAlbumName(e.target.value)}
                 placeholder="Collection title (e.g. Kyoto Series 2026)"
-                className="w-full rounded-xl bg-photon-card border border-photon-border px-3.5 py-2.5 text-xs text-white placeholder-photon-muted focus:border-white/50 focus:outline-none transition-colors"
+                className="w-full rounded-xl bg-photon-card border border-photon-border px-3.5 py-2.5 text-xs text-photon-ivory placeholder-photon-muted focus:border-white/50 focus:outline-none transition-colors"
               />
               <div className="flex justify-end space-x-2 pt-2 text-xs font-mono">
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-3.5 py-2 rounded-lg text-photon-muted hover:text-white transition-colors"
+                  className="px-3.5 py-2 rounded-lg text-warm-600 hover:text-photon-ivory transition-colors"
                 >
                   Cancel
                 </button>
