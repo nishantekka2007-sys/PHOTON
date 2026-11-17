@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence, PanInfo } from 'framer-motion';
+import { motion, PanInfo } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Camera, MapPin, Sparkles } from 'lucide-react';
 
 const plates = [
@@ -43,7 +43,7 @@ export function FloatingHeroMontage() {
               onDragEnd={handleDragEnd}
               initial={false}
               animate={{
-                x: offset * (typeof window !== 'undefined' && window.innerWidth < 640 ? 112 : 155),
+                x: offset * 145,
                 y: Math.abs(offset) * 17 + (isActive ? 0 : 8),
                 rotate: offset * 7,
                 scale: isActive ? 1 : Math.max(.76, 1-Math.abs(offset)*.12),
@@ -53,7 +53,7 @@ export function FloatingHeroMontage() {
               }}
               transition={{type:'spring',stiffness:190,damping:23,mass:.8}}
               className={`absolute left-1/2 top-1/2 w-[250px] -translate-x-1/2 -translate-y-1/2 cursor-grab overflow-hidden rounded-[25px] border border-white/80 bg-[#FBFAF7] p-2.5 text-left shadow-[0_28px_70px_rgba(55,48,37,.22)] active:cursor-grabbing sm:w-[330px] ${isActive?'pointer-events-auto':'pointer-events-auto'}`}
-              style={{marginLeft:'-125px',marginTop:'-190px'}}
+              
             >
               <div className={`relative overflow-hidden rounded-[18px] ${plate.shape==='portrait'?'aspect-[4/5]':'aspect-[5/4]'}`}>
                 <img src={plate.image} alt={plate.title} draggable={false} className="h-full w-full object-cover" />
