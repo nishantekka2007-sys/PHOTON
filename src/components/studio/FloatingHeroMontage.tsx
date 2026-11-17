@@ -1,200 +1,85 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { Camera, MapPin, Check, Sparkles, Sliders, ShieldCheck } from 'lucide-react';
-import { floatSlow, floatOpposite, springTactile } from '@/lib/motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence, PanInfo } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Camera, MapPin, Sparkles } from 'lucide-react';
+
+const plates = [
+  { title:'Kyoto, in quiet light', place:'Kyoto, Japan', camera:'Hasselblad X2D · 38mm', image:'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85', shape:'portrait' },
+  { title:'Where the mountains breathe', place:'Dolomites, Italy', camera:'Leica M11 · 50mm', image:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85', shape:'landscape' },
+  { title:'A study in expression', place:'Paris, France', camera:'Sony A7R V · 85mm', image:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85', shape:'portrait' },
+  { title:'The warmth of a Sunday', place:'At home, somewhere', camera:'Canon EOS R5 · 35mm', image:'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1400&q=85', shape:'landscape' },
+  { title:'A little blue hour', place:'Coastal roads', camera:'Fujifilm GFX · 45mm', image:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1400&q=85', shape:'landscape' },
+];
 
 export function FloatingHeroMontage() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
-
-  // Smooth pointer parallax coordinates
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 30, stiffness: 200 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-    const y = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-    mouseX.set(x * 14);
-    mouseY.set(y * 14);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-    mouseX.set(0);
-    mouseY.set(0);
+  const [active, setActive] = useState(1);
+  const move = (step:number) => setActive((current) => (current + step + plates.length) % plates.length);
+  const handleDragEnd = (_:MouseEvent|TouchEvent|PointerEvent, info:PanInfo) => {
+    if (info.offset.x < -65) move(1);
+    if (info.offset.x > 65) move(-1);
   };
 
   return (
-    <div
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={handleMouseLeave}
-      className="relative w-full h-[440px] sm:h-[500px] lg:h-[560px] select-none flex items-center justify-center overflow-visible"
-    >
-      {/* Background Cinematic Atmosphere & Light Field */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[520px] lg:w-[620px] h-[300px] sm:h-[360px] bg-gradient-to-tr from-accent-gold/15 via-white/5 to-transparent blur-[110px] sm:blur-[140px] pointer-events-none rounded-full" />
-      <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-accent-amber/10 blur-[90px] pointer-events-none rounded-full" />
-
-      {/* Layer 1: Left Floating Plate (Kyoto Architecture, angled -3.5deg, deep depth) */}
-      <motion.div
-        style={{
-          x: smoothX,
-          y: smoothY,
-        }}
-        className="absolute left-0 sm:left-4 lg:left-6 top-8 sm:top-12 z-10"
-      >
-        <motion.div
-          {...floatSlow(0, 8, 7)}
-          whileHover={{ scale: 1.05, rotate: 0, zIndex: 40 }}
-          transition={springTactile}
-          className="w-44 sm:w-60 lg:w-68 rounded-2xl overflow-hidden border border-[#E5DFD4]/90 bg-[#FBFAF7] p-2 sm:p-2.5 shadow-[0_18px_45px_rgba(55,48,37,0.14)] cursor-pointer group"
-        >
-          <div className="aspect-[4/5] w-full rounded-xl overflow-hidden bg-black relative">
-            <img
-              src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=85"
-              alt="Kyoto Modernist Pavilion"
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            />
-            {/* Film frame contact indicator */}
-            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-white border border-white/10 uppercase tracking-wider">
-              Plate No. 01
-            </div>
-
-            {/* Bottom Optics Readout */}
-            <div className="absolute bottom-2 left-2 right-2 p-2 rounded-lg bg-black/75 backdrop-blur-md text-left transition-opacity">
-              <p className="font-serif text-[11px] sm:text-xs text-white leading-tight font-normal">
-                Kyoto Modernist Pavilion
-              </p>
-              <p className="text-[8px] sm:text-[9px] font-mono text-[#817A6E] flex items-center gap-1 mt-0.5">
-                <Camera className="h-2.5 w-2.5 text-accent-titanium" />
-                Hasselblad X2D &bull; 38mm ƒ/2.8
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Layer 2: Center Master Exhibition Canvas (Seceda Ridge, Elevated z-20) */}
-      <motion.div
-        style={{
-          x: smoothX,
-          y: smoothY,
-        }}
-        className="absolute left-1/2 -translate-x-1/2 top-2 sm:top-4 z-20"
-      >
-        <motion.div
-          {...floatOpposite(0.4, 6, 6.5)}
-          whileHover={{ scale: 1.035, zIndex: 45 }}
-          transition={springTactile}
-          className="w-64 sm:w-84 lg:w-[410px] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 bg-[#FBFAF7] p-2.5 sm:p-3.5 shadow-[0_18px_45px_rgba(55,48,37,0.14)] cursor-pointer group"
-        >
-          <div className="aspect-[16/11] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-black relative">
-            <img
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85"
-              alt="Seceda Ridge Alpenglow"
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            />
-            {/* Master Negative Badge */}
-            <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/85 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-accent-gold border border-accent-gold/40 uppercase tracking-wider flex items-center gap-1.5 shadow-soft">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent-gold animate-pulse" />
-              Master Negative &bull; 100% Unique
-            </div>
-
-            {/* Bottom Optics & Coordinates Drawer */}
-            <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 sm:p-3 rounded-xl bg-black/80 backdrop-blur-md text-left flex items-center justify-between">
-              <div>
-                <p className="font-serif text-xs sm:text-sm text-white font-normal">
-                  Seceda Ridge Alpenglow
-                </p>
-                <p className="text-[8px] sm:text-[10px] font-mono text-[#817A6E] flex items-center gap-1 mt-0.5">
-                  <MapPin className="h-2.5 w-2.5 text-accent-emerald" />
-                  Val Gardena, Dolomites &bull; Leica M11 &bull; 50mm ƒ/1.4
-                </p>
+    <div className="relative mx-auto flex h-[500px] w-full max-w-[660px] select-none flex-col items-center justify-center sm:h-[570px]">
+      <div className="absolute inset-x-10 top-12 h-72 rounded-full bg-[#E8DECB]/70 blur-[90px]" />
+      <div className="absolute bottom-10 left-1/2 h-20 w-[70%] -translate-x-1/2 rounded-full bg-[#CFC3AD]/30 blur-3xl" />
+      <div className="relative h-[410px] w-full touch-pan-y sm:h-[460px]">
+        {plates.map((plate,index) => {
+          let offset = index - active;
+          if (offset > plates.length/2) offset -= plates.length;
+          if (offset < -plates.length/2) offset += plates.length;
+          const isActive = offset === 0;
+          const visible = Math.abs(offset) <= 2;
+          return (
+            <motion.button
+              key={plate.title}
+              type="button"
+              aria-label={`Show ${plate.title}`}
+              onClick={() => !isActive && setActive(index)}
+              drag={isActive ? 'x' : false}
+              dragConstraints={{left:0,right:0}}
+              dragElastic={0.18}
+              onDragEnd={handleDragEnd}
+              initial={false}
+              animate={{
+                x: offset * (typeof window !== 'undefined' && window.innerWidth < 640 ? 112 : 155),
+                y: Math.abs(offset) * 17 + (isActive ? 0 : 8),
+                rotate: offset * 7,
+                scale: isActive ? 1 : Math.max(.76, 1-Math.abs(offset)*.12),
+                opacity: visible ? (isActive ? 1 : .72-Math.abs(offset)*.16) : 0,
+                zIndex: 20-Math.abs(offset),
+                filter: isActive ? 'saturate(1)' : 'saturate(.72)'
+              }}
+              transition={{type:'spring',stiffness:190,damping:23,mass:.8}}
+              className={`absolute left-1/2 top-1/2 w-[250px] -translate-x-1/2 -translate-y-1/2 cursor-grab overflow-hidden rounded-[25px] border border-white/80 bg-[#FBFAF7] p-2.5 text-left shadow-[0_28px_70px_rgba(55,48,37,.22)] active:cursor-grabbing sm:w-[330px] ${isActive?'pointer-events-auto':'pointer-events-auto'}`}
+              style={{marginLeft:'-125px',marginTop:'-190px'}}
+            >
+              <div className={`relative overflow-hidden rounded-[18px] ${plate.shape==='portrait'?'aspect-[4/5]':'aspect-[5/4]'}`}>
+                <img src={plate.image} alt={plate.title} draggable={false} className="h-full w-full object-cover" />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent p-4 pt-14 text-white">
+                  <p className="font-serif text-xl leading-tight sm:text-2xl">{plate.title}</p>
+                  <p className="mt-1 flex items-center gap-1.5 text-[9px] tracking-wide text-white/85"><MapPin size={11}/>{plate.place}</p>
+                </div>
+                <span className="absolute left-3 top-3 rounded-full border border-white/35 bg-black/25 px-2.5 py-1 text-[8px] uppercase tracking-[.18em] text-white backdrop-blur-md">Plate 0{index+1}</span>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-mono text-accent-emerald uppercase border border-accent-emerald/40 px-2 py-0.5 rounded-full">
-                SHA-256 OK
-              </span>
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Layer 3: Right Floating Plate (Paris Portrait, angled +3.5deg) */}
-      <motion.div
-        style={{
-          x: smoothX,
-          y: smoothY,
-        }}
-        className="absolute right-0 sm:right-4 lg:right-6 top-12 sm:top-18 z-10"
-      >
-        <motion.div
-          {...floatSlow(0.8, 8, 7.5)}
-          whileHover={{ scale: 1.05, rotate: 0, zIndex: 40 }}
-          transition={springTactile}
-          className="w-44 sm:w-60 lg:w-68 rounded-2xl overflow-hidden border border-[#E5DFD4]/90 bg-[#FBFAF7] p-2 sm:p-2.5 shadow-[0_18px_45px_rgba(55,48,37,0.14)] cursor-pointer group"
-        >
-          <div className="aspect-[4/5] w-full rounded-xl overflow-hidden bg-black relative">
-            <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=85"
-              alt="Studio Portrait Studies"
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-            />
-            <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-white border border-white/10 uppercase tracking-wider">
-              Plate No. 03
-            </div>
-
-            <div className="absolute bottom-2 left-2 right-2 p-2 rounded-lg bg-black/75 backdrop-blur-md text-left">
-              <p className="font-serif text-[11px] sm:text-xs text-white leading-tight font-normal">
-                Studio Portrait Studies
-              </p>
-              <p className="text-[8px] sm:text-[9px] font-mono text-[#817A6E] flex items-center gap-1 mt-0.5">
-                <Camera className="h-2.5 w-2.5 text-accent-titanium" />
-                Sony A7R V &bull; 85mm ƒ/1.8
-              </p>
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-
-      {/* Floating Monograph Chip (Tactile Book Binder accent) */}
-      <motion.div
-        animate={{ y: [3, -4, 3] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className="hidden sm:flex absolute left-4 lg:left-10 bottom-3 px-3.5 py-2 rounded-xl bg-[#FBFAF7]/95 border border-[#E5DFD4] shadow-soft items-center space-x-2.5 z-30"
-      >
-        <div className="h-6 w-6 rounded-md bg-accent-gold/10 border border-accent-gold/30 flex items-center justify-center text-accent-gold text-[10px] font-serif font-bold">
-          MG
+              <div className="flex items-center justify-between px-2 pb-1 pt-3">
+                <span className="flex items-center gap-1.5 text-[9px] text-[#777166]"><Camera size={11}/>{plate.camera}</span>
+                <span className="font-serif text-[11px] italic text-[#A18A62]">PHOTON archive</span>
+              </div>
+            </motion.button>
+          );
+        })}
+      </div>
+      <div className="relative z-30 mt-2 flex w-full items-center justify-between px-4 sm:px-10">
+        <button onClick={()=>move(-1)} aria-label="Previous photograph" className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD5C8] bg-white/80 text-[#4D483F] shadow-sm transition hover:-translate-x-1 hover:bg-white"><ArrowLeft size={16}/></button>
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex items-center gap-2">{plates.map((p,i)=><button key={p.title} onClick={()=>setActive(i)} aria-label={`Go to photograph ${i+1}`} className={`h-1.5 rounded-full transition-all duration-300 ${i===active?'w-7 bg-[#A88C58]':'w-1.5 bg-[#C9C0B1] hover:bg-[#96866A]'}`}/>)}</div>
+          <span className="text-[9px] uppercase tracking-[.2em] text-[#8B8376]">{String(active+1).padStart(2,'0')} <span className="mx-1 text-[#C2B8A8]">/</span> {String(plates.length).padStart(2,'0')} · Drag to explore</span>
         </div>
-        <div>
-          <p className="font-serif text-[11px] text-[#302D26]">Modernist Geometry</p>
-          <p className="text-[8px] font-mono text-[#817A6E]">Monograph Bound &bull; 24 Negatives</p>
-        </div>
-      </motion.div>
-
-      {/* Floating Cryptographic Security Badge */}
-      <motion.div
-        animate={{ y: [-3, 4, -3] }}
-        transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-        className="hidden sm:flex absolute right-4 lg:right-10 bottom-3 px-3.5 py-2 rounded-xl bg-[#FBFAF7]/95 border border-[#E5DFD4] shadow-soft items-center space-x-2.5 z-30"
-      >
-        <div className="h-6 w-6 rounded-md bg-accent-emerald/10 border border-accent-emerald/30 flex items-center justify-center text-accent-emerald text-[10px]">
-          <Check className="h-3.5 w-3.5" />
-        </div>
-        <div>
-          <p className="font-serif text-[11px] text-[#302D26]">Zero Cloud Tracking</p>
-          <p className="text-[8px] font-mono text-[#817A6E]">IndexedDB Local Runtime</p>
-        </div>
-      </motion.div>
+        <button onClick={()=>move(1)} aria-label="Next photograph" className="flex h-10 w-10 items-center justify-center rounded-full border border-[#DDD5C8] bg-white/80 text-[#4D483F] shadow-sm transition hover:translate-x-1 hover:bg-white"><ArrowRight size={16}/></button>
+      </div>
+      <div className="absolute right-2 top-4 hidden items-center gap-2 rounded-full border border-[#E5DFD4] bg-white/75 px-3 py-2 text-[9px] uppercase tracking-[.13em] text-[#8B8376] sm:flex"><Sparkles size={12} className="text-[#A88C58]"/> Interactive photo deck</div>
     </div>
   );
 }
-
