@@ -3,76 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #F5F3ED;
-  --bg-secondary: #ECEAE2;
-  --bg-card: #FFFFFF;
-  --border-subtle: #E2DFD5;
-  --text-primary: #1C1917;
-  --text-secondary: #78716C;
-  --accent-gold: #C5A059;
+  color-scheme: light;
+  --bg-primary: #F7F5EF;
+  --bg-secondary: #EFECE4;
+  --bg-card: #FBFAF7;
+  --border-subtle: #E5DFD4;
+  --text-primary: #292720;
+  --text-secondary: #777166;
+  --accent-gold: #A88C58;
 }
 
-.dark {
-  --bg-primary: #08090B;
-  --bg-secondary: #0E0F12;
-  --bg-card: #141519;
-  --border-subtle: #22242A;
-  --text-primary: #F5F3ED;
-  --text-secondary: #7E808C;
-  --accent-gold: #D4AF37;
-}
-
+html { scroll-behavior: smooth; }
 body {
-  background-color: var(--bg-primary);
+  background: var(--bg-primary);
   color: var(--text-primary);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11", "liga" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
-
-/* Cinematic film grain noise overlay */
-.film-grain {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
-  background-size: 24px 24px;
-}
-
-.dark .film-grain {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 0);
-  background-size: 20px 20px;
-}
-
-/* Hairline dividers for gallery aesthetics */
-.border-hairline {
-  border-width: 1px;
-  border-color: var(--border-subtle);
-}
-
-/* Custom minimal scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(140, 140, 150, 0.25);
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(140, 140, 150, 0.45);
-}
-
-/* Motion safety */
+.border-hairline { border-width: 1px; border-color: var(--border-subtle); }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D5CFC2; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #B8AF9F; }
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  *, ::before, ::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
