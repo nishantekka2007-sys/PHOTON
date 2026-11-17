@@ -3,589 +3,126 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  ShieldCheck,
-  Camera,
-  Layers,
-  Sparkles,
-  CopyCheck,
-  HardDrive,
-  ArrowRight,
-  Plus,
-  Minus,
-  Check,
-  Calendar,
-  Sliders,
-  Maximize2,
-  FileCheck,
-  Disc,
-  Lock,
-  BookOpen,
-  Info,
-  Server,
-  DownloadCloud
-} from 'lucide-react';
+import { ArrowRight, Camera, Check, ChevronDown, HardDrive, Lock, ShieldCheck, Sparkles, DownloadCloud, Layers, Aperture, Plus, Minus } from 'lucide-react';
 import { FloatingHeroMontage } from '@/components/studio/FloatingHeroMontage';
 import { SignatureSpatialSorter } from '@/components/studio/SignatureSpatialSorter';
-import { staggerCascade, spatialFadeUp } from '@/lib/motion';
+
+const photographs = [
+  { title: 'Quiet Geometry', place: 'Kyoto, Japan', camera: 'Hasselblad X2D', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85', ratio: 'md:col-span-1 aspect-[4/5]' },
+  { title: 'Where the Mountains Breathe', place: 'Dolomites, Italy', camera: 'Leica M11', image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85', ratio: 'md:col-span-2 aspect-[16/10]' },
+  { title: 'A Study in Light', place: 'Paris, France', camera: 'Sony A7R V', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85', ratio: 'md:col-span-1 aspect-[4/5]' },
+];
+
+const collections = [
+  { title: 'Alpine Solitude', subtitle: 'A collection of quiet horizons and mountain light.', count: '14 photographs', image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Modernist Geometry', subtitle: 'Lines, shadows, architecture and form.', count: '24 photographs', image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=85' },
+  { title: 'Portrait Studies', subtitle: 'An intimate collection of people and expression.', count: '18 photographs', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=85' },
+];
+
+const questions = [
+  { q: 'Where are my photographs stored?', a: 'PHOTON is local-first by default. Your media stays in your browser storage unless you choose to connect an optional cloud backend.' },
+  { q: 'Are the images on this page my personal photos?', a: 'No. The photographs on this landing page are illustrative examples. Your own library is available inside your private Studio.' },
+  { q: 'Can I organize photos into collections?', a: 'Yes. Create albums, add or remove media, browse your library and use the organization canvas to arrange your collection.' },
+  { q: 'Can I export my data?', a: 'PHOTON supports exporting a structured catalog manifest so your collection information remains portable.' },
+];
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const toggleFaq = (idx: number) => {
-    setOpenFaq(openFaq === idx ? null : idx);
-  };
-
-  const sampleMemories = [
-    {
-      title: 'Brutalist Concrete Studies',
-      location: 'Kyoto, Japan',
-      exif: '38mm • ƒ/2.8 • 1/400s • ISO 64',
-      camera: 'Hasselblad X2D 100C',
-      image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=85',
-      tag: 'Architecture',
-      aspect: 'aspect-[3/4]',
-      colSpan: 'md:col-span-1',
-    },
-    {
-      title: 'Seceda Ridge Alpenglow',
-      location: 'Val Gardena, Dolomites',
-      exif: '50mm • ƒ/1.4 • 1/1000s • ISO 125',
-      camera: 'Leica M11 Monochrom',
-      image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=85',
-      tag: 'Master Landscape',
-      aspect: 'aspect-[16/10]',
-      colSpan: 'md:col-span-2',
-    },
-    {
-      title: 'Nocturnal Shinjuku Transit',
-      location: 'Tokyo, Japan',
-      exif: '35mm • ƒ/1.4 • 1/60s • ISO 1600',
-      camera: 'Fujifilm GFX 100 II',
-      image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=85',
-      tag: 'Night Series',
-      aspect: 'aspect-square',
-      colSpan: 'md:col-span-1',
-    },
-    {
-      title: 'Studio Portrait Studies No. 4',
-      location: 'Paris, France',
-      exif: '85mm • ƒ/1.8 • 1/320s • ISO 100',
-      camera: 'Sony A7R V',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=85',
-      tag: 'Fine Art Portrait',
-      aspect: 'aspect-[4/5]',
-      colSpan: 'md:col-span-2',
-    },
-  ];
-
-  const monographs = [
-    {
-      title: 'Alpine Solitude: Dolomites',
-      desc: 'Vertical limestone spires of Northern Italy during autumnal alpenglow.',
-      count: '14 Negatives',
-      camera: 'Leica M11 Monochrom',
-      cover: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=85',
-    },
-    {
-      title: 'Modernist Geometry',
-      desc: 'Architectural shadows, brutalist concrete planes, and structural reflections.',
-      count: '24 Negatives',
-      camera: 'Hasselblad X2D 100C',
-      cover: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=85',
-    },
-    {
-      title: 'Nocturnal Studies',
-      desc: 'Ambient street illumination, neon diffusion, and available light portraiture.',
-      count: '18 Negatives',
-      camera: 'Fujifilm GFX 100 II',
-      cover: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=85',
-    },
-  ];
-
-  const capabilities = [
-    {
-      title: 'Client-Side Hashing',
-      desc: 'SHA-256 digests and 64-bit dHash perceptual matrices compute in your browser sandbox to detect duplicate and burst frames.',
-      icon: ShieldCheck,
-    },
-    {
-      title: 'Optics & EXIF Parsing',
-      desc: 'Extract and preserve real camera make, model, lens aperture, shutter duration, ISO sensitivity, and GPS coordinates without destructive recompression.',
-      icon: Camera,
-    },
-    {
-      title: 'Spatial Organization Canvas',
-      desc: 'Visually sort incoming negatives, arrange media into curated monographs, and drag and drop into destination collections.',
-      icon: Sparkles,
-    },
-    {
-      title: 'Sovereign Portability',
-      desc: 'Export a complete, structured JSON catalog manifest of your library, album bindings, and optical parameters with a single click.',
-      icon: DownloadCloud,
-    },
-  ];
-
-  const faqs = [
-    {
-      q: 'How does PHOTON store my photos and videos?',
-      a: 'By default, PHOTON operates as a local-first application in your browser using IndexedDB. Your photographs stay on your device without being uploaded to any cloud server. If you configure a Supabase backend, your media can optionally sync to your own PostgreSQL database protected by Row Level Security (RLS).',
-    },
-    {
-      q: 'Are the photographs on this homepage my photos?',
-      a: 'No. The photographs shown on the homepage and in the interactive demonstration are illustrative sample exhibition plates from professional photographers, used to demonstrate typography, metadata displays, and motion capabilities. Your own personal library in the Studio is private to you.',
-    },
-    {
-      q: 'Does PHOTON train artificial intelligence on user media?',
-      a: 'No. PHOTON does not use your photos or videos to train machine learning models, generate synthetic media, or sell telemetry data to third parties. All image hashing and metadata extraction run locally in your browser.',
-    },
-    {
-      q: 'What are the current hosting and storage limits?',
-      a: 'In local-first mode, storage is limited only by your browser’s IndexedDB quota on your device (often tens of gigabytes). When connecting Supabase Cloud storage, free-tier projects offer 1 GB of storage with 50 MB per-file limits. We provide complete transparency about free-tier quotas and avoid misleading claims.',
-    },
-    {
-      q: 'Can I export my entire collection at any time?',
-      a: 'Yes. In Privacy Settings, you can export a full structured JSON manifest containing your complete catalog, camera metadata, album hierarchies, and SHA-256 hashes.',
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-photon-obsidian text-photon-ivory selection:bg-neutral-800 selection:text-white film-grain">
-      {/* 1. Header Navigation */}
-      <header className="sticky top-0 z-50 w-full border-b border-photon-border bg-photon-obsidian/95 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3 group">
-            <span className="font-serif text-2xl tracking-widest text-white uppercase font-normal">
-              PHOTON
-            </span>
-            <span className="text-[10px] tracking-wider font-mono text-photon-muted uppercase pl-2 border-l border-photon-subtle hidden sm:inline">
-              Personal Media Platform
-            </span>
+    <main className="min-h-screen bg-[#F7F5EF] text-[#25231F] selection:bg-[#D8C8A5] selection:text-[#25231F]">
+      <header className="sticky top-0 z-50 border-b border-[#E8E3D8] bg-[#F7F5EF]/90 backdrop-blur-xl">
+        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-3">
+            <span className="font-serif text-[27px] tracking-[.18em] text-[#292720]">PHOTON</span>
+            <span className="hidden border-l border-[#D8D1C4] pl-3 text-[9px] uppercase tracking-[.2em] text-[#8B8579] sm:inline">A home for your memories</span>
           </Link>
-
-          <nav className="hidden md:flex items-center space-x-8 text-xs font-mono tracking-wider text-photon-muted">
-            <Link href="/dashboard" className="hover:text-white transition-colors uppercase">Studio</Link>
-            <a href="#spatial-studio" className="hover:text-white transition-colors uppercase">Spatial Studio</a>
-            <a href="#collections" className="hover:text-white transition-colors uppercase">Collections</a>
-            <a href="#privacy" className="hover:text-white transition-colors uppercase">Privacy</a>
-            <a href="#faq" className="hover:text-white transition-colors uppercase">Inquiries</a>
+          <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[.16em] text-[#777166] md:flex">
+            <Link className="transition hover:text-[#25231F]" href="/dashboard">Studio</Link>
+            <a className="transition hover:text-[#25231F]" href="#spatial-studio">Spatial Studio</a>
+            <a className="transition hover:text-[#25231F]" href="#collections">Collections</a>
+            <a className="transition hover:text-[#25231F]" href="#privacy">Privacy</a>
           </nav>
-
-          <div className="flex items-center space-x-4">
-            <Link
-              href="/auth/login"
-              className="text-xs font-mono tracking-wider text-photon-light hover:text-white transition-colors uppercase"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/dashboard"
-              className="flex items-center space-x-2 px-5 py-2.5 rounded-full text-xs font-mono tracking-wider uppercase bg-photon-ivory hover:bg-white text-photon-obsidian font-semibold transition-all shadow-soft active:scale-[0.98]"
-            >
-              <span>Launch Studio</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/auth/login" className="hidden text-[11px] uppercase tracking-[.14em] text-[#777166] transition hover:text-[#25231F] sm:block">Sign in</Link>
+            <Link href="/dashboard" className="inline-flex items-center gap-2 rounded-full bg-[#292720] px-5 py-3 text-[10px] font-semibold uppercase tracking-[.14em] text-white transition hover:bg-[#494438]">Enter Studio <ArrowRight size={14}/></Link>
           </div>
         </div>
       </header>
 
-      {/* 2. Hero Section: Integrated Side-by-Side Spatial Architecture */}
-      <section className="relative px-6 max-w-7xl mx-auto min-h-[calc(100vh-4.5rem)] flex items-center py-8 lg:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
-          {/* Left Column: Memorable Editorial Typography & Immediate Action */}
-          <motion.div
-            variants={staggerCascade}
-            initial="hidden"
-            animate="show"
-            className="lg:col-span-5 flex flex-col justify-center text-left"
-          >
-            <motion.div variants={spatialFadeUp} className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-photon-border bg-photon-card/90 text-[10px] sm:text-[11px] font-mono tracking-wider text-photon-light mb-6 self-start">
-              <ShieldCheck className="h-3.5 w-3.5 text-accent-emerald" />
-              <span>Privacy-First &bull; Local-First Architecture &bull; Zero AI Ingestion</span>
-            </motion.div>
+      <section className="mx-auto grid min-h-[680px] max-w-7xl items-center gap-8 px-6 py-16 lg:grid-cols-[.88fr_1.12fr] lg:py-20">
+        <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7 }} className="relative z-10">
+          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#E5DFD2] bg-white/70 px-4 py-2 text-[9px] uppercase tracking-[.16em] text-[#817966]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#A88C58]"/> Personal photography, thoughtfully arranged
+          </div>
+          <h1 className="max-w-xl font-serif text-6xl font-normal leading-[.98] tracking-[-.035em] text-[#292720] sm:text-7xl xl:text-[88px]">A beautiful home for <em className="text-[#9A835B]">every memory.</em></h1>
+          <p className="mt-7 max-w-lg text-[15px] leading-8 text-[#777166]">Bring your photographs and videos into one calm, considered space. Explore, organize and rediscover your collection — with your privacy at the centre.</p>
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <Link href="/dashboard" className="inline-flex items-center gap-3 rounded-full bg-[#292720] px-7 py-4 text-[10px] font-semibold uppercase tracking-[.15em] text-white shadow-[0_12px_28px_rgba(42,39,32,.14)] transition hover:-translate-y-0.5 hover:bg-[#494438]">Explore your Studio <ArrowRight size={15}/></Link>
+            <a href="#collections" className="rounded-full border border-[#DCD5C8] bg-white/50 px-6 py-4 text-[10px] uppercase tracking-[.15em] text-[#615B50] transition hover:bg-white">View collections</a>
+          </div>
+          <div className="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-t border-[#E4DED2] pt-6 text-[10px] uppercase tracking-[.12em] text-[#8A8377]">
+            <span className="flex items-center gap-2"><ShieldCheck size={13}/> Privacy-first</span>
+            <span className="flex items-center gap-2"><HardDrive size={13}/> Local-first storage</span>
+            <span className="flex items-center gap-2"><Lock size={13}/> Your library, your control</span>
+          </div>
+        </motion.div>
+        <div className="relative min-w-0">
+          <div className="absolute -inset-8 rounded-full bg-[#E9E0D0]/70 blur-3xl"/>
+          <div className="relative"><FloatingHeroMontage/></div>
+          <p className="mt-1 text-center text-[9px] uppercase tracking-[.2em] text-[#A19A8D]">A little space for the things worth keeping</p>
+        </div>
+      </section>
 
-            <motion.h1
-              variants={spatialFadeUp}
-              className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-white leading-[1.06] mb-6"
-            >
-              Every memory deserves a <span className="italic font-serif text-photon-light">beautiful home.</span>
-            </motion.h1>
-
-            <motion.p
-              variants={spatialFadeUp}
-              className="text-sm sm:text-base text-photon-light max-w-xl font-sans leading-relaxed tracking-normal font-light mb-8"
-            >
-              One beautiful space for your photographs and videos. Organize your memories, explore every detail with medium-format precision, and keep control of your personal collection.
-            </motion.p>
-
-            <motion.div
-              variants={spatialFadeUp}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 text-xs font-mono"
-            >
-              <Link
-                href="/dashboard"
-                className="px-7 py-3.5 rounded-full bg-photon-ivory text-photon-obsidian font-semibold tracking-wider uppercase hover:bg-white transition-all shadow-cinema active:scale-[0.98] flex items-center justify-center gap-2"
-              >
-                <span>Explore Your Studio</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-              <a
-                href="#spatial-studio"
-                className="px-6 py-3.5 rounded-full border border-photon-border bg-photon-card/50 text-photon-light hover:text-white hover:border-photon-subtle tracking-wider uppercase transition-colors flex items-center justify-center gap-2"
-              >
-                <Sparkles className="h-3.5 w-3.5 text-accent-gold" />
-                <span>Discover Spatial Studio</span>
-              </a>
-            </motion.div>
-
-            <motion.div
-              variants={spatialFadeUp}
-              className="mt-8 pt-6 border-t border-photon-border/60 flex items-center gap-6 text-[11px] font-mono text-photon-muted"
-            >
-              <span className="flex items-center gap-1.5">
-                <Check className="h-3 w-3 text-accent-emerald" /> Local-First IndexedDB
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Lock className="h-3 w-3 text-accent-titanium" /> Optional Supabase RLS
-              </span>
-              <span className="flex items-center gap-1.5">
-                <HardDrive className="h-3 w-3 text-accent-gold" /> Open-Source Foundation
-              </span>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column: Multi-Depth Floating Photographic Montage Prominently in First Viewport */}
-          <div className="lg:col-span-7 relative w-full flex items-center justify-center">
-            <div className="w-full">
-              <div className="flex items-center justify-between text-[10px] font-mono text-photon-muted px-2 mb-2">
-                <span className="flex items-center gap-1">
-                  <Info className="h-3 w-3 text-accent-gold" /> Illustrative Exhibition Gallery
-                </span>
-                <span>Medium-Format Plates</span>
-              </div>
-              <FloatingHeroMontage />
-            </div>
+      <section className="border-y border-[#E8E3D8] bg-[#EFECE4] px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div><p className="mb-3 text-[10px] uppercase tracking-[.2em] text-[#9A835B]">The visual archive</p><h2 className="max-w-2xl font-serif text-4xl leading-tight text-[#292720] sm:text-6xl">Photographs deserve room to breathe.</h2></div>
+            <p className="max-w-sm text-sm leading-7 text-[#777166]">A considered way to revisit the places, people and passing moments that make a life.</p>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {photographs.map((photo, i) => <motion.article key={photo.title} whileHover={{ y: -5 }} className={`group rounded-[22px] border border-[#E5DFD4] bg-[#FBFAF7] p-3 shadow-[0_8px_26px_rgba(53,47,36,.045)] ${photo.ratio.split(' ')[0]}`}>
+              <div className={`relative overflow-hidden rounded-[15px] ${photo.ratio.split(' ')[1]}`}><img src={photo.image} alt={photo.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]"/><span className="absolute left-4 top-4 rounded-full bg-[#F7F5EF]/90 px-3 py-1.5 text-[9px] uppercase tracking-[.14em] text-[#5E584D]">Plate 0{i+1}</span></div>
+              <div className="flex items-end justify-between gap-3 px-2 pb-2 pt-4"><div><h3 className="font-serif text-xl text-[#302D26]">{photo.title}</h3><p className="mt-1 text-[11px] text-[#8B8579]">{photo.place} · {photo.camera}</p></div><Camera size={16} className="mb-1 shrink-0 text-[#A18A62]"/></div>
+            </motion.article>)}
           </div>
         </div>
       </section>
 
-      {/* 3. Featured Photography Exhibition (Warm Ivory & Cream Editorial Surface) */}
-      <section id="exhibition" className="py-24 px-6 bg-[#F5F3ED] text-stone-900 border-t border-stone-200 transition-colors">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/80 border border-amber-300 text-[10px] font-mono text-amber-900 font-semibold uppercase tracking-wider mb-2">
-                <Info className="h-3 w-3 text-amber-800" /> Illustrative Sample Collection
-              </div>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-stone-900 mt-1">
-                Preserved with medium-format precision.
-              </h2>
-            </div>
-            <p className="text-xs font-sans text-stone-600 max-w-md font-light leading-relaxed">
-              Every negative in the studio preserves true focal length, aperture, shutter timing, and ISO sensitivity without destructive recompression or tracking telemetry.
-            </p>
+      <section id="spatial-studio" className="scroll-mt-24 px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+            <div><p className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[.2em] text-[#9A835B]"><Sparkles size={14}/> A more natural way to organize</p><h2 className="font-serif text-4xl text-[#292720] sm:text-6xl">Meet Spatial Studio.</h2><p className="mt-4 max-w-xl text-sm leading-7 text-[#777166]">See your photographs move into thoughtfully arranged collections. Explore the experience, then open the live canvas to organize your own library.</p></div>
+            <Link href="/smart-organize" className="inline-flex items-center gap-2 self-start rounded-full border border-[#DCD5C8] px-5 py-3 text-[10px] uppercase tracking-[.14em] text-[#514B40] transition hover:bg-white md:self-auto">Open live canvas <ArrowRight size={14}/></Link>
           </div>
-
-          {/* Asymmetric Editorial Gallery with Varied Aspect Ratios */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {sampleMemories.map((mem, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.3 }}
-                className={`group relative rounded-3xl overflow-hidden border border-stone-200/90 bg-white p-4 shadow-sm hover:shadow-cinema transition-all flex flex-col justify-between ${mem.colSpan}`}
-              >
-                <div className={`w-full ${mem.aspect} rounded-2xl overflow-hidden bg-stone-900 relative border border-stone-100`}>
-                  <img
-                    src={mem.image}
-                    alt={mem.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono text-white border border-white/10 uppercase tracking-wider">
-                    {mem.tag}
-                  </div>
-                  <div className="absolute bottom-3 left-3 right-3 p-3.5 rounded-xl bg-black/80 backdrop-blur-md text-left">
-                    <p className="font-serif text-base text-white">{mem.title}</p>
-                    <p className="text-[11px] font-sans text-stone-300 mt-0.5">{mem.location}</p>
-                  </div>
-                </div>
-
-                <div className="pt-4 px-1 flex items-center justify-between text-[11px] font-mono text-stone-600">
-                  <span className="flex items-center gap-1.5 font-medium">
-                    <Camera className="h-3 w-3 text-stone-800" />
-                    {mem.camera} &bull; {mem.exif}
-                  </span>
-                  <span className="text-[10px] uppercase text-emerald-700 font-semibold flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    <Check className="h-3 w-3" /> Bit-Exact SHA-256
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <SignatureSpatialSorter/>
         </div>
       </section>
 
-      {/* 4. Interactive Spatial Studio Preview (Darkroom Chamber) */}
-      <section id="spatial-studio" className="py-24 px-6 border-t border-photon-border bg-[#0B0C0E]">
-        <div className="max-w-7xl mx-auto space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-mono text-accent-gold uppercase tracking-wider mb-2">
-                <Sparkles className="h-3.5 w-3.5" />
-                <span>Signature Spatial Experience &bull; Interactive Demonstration</span>
-              </div>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white">
-                Spatial Organization Studio
-              </h2>
-              <p className="text-xs sm:text-sm font-sans text-photon-light mt-1 font-light max-w-2xl">
-                Experience how PHOTON organizes your work: incoming photographs are scanned for duplicate binary signatures and routed smoothly into curated monograph collections.
-              </p>
-            </div>
-
-            <Link
-              href="/smart-organize"
-              className="px-6 py-3 rounded-full bg-photon-ivory text-photon-obsidian font-mono text-xs uppercase font-semibold tracking-wider hover:bg-white transition-all shadow-soft active:scale-95 shrink-0"
-            >
-              Open Live Studio Canvas &rarr;
-            </Link>
-          </div>
-
-          <SignatureSpatialSorter />
+      <section id="collections" className="scroll-mt-24 border-y border-[#E8E3D8] bg-[#F0EDE5] px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-12"><p className="mb-3 text-[10px] uppercase tracking-[.2em] text-[#9A835B]">Collected with intention</p><h2 className="font-serif text-4xl text-[#292720] sm:text-6xl">Your memories, in chapters.</h2><p className="mt-4 max-w-lg text-sm leading-7 text-[#777166]">Collections turn a growing photo library into personal visual stories you can return to.</p></div>
+          <div className="grid gap-7 md:grid-cols-3">{collections.map((item, i) => <motion.article key={item.title} whileHover={{ y: -6 }} className="group overflow-hidden rounded-[22px] border border-[#E1DBCF] bg-[#FBFAF7] p-3 shadow-[0_8px_26px_rgba(53,47,36,.045)]"><div className="relative aspect-[5/4] overflow-hidden rounded-[15px]"><img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-105"/><span className="absolute left-4 top-4 rounded-full bg-[#F7F5EF]/90 px-3 py-1.5 text-[9px] uppercase tracking-[.14em] text-[#5E584D]">Collection 0{i+1}</span></div><div className="px-2 pb-2 pt-5"><h3 className="font-serif text-2xl text-[#302D26]">{item.title}</h3><p className="mt-2 text-xs leading-6 text-[#817A6E]">{item.subtitle}</p><div className="mt-5 flex items-center justify-between border-t border-[#EAE5DC] pt-4 text-[10px] uppercase tracking-[.12em] text-[#938B7D]"><span>{item.count}</span><ArrowRight size={14} className="text-[#9A835B]"/></div></div></motion.article>)}</div>
         </div>
       </section>
 
-      {/* 5. Collections and Albums Showcase */}
-      <section id="collections" className="py-24 px-6 border-t border-photon-border bg-photon-dark/80">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-            <div>
-              <span className="text-xs font-mono tracking-widest text-accent-gold uppercase font-semibold">
-                Curated Series
-              </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white mt-2">
-                Physical Monograph Series
-              </h2>
-            </div>
-            <p className="text-xs font-sans text-photon-light max-w-md font-light leading-relaxed">
-              Transform raw photograph streams into tactile curated volumes with distinct visual bindings, cover plates, and optics preservation.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {monographs.map((mono, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.3 }}
-                className="group rounded-3xl overflow-hidden border border-photon-border bg-photon-card p-4 hover:border-photon-subtle transition-all duration-300 flex flex-col justify-between shadow-soft"
-              >
-                <div className="aspect-[4/3] w-full rounded-2xl bg-black overflow-hidden mb-4 relative border border-white/5">
-                  <img
-                    src={mono.cover}
-                    alt={mono.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono text-white border border-white/10 uppercase">
-                    Volume 0{idx + 1}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-serif text-xl text-white font-normal group-hover:text-accent-gold transition-colors">
-                    {mono.title}
-                  </h3>
-                  <p className="text-xs font-sans text-photon-light mt-1 font-light leading-relaxed">
-                    {mono.desc}
-                  </p>
-                </div>
-
-                <div className="pt-4 mt-4 border-t border-photon-border/60 flex items-center justify-between text-[11px] font-mono text-photon-muted">
-                  <span className="flex items-center gap-1.5">
-                    <Camera className="h-3 w-3 text-accent-titanium" />
-                    {mono.camera}
-                  </span>
-                  <span className="text-white font-medium">{mono.count}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+      <section id="privacy" className="scroll-mt-24 px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]"><div><p className="mb-3 text-[10px] uppercase tracking-[.2em] text-[#9A835B]">Quietly by design</p><h2 className="font-serif text-4xl leading-tight text-[#292720] sm:text-6xl">Your memories stay yours.</h2><p className="mt-5 max-w-sm text-sm leading-7 text-[#777166]">A personal media space should put you in control. PHOTON is designed around local-first storage and transparent data handling.</p></div><div className="grid gap-8 sm:grid-cols-2">{[{n:'01',t:'Local-first library',d:'Your media can remain in browser storage on your own device.'},{n:'02',t:'No AI training on your media',d:'Your personal photographs are not used to train generative models.'},{n:'03',t:'Optional cloud connection',d:'Connect a backend only when you choose to use cloud sync.'},{n:'04',t:'Portable collection data',d:'Keep your catalog information exportable and under your control.'}].map(x=><div key={x.n} className="border-t border-[#DED8CC] pt-5"><span className="text-[10px] tracking-[.18em] text-[#A18A62]">{x.n}</span><h3 className="mt-3 font-serif text-2xl text-[#302D26]">{x.t}</h3><p className="mt-2 text-xs leading-6 text-[#817A6E]">{x.d}</p></div>)}</div></div>
         </div>
       </section>
 
-      {/* 6. Privacy & Data Ownership Architecture */}
-      <section id="privacy" className="py-24 px-6 bg-[#F2EFE9] text-stone-900 border-t border-stone-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs font-mono tracking-widest text-amber-800 uppercase font-semibold">
-              Data Ownership & Privacy
-            </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-normal text-stone-900 mt-3 leading-tight">
-              An auditable sanctuary for personal memories.
-            </h2>
-            <p className="text-xs sm:text-sm font-sans text-stone-600 mt-2 font-light leading-relaxed">
-              We believe your memories belong strictly to you. PHOTON is engineered so that your photographs remain in your custody.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="border-t border-stone-300 pt-6 space-y-3">
-              <span className="text-xs font-mono text-stone-400 font-semibold">01</span>
-              <h3 className="font-serif text-xl font-normal text-stone-900">Local-First Sandbox</h3>
-              <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
-                IndexedDB stores your library inside your browser sandbox. Your original photographs remain on your local storage device.
-              </p>
-            </div>
-            <div className="border-t border-stone-300 pt-6 space-y-3">
-              <span className="text-xs font-mono text-stone-400 font-semibold">02</span>
-              <h3 className="font-serif text-xl font-normal text-stone-900">Zero AI Ingestion</h3>
-              <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
-                We never scrape or feed personal photos to AI models or facial recognition systems. Hashing and deduplication occur on your device.
-              </p>
-            </div>
-            <div className="border-t border-stone-300 pt-6 space-y-3">
-              <span className="text-xs font-mono text-stone-400 font-semibold">03</span>
-              <h3 className="font-serif text-xl font-normal text-stone-900">Row Level Security</h3>
-              <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
-                When connecting Supabase Cloud sync, PostgreSQL Row Level Security enforces that your user ID alone can query your storage bucket.
-              </p>
-            </div>
-            <div className="border-t border-stone-300 pt-6 space-y-3">
-              <span className="text-xs font-mono text-stone-400 font-semibold">04</span>
-              <h3 className="font-serif text-xl font-normal text-stone-900">Full JSON Portability</h3>
-              <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
-                Export complete structured JSON backup manifests at any time. No proprietary lock-ins or hostage data formats.
-              </p>
-            </div>
-          </div>
-        </div>
+      <section className="border-y border-[#E8E3D8] bg-[#EFECE4] px-6 py-24">
+        <div className="mx-auto max-w-7xl"><p className="mb-3 text-[10px] uppercase tracking-[.2em] text-[#9A835B]">Made for the details</p><h2 className="max-w-2xl font-serif text-4xl text-[#292720] sm:text-5xl">Everything you need to care for your collection.</h2><div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">{[{icon:Camera,t:'Photo details',d:'Keep camera and EXIF information close to every image.'},{icon:Layers,t:'Thoughtful albums',d:'Create collections that make sense to the way you remember.'},{icon:Aperture,t:'Visual organization',d:'Arrange your media through a tactile spatial canvas.'},{icon:DownloadCloud,t:'Data portability',d:'Keep your catalog information exportable.'}].map(item=><div key={item.t} className="border-t border-[#DCD5C8] pt-5"><item.icon size={19} className="text-[#9A835B]"/><h3 className="mt-4 font-serif text-xl text-[#302D26]">{item.t}</h3><p className="mt-2 text-xs leading-6 text-[#817A6E]">{item.d}</p></div>)}</div></div>
       </section>
 
-      {/* 7. Product Capabilities */}
-      <section className="py-24 px-6 border-t border-photon-border bg-photon-dark/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-2xl mb-16">
-            <span className="text-xs font-mono tracking-widest text-accent-gold uppercase font-semibold">
-              Engineered Capabilities
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-normal text-white mt-2">
-              Technology built for discerning photographers.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {capabilities.map((c, i) => {
-              const Icon = c.icon;
-              return (
-                <div
-                  key={i}
-                  className="rounded-2xl border border-photon-border bg-photon-card p-6 space-y-3"
-                >
-                  <div className="h-10 w-10 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center text-accent-gold">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="font-serif text-lg text-white font-normal">{c.title}</h3>
-                  <p className="text-xs font-sans text-photon-light font-light leading-relaxed">
-                    {c.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <section id="faq" className="scroll-mt-24 px-6 py-24">
+        <div className="mx-auto max-w-3xl"><p className="mb-3 text-center text-[10px] uppercase tracking-[.2em] text-[#9A835B]">A few things you might wonder</p><h2 className="mb-10 text-center font-serif text-4xl text-[#292720] sm:text-5xl">Frequently asked questions.</h2><div className="divide-y divide-[#E3DDD1] border-y border-[#E3DDD1]">{questions.map((item,i)=><div key={item.q}><button onClick={()=>setOpenFaq(openFaq===i?null:i)} className="flex w-full items-center justify-between gap-5 py-6 text-left font-serif text-xl text-[#302D26]"><span>{item.q}</span>{openFaq===i?<Minus size={17}/>:<Plus size={17}/>}</button><AnimatePresence>{openFaq===i&&<motion.p initial={{height:0,opacity:0}} animate={{height:'auto',opacity:1}} exit={{height:0,opacity:0}} className="overflow-hidden pb-6 text-sm leading-7 text-[#777166]">{item.a}</motion.p>}</AnimatePresence></div>)}</div></div>
       </section>
 
-      {/* 8. Frequently Asked Questions */}
-      <section id="faq" className="py-24 px-6 border-t border-photon-border bg-photon-obsidian">
-        <div className="max-w-3xl mx-auto">
-          <div className="mb-14">
-            <span className="text-xs font-mono tracking-widest text-accent-gold uppercase font-semibold">
-              Clarity & Transparency
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal mt-2">
-              Frequently Asked Inquiries
-            </h2>
-          </div>
+      <section className="px-6 pb-24"><div className="mx-auto max-w-7xl overflow-hidden rounded-[28px] bg-[#292720] px-7 py-16 text-center text-[#F7F5EF] sm:py-24"><p className="mb-4 text-[10px] uppercase tracking-[.2em] text-[#C7B58F]">Make room for what matters</p><h2 className="mx-auto max-w-2xl font-serif text-4xl leading-tight sm:text-6xl">Give your memories a place to belong.</h2><p className="mx-auto mt-5 max-w-md text-sm leading-7 text-[#D1CCBF]">Start with your own library. Organize at your pace, and make the space yours.</p><Link href="/dashboard" className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#F7F5EF] px-7 py-4 text-[10px] font-semibold uppercase tracking-[.15em] text-[#292720] transition hover:bg-white">Enter PHOTON Studio <ArrowRight size={15}/></Link></div></section>
 
-          <div className="space-y-4">
-            {faqs.map((faq, idx) => (
-              <div
-                key={idx}
-                className="border border-photon-border rounded-2xl bg-photon-card/40 overflow-hidden transition-colors hover:border-photon-subtle"
-              >
-                <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full flex items-center justify-between p-5 text-left text-sm font-sans font-medium text-white"
-                >
-                  <span>{faq.q}</span>
-                  <span className="p-1 text-photon-muted">
-                    {openFaq === idx ? (
-                      <Minus className="h-4 w-4 text-white" />
-                    ) : (
-                      <Plus className="h-4 w-4 text-photon-muted" />
-                    )}
-                  </span>
-                </button>
-                <AnimatePresence>
-                  {openFaq === idx && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.25, ease: 'easeInOut' }}
-                      className="px-5 pb-5 text-xs text-photon-light leading-relaxed border-t border-photon-border/50 pt-3 font-light"
-                    >
-                      {faq.a}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 9. Final Call to Action */}
-      <section className="py-28 px-6 border-t border-photon-border text-center relative overflow-hidden bg-gradient-to-b from-photon-obsidian to-black">
-        <div className="max-w-2xl mx-auto relative z-10">
-          <span className="text-xs font-mono tracking-widest text-accent-titanium uppercase mb-3 block">
-            Your Private Vault Awaits
-          </span>
-          <h2 className="font-serif text-4xl sm:text-6xl text-white font-normal tracking-tight mb-6 leading-tight">
-            Curate your life with intentionality.
-          </h2>
-          <p className="text-sm font-sans text-photon-light max-w-md mx-auto mb-8 font-light">
-            Start organizing your personal media today. Built on free open-source standards, browser-native encryption, and complete user ownership.
-          </p>
-          <Link
-            href="/dashboard"
-            className="inline-flex items-center space-x-2 px-8 py-4 rounded-full bg-photon-ivory hover:bg-white text-photon-obsidian font-mono text-xs tracking-wider uppercase font-semibold transition-all shadow-cinema active:scale-[0.98]"
-          >
-            <span>Launch PHOTON Studio</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-      </section>
-
-      {/* 10. Minimalist Professional Footer */}
-      <footer className="border-t border-photon-border py-12 px-6 text-xs font-mono text-photon-muted bg-black">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center space-x-3">
-            <span className="font-serif text-white tracking-widest uppercase text-sm">PHOTON</span>
-            <span className="text-photon-subtle">&bull;</span>
-            <span>Every memory deserves a beautiful home.</span>
-          </div>
-          <div className="flex items-center space-x-6 text-[11px]">
-            <a href="https://github.com/nishantekka2007-sys/PHOTON" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-              GITHUB SOURCE
-            </a>
-            <span>POSTGRESQL RLS</span>
-            <span>INDEXEDDB SANDBOX</span>
-            <span>&copy; {new Date().getFullYear()}</span>
-          </div>
-        </div>
-      </footer>
-    </div>
+      <footer className="border-t border-[#E8E3D8] px-6 py-9"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-[10px] uppercase tracking-[.14em] text-[#938B7D] sm:flex-row"><div className="flex items-center gap-3"><span className="font-serif text-lg tracking-[.18em] text-[#292720]">PHOTON</span><span>·</span><span>Every memory deserves a beautiful home.</span></div><div className="flex flex-wrap items-center gap-5"><a href="https://github.com/nishantekka2007-sys/PHOTON" target="_blank" rel="noopener noreferrer" className="hover:text-[#292720]">GitHub</a><span>Local-first by design</span><span>© {new Date().getFullYear()}</span></div></div></footer>
+    </main>
   );
 }
