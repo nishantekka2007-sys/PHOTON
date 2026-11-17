@@ -10,12 +10,21 @@ import { ShieldCheck, X } from 'lucide-react';
 
 interface AppLayoutProps {
   children: React.ReactNode;
+  onOpenUpload?: () => void;
 }
 
-export function AppLayout({ children }: AppLayoutProps) {
+export function AppLayout({ children, onOpenUpload }: AppLayoutProps) {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [dismissedNotice, setDismissedNotice] = useState(false);
   const { isCloudConnected } = useAuth();
+
+  const handleOpenUpload = () => {
+    if (onOpenUpload) {
+      onOpenUpload();
+    } else {
+      setIsUploadOpen(true);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-photon-obsidian text-photon-ivory flex transition-colors film-grain selection:bg-neutral-800">
@@ -24,7 +33,7 @@ export function AppLayout({ children }: AppLayoutProps) {
 
       {/* Main Exhibition Stage */}
       <div className="flex-1 flex flex-col min-w-0 pb-16 lg:pb-0">
-        <Navbar onOpenUpload={() => setIsUploadOpen(true)} />
+        <Navbar onOpenUpload={handleOpenUpload} />
 
         {/* Local First Informational Ribbon (Subtle & Architectural) */}
         {!isCloudConnected && !dismissedNotice && (

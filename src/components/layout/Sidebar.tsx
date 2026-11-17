@@ -16,7 +16,8 @@ import {
   Trash2,
   HardDrive,
   ShieldCheck,
-  Disc
+  Heart,
+  Settings
 } from 'lucide-react';
 
 export function Sidebar() {
@@ -24,17 +25,19 @@ export function Sidebar() {
   const { storageUsage } = useMedia();
 
   const primaryNavigation = [
-    { name: 'Exhibition', href: '/dashboard', icon: Compass },
-    { name: 'Photographs', href: '/photos', icon: ImageIcon },
-    { name: 'Motion', href: '/videos', icon: Film },
-    { name: 'Albums', href: '/albums', icon: FolderKanban },
+    { name: 'Overview', href: '/dashboard', icon: Compass },
+    { name: 'All Photos', href: '/photos', icon: ImageIcon },
+    { name: 'Videos', href: '/videos', icon: Film },
+    { name: 'Collections', href: '/albums', icon: FolderKanban },
+    { name: 'Favorites', href: '/photos?favorites=true', icon: Heart },
     { name: 'Timeline', href: '/timeline', icon: Clock },
   ];
 
   const studioTools = [
-    { name: 'Curation Engine', href: '/smart-organize', icon: Sparkles },
-    { name: 'Duplicate Scanner', href: '/duplicates', icon: CopyCheck },
-    { name: 'Archive Bin', href: '/deleted', icon: Trash2 },
+    { name: 'Spatial Studio', href: '/smart-organize', icon: Sparkles },
+    { name: 'Duplicate Review', href: '/duplicates', icon: CopyCheck },
+    { name: 'Recently Deleted', href: '/deleted', icon: Trash2 },
+    { name: 'Settings', href: '/settings', icon: Settings },
   ];
 
   const percentageUsed = Math.min(
@@ -54,15 +57,15 @@ export function Sidebar() {
             PHOTON
           </span>
           <span className="text-[10px] font-mono tracking-widest text-photon-muted uppercase">
-            Private Vault
+            Personal Studio
           </span>
         </div>
       </Link>
 
       {/* Main Library Navigation */}
-      <div className="flex-1 space-y-6">
+      <div className="flex-1 space-y-6 overflow-y-auto">
         <div>
-          <p className="px-3 pb-2 text-[10px] font-mono tracking-widest text-photon-muted uppercase">
+          <p className="px-3 pb-2 text-[10px] font-mono tracking-widest text-photon-muted uppercase font-semibold">
             Library
           </p>
           <div className="space-y-1">
@@ -88,8 +91,8 @@ export function Sidebar() {
         </div>
 
         <div>
-          <p className="px-3 pb-2 text-[10px] font-mono tracking-widest text-photon-muted uppercase">
-            Studio Tools
+          <p className="px-3 pb-2 text-[10px] font-mono tracking-widest text-photon-muted uppercase font-semibold">
+            Studio & System
           </p>
           <div className="space-y-1">
             {studioTools.map((item) => {
@@ -120,7 +123,7 @@ export function Sidebar() {
           <div className="flex items-center justify-between text-xs font-mono mb-2">
             <span className="text-photon-light flex items-center gap-1.5">
               <HardDrive className="h-3 w-3 text-photon-muted" />
-              <span>Vault Capacity</span>
+              <span>Storage Usage</span>
             </span>
             <span className="text-photon-muted text-[11px]">{percentageUsed}%</span>
           </div>
@@ -140,20 +143,20 @@ export function Sidebar() {
 
           <div className="flex justify-between items-center mt-2 text-[10px] font-mono text-photon-muted">
             <span>{formatBytes(storageUsage.totalUsedBytes)} used</span>
-            <span>{formatBytes(storageUsage.maxQuotaBytes)} total</span>
+            <span>{formatBytes(storageUsage.maxQuotaBytes)} quota</span>
           </div>
 
           <Link
             href="/settings/storage"
             className="mt-2.5 block text-center text-[10px] font-mono text-photon-light hover:text-white uppercase tracking-wider transition-colors"
           >
-            Manage Storage &rarr;
+            Storage Details &rarr;
           </Link>
         </div>
 
         <div className="mt-4 flex items-center justify-center space-x-2 text-[11px] font-mono text-photon-muted">
           <ShieldCheck className="h-3.5 w-3.5 text-accent-emerald" />
-          <span>RLS &bull; Zero Ingestion</span>
+          <span>Local Sandbox &bull; Private</span>
         </div>
       </div>
     </aside>

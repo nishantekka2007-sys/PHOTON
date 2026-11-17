@@ -55,6 +55,8 @@ interface MediaContextType {
   findDuplicates: () => { exact: DuplicateGroup[]; similar: DuplicateGroup[] };
   clearActivityHistory: () => Promise<void>;
   refreshMedia: () => Promise<void>;
+  loadSampleExhibitionData: () => Promise<void>;
+  clearSampleData: () => Promise<void>;
 }
 
 const MediaContext = createContext<MediaContextType | undefined>(undefined);
@@ -90,35 +92,49 @@ export function MediaProvider({ children }: { children: React.ReactNode }) {
         idbGetActivities(user.id),
       ]);
 
-      let currentMedia = localMedia;
-      let currentAlbums = localAlbums;
-
-      if (localMedia.length === 0) {
-        // Pre-populate with sample exhibition plates
-        const userSampleMedia = SAMPLE_EXHIBITION_MEDIA.map((m) => ({
-          ...m,
-          user_id: user.id,
-        }));
-        const userSampleAlbums = SAMPLE_ALBUMS.map((a) => ({
-          ...a,
-          user_id: user.id,
-        }));
-        await Promise.all([
-          ...userSampleMedia.map((m) => idbSaveMedia(m)),
-          ...userSampleAlbums.map((a) => idbSaveAlbum(a)),
-        ]);
-        currentMedia = userSampleMedia;
-        currentAlbums = userSampleAlbums;
-      }
-
-      setMedia(currentMedia);
-      setAlbums(currentAlbums);
+      setMedia(localMedia);
+      setAlbums(localAlbums);
       setActivities(localActivities);
     } catch (err) {
       console.error('Error loading media data:', err);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const loadSampleExhibitionData = async () => {
+    if (!user) return;
+    setIsLoading(true);
+    const userSampleMedia = SAMPLE_EXHIBITION_MEDIA.map((m) => ({
+      ...m,
+      user_id: user.id,
+    }));
+    const userSampleAlbums = SAMPLE_ALBUMS.map((a) => ({
+      ...a,
+      user_id: user.id,
+    }));
+    await Promise.all([
+      ...userSampleMedia.map((m) => idbSaveMedia(m)),
+      ...userSampleAlbums.map((a) => idbSaveAlbum(a)),
+    ]);
+    setMedia(userSampleMedia);
+    setAlbums(userSampleAlbums);
+    await recordActivity('organized', 'Loaded illustrative exhibition plates');
+    setIsLoading(false);
+  };
+
+  const clearSampleData = async () => {
+    if (!user) return;
+    setIsLoading(true);
+    const sampleIds = SAMPLE_EXHIBITION_MEDIA.map((m) => m.id);
+    const sampleAlbumIds = SAMPLE_ALBUMS.map((a) => a.id);
+    await Promise.all([
+      ...sampleIds.map((id) => idbDeleteMedia(id)),
+      ...sampleAlbumIds.map((id) => idbDeleteAlbum(id)),
+    ]);
+    setMedia((prev) => prev.filter((m) => !sampleIds.includes(m.id)));
+    setAlbums((prev) => prev.filter((a) => !sampleAlbumIds.includes(a.id)));
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -612,6 +628,8 @@ export function MediaProvider({ children }: { children: React.ReactNode }) {
         findDuplicates,
         clearActivityHistory,
         refreshMedia: loadUserData,
+        loadSampleExhibitionData,
+        clearSampleData,
       }}
     >
       {children}

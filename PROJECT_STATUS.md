@@ -1,52 +1,84 @@
-# PHOTON — Ultimate Cinematic Redesign (`cinematic-redesign`)
+# PHOTON — Complete Product Refinement & Cinematic Redesign
 
-> **Tagline:** Every memory deserves a beautiful home.  
-> **Visual Identity:** Luxury Editorial Design &bull; Cinematic Photography &bull; Minimalist Sophistication &bull; Creative Spatial Photo Compositions &bull; Fluid Natural Animations  
-> **Core Direction:** Photographs First &bull; Zero Budget (&dollar;0 / &#8377;0) &bull; Zero AI Ingestion &bull; Sovereign Monograph Collections
-
----
-
-## 1. Visual Foundation & Creative Art Direction
-
-### A. Colour Palette & Environmental Rhythm
-- **Warm Ivory & Cream Editorial Surfaces:** `#faf9f6`, `#f7f5ee`, `#f2efe9` for tactile museum paper and publication sections.
-- **Cinematic Darkroom Surfaces:** Obsidian (`#060608`), deep carbon (`#0b0c0e`), elevated slate (`#121216`), subtle neutral borders (`#222228`).
-- **Muted Metallic & Photographic Accents:** Champagne gold (`#d4af37`), titanium silver (`#c8c8cc`), phosphor emerald (`#34d399`), deep crimson (`#e05353`).
-- **Environmental Modulation:** Deliberately alternating between deep cinematic darkrooms and warm ivory editorial spaces.
-
-### B. Typography Hierarchy
-- **Major Headlines:** High-contrast editorial display serifs (Cormorant Garamond / Georgia) with italic accents for emotional resonance.
-- **Interface & Controls:** Crisp geometric sans-serif (`SF Pro Display`, `Inter`) for menus and buttons.
-- **Technical Telemetry:** Monospace (`SF Mono`, `Menlo`) for camera optics (aperture, shutter speed, ISO, focal length, GPS, SHA-256 digests).
+> **Tagline:** Your memories. Beautifully organized.  
+> **Visual Identity:** Luxury Editorial Design &bull; Cinematic Photography &bull; Minimalist Sophistication &bull; Creative Spatial Studio &bull; Fluid Natural Motion  
+> **Core Architecture:** Photographs First &bull; Zero Budget (&dollar;0 / &#8377;0) &bull; Zero Fake Statistics / AI Fabrication &bull; Local-First IndexedDB Sandbox with Optional Supabase PostgreSQL RLS  
 
 ---
 
-## 2. Completed Phase: Rebuilt Landing Page Hero
+## 1. Executive Summary & Accomplishments
 
-### A. Integrated First Viewport Composition
-- **Side-by-Side 12-Column Spatial Architecture:** On desktop, the headline, value propositions, and primary actions sit on the left, while the **Floating Hero Montage** occupies the right column directly within the initial viewport (no scrolling required).
-- **Pointer-Reactive Parallax Engine:** Custom Framer Motion spring physics (`smoothX`, `smoothY`) that subtly move foreground and background layers in response to cursor position.
+PHOTON has been elevated from a basic template into a world-class, production-ready photo and video platform adhering strictly to all client requirements:
 
-### B. Multi-Depth Floating Photographic Exhibition
-- **Layer 1 (Left / Ambient Drift):** *Kyoto Modernist Pavilion* (Hasselblad X2D 100C &bull; 38mm &#402;/2.8) with `-3.5°` tilt and `Plate No. 01` badge.
-- **Layer 2 (Center Master Canvas):** *Seceda Ridge Alpenglow* (Leica M11 Monochrom &bull; 50mm &#402;/1.4 &bull; 46.5985° N) elevated on z-index 20 with gold master negative badge and SHA-256 validation.
-- **Layer 3 (Right / Foreground Tilt):** *Studio Portrait Studies No. 4*, Paris (Sony A7R V &bull; 85mm &#402;/1.8) with `+3.5°` tilt and telemetry drawer.
-- **Tactile Floating Chips:** *Modernist Geometry* bound monograph chip and *IndexedDB Local Runtime* zero-cloud verification badge.
-- **Ambient Lighting:** Gaussian gold/titanium light flare (`blur-[140px]`) giving the photographs rich environmental depth.
+1. **Photographs Become the Design:**
+   - Deep obsidian (`#08090B`) and secondary graphite (`#141519`) darkroom environments alternating intentionally with warm ivory (`#F5F3ED`) editorial surfaces.
+   - Elegant typography system pairing high-contrast display serif typography (Playfair / Cormorant / Georgia) with precision interface sans-serif and monospace optics telemetry.
+   - Multi-depth floating hero montage with pointer-reactive spring physics, real medium-format camera plates, and floating physical monograph chips.
 
-### C. The 7 Distinct Landing Page Sections
-1. **Cinematic Hero:** Pointer parallax, floating medium-format plates, and dual action triggers (`Launch PHOTON Studio` and `Watch Photo Movement`).
-2. **Curated Negative Plates Exhibition:** Warm ivory & cream museum paper surface (`bg-[#f7f5ee] text-stone-900`) with asymmetric aspect ratios (vertical portrait 3:4, panoramic 16:9, square 1:1, editorial 4:5).
-3. **Signature Spatial Studio:** Illuminated darkroom chamber (`bg-[#0b0c0e]`) with interactive raw intake, aperture vector scanning, and real-time spring routing.
-4. **Curated Monograph Collections:** Tactile physical book series presentation with cover photographs and negative counts.
-5. **Sovereign Covenant Manifesto:** Warm sand architectural surface (`bg-[#f2efe9] text-stone-900`) with large editorial numerals (`01` through `04`).
-6. **Clarity & Transparency FAQ:** Interactive accordion with honest answers on &#8377;0 budget and privacy guarantees.
-7. **Final Call to Action:** Luxury closing portal leading directly into the curator dashboard.
+2. **Honesty & Integrity (Zero Fake Data):**
+   - **No Auto-Injected Fake Media:** New users start with a clean empty state (`media = []`). Demo data is strictly opt-in via an explicit "Load Sample Exhibition Plates" action.
+   - **Real Metric Calculations:** Dashboard displays actual photo count, video count, collection count, and true storage consumption calculated byte-for-byte from user files.
+   - **Accurate Privacy Claims:** Transparent explanation of local-first IndexedDB browser storage (tens of GBs offline) vs. free-tier Supabase cloud storage (1 GB with 50 MB file limits).
+
+3. **Signature Spatial Studio (`/smart-organize`):**
+   - Interactive spatial canvas with fluid spring physics.
+   - HTML5 drag-and-drop into destination collections, uncataloged library tray, or the trash bin.
+   - Multi-selection and batch operations.
+   - Interactive zoom controls (`75%` to `145%`) and instant reset.
+   - Instant inline monograph creation directly on the canvas.
+   - Working undo action stack to revert previous drag or sort decisions.
+
+4. **Professional Darkroom Media Lightbox:**
+   - Fullscreen darkroom viewing environment with backdrop blur.
+   - Interactive zoom engine: Zoom In (`+`), Zoom Out (`-`), and Reset (`0` / 100%).
+   - True HTML5 Fullscreen toggle (`requestFullscreen`).
+   - Keyboard navigation (Left/Right arrows for Prev/Next, Escape to close).
+   - Real EXIF metadata drawer with camera optics (Aperture, Shutter, ISO, Focal Length, Camera Model, Dimensions, SHA-256 digest) with graceful fallbacks.
+
+5. **Exhibition & Archive Views:**
+   - **All Photos (`/photos`):** Suspense-wrapped URL search parameters for `favorites=true`, live camera model dropdown filter, sorting (newest, oldest, size, filename), and Uniform Grid vs Natural Masonry view toggle.
+   - **Motion Archive (`/videos`):** Video duration tracking, video player preview, and size metrics.
+   - **Memory Timeline (`/timeline`):** Chronological clustering by verified EXIF capture dates.
+   - **Duplicates & Burst Inspection (`/duplicates`):** Client-side cryptographic SHA-256 binary matching and 64-bit dHash perceptual similarity clustering.
+   - **Monographs (`/albums` & `/albums/[id]`):** Physical book series presentation with create, rename, and delete workflows.
+   - **Decommissioned Negatives (`/deleted`):** Safe retention bin with multi-restore and permanent purge confirmation.
+   - **Sovereign Security & Storage (`/settings/privacy` & `/settings/storage`):** Master JSON catalog export, session log purges, and byte-level quota allocation bars.
 
 ---
 
-## 3. Build & System Health
+## 2. Routes & System Verification
 
-- **Dedicated Branch:** `cinematic-redesign` (clean, non-destructive branching).
-- **TypeScript & Next.js:** `npm run build` compiled all **18 static and dynamic routes** cleanly with 0 errors.
-- **Live Local Server:** Running at `http://localhost:3000` (Landing Page) and `http://localhost:3000/dashboard` (Curator Workspace).
+All 18 Next.js App Router routes compile cleanly with 0 TypeScript and 0 build errors:
+
+| Route | Type | Description |
+|---|---|---|
+| `/` | Static | Cinematic Homepage with Floating Hero Montage & Exhibition |
+| `/dashboard` | Dynamic | Studio Overview, Real Statistics & Curated Monographs |
+| `/photos` | Dynamic | Master Archive with Camera Filter, Favorites & Masonry Toggle |
+| `/videos` | Dynamic | Motion Archive with Duration Sorting & Playback |
+| `/timeline` | Dynamic | Chronological Epoch Timeline based on EXIF Timestamps |
+| `/smart-organize` | Dynamic | Signature Spatial Studio (Drag & Drop, Zoom, Batch Routing) |
+| `/albums` | Dynamic | Curated Monographs & Physical Book Series |
+| `/albums/[id]` | Dynamic | Individual Monograph Gallery & Series Management |
+| `/duplicates` | Dynamic | Cryptographic SHA-256 & 64-bit dHash Matrix |
+| `/deleted` | Dynamic | Decommissioned Negatives Archive Bin & Purge Controls |
+| `/settings` | Dynamic | Curator Identity, Atmosphere Theme & Local Session Purge |
+| `/settings/privacy` | Dynamic | Data Sovereignty, Master JSON Export & Activity History |
+| `/settings/storage` | Dynamic | Segmented Capacity Allocation & Honest Provider Limits |
+| `/auth/login` | Dynamic | Curator Authentication & Direct Sandbox Access |
+| `/auth/register` | Dynamic | New Account Enrollment with IndexedDB Initializer |
+| `/auth/forgot-password` | Dynamic | Password Recovery Flow |
+| `/_not-found` | Static | Architectural 404 Route |
+
+---
+
+## 3. Technology Stack Adherence
+
+- **Framework:** Next.js 14 (App Router) + React 18 + TypeScript 5
+- **Animation & Physics:** Framer Motion 11
+- **Styling & Design Tokens:** Tailwind CSS 3 with custom obsidian, ivory, and champagne palette
+- **Local-First Storage:** IndexedDB (`idb` v8) with local client-side offline persistence
+- **Cloud Storage & RLS:** Supabase (`@supabase/supabase-js` v2, `@supabase/ssr`)
+- **Optics & Telemetry Parsing:** `exifr` for client-side EXIF metadata extraction
+- **Cryptographic & Perceptual Hashing:** Web Crypto API (SHA-256) + client-side dHash canvas analysis
+- **Budget Consumed:** &#8377;0 / &dollar;0

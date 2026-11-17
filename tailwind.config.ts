@@ -11,15 +11,15 @@ const config: Config = {
     extend: {
       colors: {
         photon: {
-          obsidian: "#060608",
-          dark: "#0b0b0e",
-          card: "#121216",
-          elevated: "#18181d",
-          border: "#222228",
-          subtle: "#2e2e36",
-          muted: "#71717e",
-          light: "#a1a1aa",
-          ivory: "#f4f4f6",
+          obsidian: "#08090B",
+          dark: "#0E0F12",
+          card: "#141519",
+          elevated: "#1A1B20",
+          border: "#22242A",
+          subtle: "#2C2E35",
+          muted: "#7E808C",
+          light: "#B2B4BE",
+          ivory: "#F5F3ED",
           pure: "#ffffff",
         },
         warm: {

@@ -20,11 +20,14 @@ import {
   FileCheck,
   Disc,
   Lock,
-  BookOpen
+  BookOpen,
+  Info,
+  Server,
+  DownloadCloud
 } from 'lucide-react';
 import { FloatingHeroMontage } from '@/components/studio/FloatingHeroMontage';
 import { SignatureSpatialSorter } from '@/components/studio/SignatureSpatialSorter';
-import { staggerCascade, spatialFadeUp, easeEditorial } from '@/lib/motion';
+import { staggerCascade, spatialFadeUp } from '@/lib/motion';
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -100,67 +103,71 @@ export default function LandingPage() {
     },
   ];
 
-  const pillars = [
+  const capabilities = [
     {
-      index: '01',
-      title: 'Client-Side Cryptography',
-      desc: 'Bit-for-bit SHA-256 digests and 64-bit perceptual dHash matrices execute entirely within your local browser sandbox. Your unhashed photographs never leave your device without explicit approval.',
+      title: 'Client-Side Hashing',
+      desc: 'SHA-256 digests and 64-bit dHash perceptual matrices compute in your browser sandbox to detect duplicate and burst frames.',
+      icon: ShieldCheck,
     },
     {
-      index: '02',
-      title: 'Physical Monograph Curations',
-      desc: 'Organize your work into curated exhibitions and chronicles. Every collection preserves full camera optics parameters, focal length, aperture, and verified coordinates.',
+      title: 'Optics & EXIF Parsing',
+      desc: 'Extract and preserve real camera make, model, lens aperture, shutter duration, ISO sensitivity, and GPS coordinates without destructive recompression.',
+      icon: Camera,
     },
     {
-      index: '03',
-      title: 'Perceptual Deduplication Matrix',
-      desc: 'Difference hashing distinguishes exact duplicate negatives from intentional high-speed burst sequences, presenting clear side-by-side comparisons to reclaim valuable disk capacity.',
+      title: 'Spatial Organization Canvas',
+      desc: 'Visually sort incoming negatives, arrange media into curated monographs, and drag and drop into destination collections.',
+      icon: Sparkles,
     },
     {
-      index: '04',
-      title: 'Zero-Cost Sovereign Vault',
-      desc: 'Built on PostgreSQL Row Level Security (RLS) and IndexedDB local runtime. 100% free forever with no credit cards, subscription lock-ins, or predatory paywalls.',
+      title: 'Sovereign Portability',
+      desc: 'Export a complete, structured JSON catalog manifest of your library, album bindings, and optical parameters with a single click.',
+      icon: DownloadCloud,
     },
   ];
 
   const faqs = [
     {
-      q: 'Why architect PHOTON with a zero-budget philosophy?',
-      a: 'We believe personal memories should not be held hostage by perpetual monthly subscriptions. By architecting PHOTON on generous open-source technologies, local browser sandboxing (IndexedDB), and free-tier PostgreSQL, we deliver commercial-grade photo management without financial barriers.',
+      q: 'How does PHOTON store my photos and videos?',
+      a: 'By default, PHOTON operates as a local-first application in your browser using IndexedDB. Your photographs stay on your device without being uploaded to any cloud server. If you configure a Supabase backend, your media can optionally sync to your own PostgreSQL database protected by Row Level Security (RLS).',
     },
     {
-      q: 'Will PHOTON ever train machine learning models on my photographs?',
-      a: 'Never. Commercial cloud providers quietly scrape personal photos to train generative image generators and facial recognition algorithms. PHOTON strictly prohibits AI ingestion. Media analysis (deduplication and metadata parsing) occurs entirely on your device.',
+      q: 'Are the photographs on this homepage my photos?',
+      a: 'No. The photographs shown on the homepage and in the interactive demonstration are illustrative sample exhibition plates from professional photographers, used to demonstrate typography, metadata displays, and motion capabilities. Your own personal library in the Studio is private to you.',
     },
     {
-      q: 'How does PHOTON compare to Apple Photos or Google Photos?',
-      a: 'Unlike closed ecosystems that lock you into proprietary hardware or harvest your browsing habits for advertising, PHOTON is sovereign and open. You can run it 100% offline via local IndexedDB or sync to your own private Supabase database where every single row is isolated by kernel-level security policies.',
+      q: 'Does PHOTON train artificial intelligence on user media?',
+      a: 'No. PHOTON does not use your photos or videos to train machine learning models, generate synthetic media, or sell telemetry data to third parties. All image hashing and metadata extraction run locally in your browser.',
     },
     {
-      q: 'Can I export all my data at any time?',
-      a: 'Yes. With a single click in Privacy Settings, you can download a complete, structured JSON manifest of all media catalogs, EXIF capture dates, camera parameters, and album hierarchies.',
+      q: 'What are the current hosting and storage limits?',
+      a: 'In local-first mode, storage is limited only by your browser’s IndexedDB quota on your device (often tens of gigabytes). When connecting Supabase Cloud storage, free-tier projects offer 1 GB of storage with 50 MB per-file limits. We provide complete transparency about free-tier quotas and avoid misleading claims.',
+    },
+    {
+      q: 'Can I export my entire collection at any time?',
+      a: 'Yes. In Privacy Settings, you can export a full structured JSON manifest containing your complete catalog, camera metadata, album hierarchies, and SHA-256 hashes.',
     },
   ];
 
   return (
     <div className="min-h-screen bg-photon-obsidian text-photon-ivory selection:bg-neutral-800 selection:text-white film-grain">
-      {/* Editorial Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-photon-border/80 bg-photon-obsidian/95 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      {/* 1. Header Navigation */}
+      <header className="sticky top-0 z-50 w-full border-b border-photon-border bg-photon-obsidian/95 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3 group">
             <span className="font-serif text-2xl tracking-widest text-white uppercase font-normal">
               PHOTON
             </span>
-            <span className="text-[10px] tracking-cinema font-mono text-accent-titanium uppercase pl-2 border-l border-photon-subtle">
-              Sovereign &bull; Vault
+            <span className="text-[10px] tracking-wider font-mono text-photon-muted uppercase pl-2 border-l border-photon-subtle hidden sm:inline">
+              Personal Media Platform
             </span>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8 text-xs font-mono tracking-wider text-photon-muted">
-            <a href="#exhibition" className="hover:text-white transition-colors uppercase">Curated Exhibition</a>
-            <a href="#spatial-sort" className="hover:text-white transition-colors uppercase">Spatial Studio</a>
-            <a href="#monographs" className="hover:text-white transition-colors uppercase">Monographs</a>
-            <a href="#manifesto" className="hover:text-white transition-colors uppercase">Philosophy</a>
+            <Link href="/dashboard" className="hover:text-white transition-colors uppercase">Studio</Link>
+            <a href="#spatial-studio" className="hover:text-white transition-colors uppercase">Spatial Studio</a>
+            <a href="#collections" className="hover:text-white transition-colors uppercase">Collections</a>
+            <a href="#privacy" className="hover:text-white transition-colors uppercase">Privacy</a>
             <a href="#faq" className="hover:text-white transition-colors uppercase">Inquiries</a>
           </nav>
 
@@ -182,8 +189,8 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* 1. Cinematic Hero: Integrated Side-by-Side Spatial Architecture */}
-      <section className="relative px-6 max-w-7xl mx-auto min-h-[calc(100vh-5rem)] flex items-center py-8 lg:py-14">
+      {/* 2. Hero Section: Integrated Side-by-Side Spatial Architecture */}
+      <section className="relative px-6 max-w-7xl mx-auto min-h-[calc(100vh-4.5rem)] flex items-center py-8 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
           {/* Left Column: Memorable Editorial Typography & Immediate Action */}
           <motion.div
@@ -194,7 +201,7 @@ export default function LandingPage() {
           >
             <motion.div variants={spatialFadeUp} className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-photon-border bg-photon-card/90 text-[10px] sm:text-[11px] font-mono tracking-wider text-photon-light mb-6 self-start">
               <ShieldCheck className="h-3.5 w-3.5 text-accent-emerald" />
-              <span>Client-Side Cryptography &bull; Zero AI Ingestion &bull; 100% Sovereign</span>
+              <span>Privacy-First &bull; Local-First Architecture &bull; Zero AI Ingestion</span>
             </motion.div>
 
             <motion.h1
@@ -208,7 +215,7 @@ export default function LandingPage() {
               variants={spatialFadeUp}
               className="text-sm sm:text-base text-photon-light max-w-xl font-sans leading-relaxed tracking-normal font-light mb-8"
             >
-              Your photographs and motion negatives, organized with medium-format precision and kept under your sovereign control. Built with client-side SHA-256 fingerprinting, 64-bit perceptual dHash matrices, and zero corporate surveillance.
+              One beautiful space for your photographs and videos. Organize your memories, explore every detail with medium-format precision, and keep control of your personal collection.
             </motion.p>
 
             <motion.div
@@ -219,15 +226,15 @@ export default function LandingPage() {
                 href="/dashboard"
                 className="px-7 py-3.5 rounded-full bg-photon-ivory text-photon-obsidian font-semibold tracking-wider uppercase hover:bg-white transition-all shadow-cinema active:scale-[0.98] flex items-center justify-center gap-2"
               >
-                <span>Launch PHOTON Studio</span>
+                <span>Explore Your Studio</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <a
-                href="#spatial-sort"
+                href="#spatial-studio"
                 className="px-6 py-3.5 rounded-full border border-photon-border bg-photon-card/50 text-photon-light hover:text-white hover:border-photon-subtle tracking-wider uppercase transition-colors flex items-center justify-center gap-2"
               >
                 <Sparkles className="h-3.5 w-3.5 text-accent-gold" />
-                <span>Watch Photo Movement</span>
+                <span>Discover Spatial Studio</span>
               </a>
             </motion.div>
 
@@ -236,38 +243,46 @@ export default function LandingPage() {
               className="mt-8 pt-6 border-t border-photon-border/60 flex items-center gap-6 text-[11px] font-mono text-photon-muted"
             >
               <span className="flex items-center gap-1.5">
-                <Check className="h-3 w-3 text-accent-emerald" /> 0B Cloud Leakage
+                <Check className="h-3 w-3 text-accent-emerald" /> Local-First IndexedDB
               </span>
               <span className="flex items-center gap-1.5">
-                <Lock className="h-3 w-3 text-accent-titanium" /> IndexedDB Local Vault
+                <Lock className="h-3 w-3 text-accent-titanium" /> Optional Supabase RLS
               </span>
               <span className="flex items-center gap-1.5">
-                <HardDrive className="h-3 w-3 text-accent-gold" /> ₹0 Forever
+                <HardDrive className="h-3 w-3 text-accent-gold" /> Open-Source Foundation
               </span>
             </motion.div>
           </motion.div>
 
           {/* Right Column: Multi-Depth Floating Photographic Montage Prominently in First Viewport */}
           <div className="lg:col-span-7 relative w-full flex items-center justify-center">
-            <FloatingHeroMontage />
+            <div className="w-full">
+              <div className="flex items-center justify-between text-[10px] font-mono text-photon-muted px-2 mb-2">
+                <span className="flex items-center gap-1">
+                  <Info className="h-3 w-3 text-accent-gold" /> Illustrative Exhibition Gallery
+                </span>
+                <span>Medium-Format Plates</span>
+              </div>
+              <FloatingHeroMontage />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. Interactive Curated Negative Plates Exhibition (Warm Ivory & Cream Editorial Surface) */}
-      <section id="exhibition" className="py-24 px-6 bg-[#f7f5ee] text-stone-900 border-t border-stone-200 transition-colors">
+      {/* 3. Featured Photography Exhibition (Warm Ivory & Cream Editorial Surface) */}
+      <section id="exhibition" className="py-24 px-6 bg-[#F5F3ED] text-stone-900 border-t border-stone-200 transition-colors">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
-              <span className="text-xs font-mono tracking-widest text-amber-800 uppercase font-semibold">
-                Medium-Format Exhibition Plates
-              </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-stone-900 mt-2">
-                Preserved with museum-grade precision.
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/80 border border-amber-300 text-[10px] font-mono text-amber-900 font-semibold uppercase tracking-wider mb-2">
+                <Info className="h-3 w-3 text-amber-800" /> Illustrative Sample Collection
+              </div>
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-stone-900 mt-1">
+                Preserved with medium-format precision.
               </h2>
             </div>
             <p className="text-xs font-sans text-stone-600 max-w-md font-light leading-relaxed">
-              Every negative preserves full focal length, shutter timing, aperture, and sensor parameters without cloud compression or telemetry tracking.
+              Every negative in the studio preserves true focal length, aperture, shutter timing, and ISO sensitivity without destructive recompression or tracking telemetry.
             </p>
           </div>
 
@@ -284,6 +299,7 @@ export default function LandingPage() {
                   <img
                     src={mem.image}
                     alt={mem.title}
+                    loading="lazy"
                     className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono text-white border border-white/10 uppercase tracking-wider">
@@ -301,7 +317,7 @@ export default function LandingPage() {
                     {mem.camera} &bull; {mem.exif}
                   </span>
                   <span className="text-[10px] uppercase text-emerald-700 font-semibold flex items-center gap-1 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    <Check className="h-3 w-3" /> Bit-Exact
+                    <Check className="h-3 w-3" /> Bit-Exact SHA-256
                   </span>
                 </div>
               </motion.div>
@@ -310,20 +326,42 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 3. Signature Photo Movement: Live Interactive Spatial Sorter (Cinematic Darkroom Chamber) */}
-      <section id="spatial-sort" className="py-24 px-6 border-t border-photon-border bg-[#0b0c0e]">
-        <div className="max-w-7xl mx-auto">
+      {/* 4. Interactive Spatial Studio Preview (Darkroom Chamber) */}
+      <section id="spatial-studio" className="py-24 px-6 border-t border-photon-border bg-[#0B0C0E]">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-mono text-accent-gold uppercase tracking-wider mb-2">
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>Signature Spatial Experience &bull; Interactive Demonstration</span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white">
+                Spatial Organization Studio
+              </h2>
+              <p className="text-xs sm:text-sm font-sans text-photon-light mt-1 font-light max-w-2xl">
+                Experience how PHOTON organizes your work: incoming photographs are scanned for duplicate binary signatures and routed smoothly into curated monograph collections.
+              </p>
+            </div>
+
+            <Link
+              href="/smart-organize"
+              className="px-6 py-3 rounded-full bg-photon-ivory text-photon-obsidian font-mono text-xs uppercase font-semibold tracking-wider hover:bg-white transition-all shadow-soft active:scale-95 shrink-0"
+            >
+              Open Live Studio Canvas &rarr;
+            </Link>
+          </div>
+
           <SignatureSpatialSorter />
         </div>
       </section>
 
-      {/* 4. Curated Monograph Collections Experience (Editorial Book Binders) */}
-      <section id="monographs" className="py-24 px-6 border-t border-photon-border bg-photon-dark/80">
+      {/* 5. Collections and Albums Showcase */}
+      <section id="collections" className="py-24 px-6 border-t border-photon-border bg-photon-dark/80">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
               <span className="text-xs font-mono tracking-widest text-accent-gold uppercase font-semibold">
-                Curated Publications
+                Curated Series
               </span>
               <h2 className="font-serif text-3xl sm:text-5xl font-normal text-white mt-2">
                 Physical Monograph Series
@@ -346,6 +384,7 @@ export default function LandingPage() {
                   <img
                     src={mono.cover}
                     alt={mono.title}
+                    loading="lazy"
                     className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-mono text-white border border-white/10 uppercase">
@@ -375,37 +414,93 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 5. Sovereign Covenant Manifesto (Warm Sand / Ivory Editorial Architecture) */}
-      <section id="manifesto" className="py-24 px-6 bg-[#f2efe9] text-stone-900 border-t border-stone-200">
+      {/* 6. Privacy & Data Ownership Architecture */}
+      <section id="privacy" className="py-24 px-6 bg-[#F2EFE9] text-stone-900 border-t border-stone-200">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl mb-16">
             <span className="text-xs font-mono tracking-widest text-amber-800 uppercase font-semibold">
-              Our Sovereign Covenant
+              Data Ownership & Privacy
             </span>
             <h2 className="font-serif text-3xl sm:text-5xl font-normal text-stone-900 mt-3 leading-tight">
-              An antidote to the corporatization of memories.
+              An auditable sanctuary for personal memories.
             </h2>
+            <p className="text-xs sm:text-sm font-sans text-stone-600 mt-2 font-light leading-relaxed">
+              We believe your memories belong strictly to you. PHOTON is engineered so that your photographs remain in your custody.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {pillars.map((p) => (
-              <div key={p.index} className="border-t border-stone-300 pt-6 space-y-3">
-                <span className="text-xs font-mono text-stone-400 font-semibold">{p.index}</span>
-                <h3 className="font-serif text-xl font-normal text-stone-900">{p.title}</h3>
-                <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
-                  {p.desc}
-                </p>
-              </div>
-            ))}
+            <div className="border-t border-stone-300 pt-6 space-y-3">
+              <span className="text-xs font-mono text-stone-400 font-semibold">01</span>
+              <h3 className="font-serif text-xl font-normal text-stone-900">Local-First Sandbox</h3>
+              <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
+                IndexedDB stores your library inside your browser sandbox. Your original photographs remain on your local storage device.
+              </p>
+            </div>
+            <div className="border-t border-stone-300 pt-6 space-y-3">
+              <span className="text-xs font-mono text-stone-400 font-semibold">02</span>
+              <h3 className="font-serif text-xl font-normal text-stone-900">Zero AI Ingestion</h3>
+              <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
+                We never scrape or feed personal photos to AI models or facial recognition systems. Hashing and deduplication occur on your device.
+              </p>
+            </div>
+            <div className="border-t border-stone-300 pt-6 space-y-3">
+              <span className="text-xs font-mono text-stone-400 font-semibold">03</span>
+              <h3 className="font-serif text-xl font-normal text-stone-900">Row Level Security</h3>
+              <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
+                When connecting Supabase Cloud sync, PostgreSQL Row Level Security enforces that your user ID alone can query your storage bucket.
+              </p>
+            </div>
+            <div className="border-t border-stone-300 pt-6 space-y-3">
+              <span className="text-xs font-mono text-stone-400 font-semibold">04</span>
+              <h3 className="font-serif text-xl font-normal text-stone-900">Full JSON Portability</h3>
+              <p className="text-xs font-sans text-stone-600 leading-relaxed font-light">
+                Export complete structured JSON backup manifests at any time. No proprietary lock-ins or hostage data formats.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 6. Frequently Asked Inquiries (Cinematic Obsidian) */}
+      {/* 7. Product Capabilities */}
+      <section className="py-24 px-6 border-t border-photon-border bg-photon-dark/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-2xl mb-16">
+            <span className="text-xs font-mono tracking-widest text-accent-gold uppercase font-semibold">
+              Engineered Capabilities
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-normal text-white mt-2">
+              Technology built for discerning photographers.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {capabilities.map((c, i) => {
+              const Icon = c.icon;
+              return (
+                <div
+                  key={i}
+                  className="rounded-2xl border border-photon-border bg-photon-card p-6 space-y-3"
+                >
+                  <div className="h-10 w-10 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center text-accent-gold">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-serif text-lg text-white font-normal">{c.title}</h3>
+                  <p className="text-xs font-sans text-photon-light font-light leading-relaxed">
+                    {c.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Frequently Asked Questions */}
       <section id="faq" className="py-24 px-6 border-t border-photon-border bg-photon-obsidian">
         <div className="max-w-3xl mx-auto">
           <div className="mb-14">
-            <span className="text-xs font-mono tracking-widest text-accent-gold uppercase">
+            <span className="text-xs font-mono tracking-widest text-accent-gold uppercase font-semibold">
               Clarity & Transparency
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl text-white font-normal mt-2">
@@ -451,7 +546,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. Final Call to Action */}
+      {/* 9. Final Call to Action */}
       <section className="py-28 px-6 border-t border-photon-border text-center relative overflow-hidden bg-gradient-to-b from-photon-obsidian to-black">
         <div className="max-w-2xl mx-auto relative z-10">
           <span className="text-xs font-mono tracking-widest text-accent-titanium uppercase mb-3 block">
@@ -461,7 +556,7 @@ export default function LandingPage() {
             Curate your life with intentionality.
           </h2>
           <p className="text-sm font-sans text-photon-light max-w-md mx-auto mb-8 font-light">
-            Start organizing your photographic journey today. No credit cards, no surveillance tracking, zero compromise.
+            Start organizing your personal media today. Built on free open-source standards, browser-native encryption, and complete user ownership.
           </p>
           <Link
             href="/dashboard"
@@ -473,7 +568,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Minimalist Editorial Footer */}
+      {/* 10. Minimalist Professional Footer */}
       <footer className="border-t border-photon-border py-12 px-6 text-xs font-mono text-photon-muted bg-black">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center space-x-3">
@@ -482,7 +577,10 @@ export default function LandingPage() {
             <span>Every memory deserves a beautiful home.</span>
           </div>
           <div className="flex items-center space-x-6 text-[11px]">
-            <span>POSTGRESQL RLS ENFORCED</span>
+            <a href="https://github.com/nishantekka2007-sys/PHOTON" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              GITHUB SOURCE
+            </a>
+            <span>POSTGRESQL RLS</span>
             <span>INDEXEDDB SANDBOX</span>
             <span>&copy; {new Date().getFullYear()}</span>
           </div>
